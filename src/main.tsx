@@ -8,6 +8,7 @@ import Home from './pages/Home.tsx'
 import Venues from './pages/Venues.tsx'
 import About from './pages/About.tsx'
 import Contact from './pages/Contact.tsx'
+import Account from './pages/Account.tsx'
 import NotFound from './pages/NotFound.tsx'
 
 const router = createBrowserRouter([
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "venues", element: <Venues /> },
       { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
+      { path: "account", element: <Account /> },
     ],
   },
 ]);
