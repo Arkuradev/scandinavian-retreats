@@ -47,32 +47,32 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
         </button>
 
         <div className="flex justify-center mb-6">
-  <div className="relative flex bg-gray-100 rounded-full p-1 w-60">
-    <div
-      className={`absolute top-1 bottom-1 w-[calc(50%-0.25rem)] rounded-full bg-primary transition-transform duration-300 ease-in-out ${
-        isLogin ? "translate-x-0" : "translate-x-full"
-      }`}
-    ></div>
+          <div className="relative flex bg-gray-100 rounded-full p-1 w-60">
+            <div
+              className={`absolute top-1 bottom-1 w-[calc(50%-0.25rem)] rounded-full bg-primary transition-transform duration-300 ease-in-out ${
+                isLogin ? "translate-x-0" : "translate-x-full"
+              }`}
+            ></div>
 
-    <button
-      onClick={() => setIsLogin(true)}
-      className={`relative z-10 flex-1 py-2 text-sm font-medium transition-colors ${
-        isLogin ? "text-white" : "text-gray-600"
-      }`}
-    >
-      Login
-    </button>
+            <button
+              onClick={() => setIsLogin(true)}
+              className={`relative z-10 flex-1 py-2 text-sm font-medium transition-colors ${
+                isLogin ? "text-white" : "text-gray-600"
+              }`}
+            >
+              Login
+            </button>
 
-    <button
-      onClick={() => setIsLogin(false)}
-      className={`relative z-10 flex-1 py-2 text-sm font-medium transition-colors ${
-        !isLogin ? "text-white" : "text-gray-600"
-      }`}
-    >
-      Register
-    </button>
-  </div>
-</div>
+            <button
+              onClick={() => setIsLogin(false)}
+              className={`relative z-10 flex-1 py-2 text-sm font-medium transition-colors ${
+                !isLogin ? "text-white" : "text-gray-600"
+              }`}
+            >
+              Register
+            </button>
+          </div>
+        </div>
         {isLogin ? <LoginForm /> : <RegisterForm />}
       </div>
     </div>

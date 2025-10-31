@@ -1,9 +1,9 @@
 import type { Venue } from "@/types/holidaze";
-import  { Wifi, ParkingCircle, Coffee, PawPrint } from "lucide-react";
+import { Wifi, ParkingCircle, Coffee, PawPrint } from "lucide-react";
 
 export default function VenueCard({ venue }: { venue: Venue }) {
-    return (
-      <div className="rounded-xl overflow-hidden border bg-white shadow-lg hover:shadow-secondary transition-shadow">
+  return (
+    <div className="rounded-xl overflow-hidden border bg-white shadow-lg hover:shadow-secondary transition-shadow">
       <img
         src={venue.media?.[0]?.url || "https://picsum.photos/600/400?blur=2"}
         alt={venue.media?.[0]?.alt || venue.name}
@@ -19,7 +19,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
           </span>
         </div>
         <div className="mt-3 flex items-center gap-2 text-primary">
-          {venue.meta?.wifi && <Wifi className="h-5 w-5"  />}
+          {venue.meta?.wifi && <Wifi className="h-5 w-5" />}
           {venue.meta?.parking && <ParkingCircle className="h-5 w-5" />}
           {venue.meta?.breakfast && <Coffee className="h-5 w-5" />}
           {venue.meta?.pets && <PawPrint className="h-5 w-5" />}
