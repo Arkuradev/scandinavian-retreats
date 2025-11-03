@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+
 
 /**
  * Authentication modal component.
@@ -21,7 +24,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
 
   const handleClose = () => {
     setVisible(false);
-    setTimeout(() => onClose(), 200);
+    setTimeout(() => onClose(), 150);
   };
 
   return (
@@ -76,67 +79,5 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
         {isLogin ? <LoginForm /> : <RegisterForm />}
       </div>
     </div>
-  );
-}
-/**
- * Login Form component.
- * Displays input fields for username and password, and a submit button.
- * Intended for use inside the AuthModal component.
- *
- * @returns {JSX.Element} Login form JSX structure.
- */
-function LoginForm() {
-  return (
-    <form className="space-y-4">
-      <input
-        type="text"
-        placeholder="Username"
-        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-      />
-      <button
-        type="submit"
-        className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
-      >
-        Log In
-      </button>
-    </form>
-  );
-}
-/**
- * Register Form component.
- * Displays input fields for username, email, and password, along with a submit button.
- * Intended for use inside the AuthModal component.
- * @returns {JSX.Element} Register form JSX structure.
- */
-function RegisterForm() {
-  return (
-    <form className="space-y-4">
-      <input
-        type="text"
-        placeholder="Username"
-        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-      />
-      <button
-        type="submit"
-        className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
-      >
-        Register
-      </button>
-    </form>
   );
 }
