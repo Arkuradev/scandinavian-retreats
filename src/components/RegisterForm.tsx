@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { registerUser } from "@/lib/auth";
+import { useToast } from "@/hooks/useToast";
 
 export default function RegisterForm() {
   const [name, setName] = useState("");
@@ -12,6 +13,7 @@ export default function RegisterForm() {
   }>({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
+  const { success, error } = useToast();
 
   const ctrlRef = useRef<AbortController | null>(null);
   
@@ -29,7 +31,7 @@ export default function RegisterForm() {
       nextErrors.name = "Username must be at least 3 characters long.";
     if (!email.includes("@"))
       nextErrors.email = "Please enter a valid email address.";
-    if (!email.toLowerCase().endsWith("@stud.noroff.no"))
+    else if (!email.toLowerCase().endsWith("@stud.noroff.no"))
       nextErrors.email = "Email must end with @stud.noroff.no.";
     if (password.trim().length < 6)
       nextErrors.password = "Password must be at least 6 characters long.";
@@ -48,8 +50,14 @@ export default function RegisterForm() {
     try {
       const result = await registerUser({ name, email, password }, { signal: ctrl.signal });
       console.log("Registration successful:", result);
+      success("Registration successful! You can now log in.");
+      setName("");
+      setEmail("");
+      setPassword("");
     } catch (error: any) {
+      if(error?.name === "AbortError") return; 
       setApiError(error.message || "Something went wrong during registration.");
+      error("Registration failed. Please try again.");
     } finally {
       if (ctrlRef.current === ctrl) setLoading(false);
     }
