@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { registerUser } from "@/lib/auth";
 
 export default function RegisterForm() {
   const [name, setName] = useState("");
@@ -9,13 +10,22 @@ export default function RegisterForm() {
     email?: string;
     password?: string;
   }>({});
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const ctrlRef = useRef<AbortController | null>(null);
+  
+  useEffect(() => {
+    return () => ctrlRef.current?.abort();
+  }, []);
+
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({}); // Clear previous errors
     const nextErrors: typeof errors = {};
     if (!name) nextErrors.name = "Please enter a username.";
-    if (name.trim().length < 3)
+    else if (name.trim().length < 3)
       nextErrors.name = "Username must be at least 3 characters long.";
     if (!email.includes("@"))
       nextErrors.email = "Please enter a valid email address.";
@@ -27,6 +37,21 @@ export default function RegisterForm() {
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
       return;
+    }
+    setApiError(null);
+    setLoading(true);
+   
+    ctrlRef.current?.abort();
+    const ctrl = new AbortController();
+    ctrlRef.current = ctrl;
+
+    try {
+      const result = await registerUser({ name, email, password }, { signal: ctrl.signal });
+      console.log("Registration successful:", result);
+    } catch (error: any) {
+      setApiError(error.message || "Something went wrong during registration.");
+    } finally {
+      if (ctrlRef.current === ctrl) setLoading(false);
     }
   }
 
@@ -70,10 +95,11 @@ export default function RegisterForm() {
       <button
         type="submit"
         className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
-        disabled={!name || !email || !password}
+        disabled={!name || !email || !password || loading}
       >
-        Register
+        {loading ? "Registering..." : "Register"}
       </button>
+      {apiError && <p className="text-sm text-red-500 text-center">{apiError}</p>}
     </form>
   );
 }
