@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
-
 /**
  * Authentication modal component.
  *
@@ -76,7 +75,11 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
             </button>
           </div>
         </div>
-        {isLogin ? <LoginForm /> : <RegisterForm />}
+        {isLogin ? (
+          <LoginForm onSuccess={onClose} />
+        ) : (
+          <RegisterForm onSuccess={onClose} />
+        )}
       </div>
     </div>
   );

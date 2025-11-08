@@ -1,25 +1,71 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { loginUser } from "@/lib/login";
+import { useToast } from "@/hooks/useToast";
 
-export default function LoginForm() {
+export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
     {},
   );
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const { success, error: toastError } = useToast();
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const ctrlRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => ctrlRef.current?.abort();
+  }, []);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({}); // Clear previous errors
-    if (!email.includes("@"))
+    const emailNorm = email.trim().toLowerCase();
+    const passNorm = password.trim();
+    if (!emailNorm.includes("@"))
       return setErrors({ email: "Please enter a valid email adress." });
-    if (!email.endsWith("@stud.noroff.no"))
+    else if (!emailNorm.endsWith("@stud.noroff.no"))
       return setErrors({ email: "Email must end with @stud.noroff.no" });
-    if (password.length < 6)
+    if (passNorm.length < 6)
       return setErrors({
         password: "Password must be at least 6 characters long.",
       });
-    return; // Adjust when setting up API integration
+    setApiError(null);
+    setLoading(true);
+
+    ctrlRef.current?.abort();
+    const ctrl = new AbortController();
+    ctrlRef.current = ctrl;
+
+    try {
+      const result = await loginUser(
+        { email, password },
+        { signal: ctrl.signal },
+      );
+      console.log("Login successful", result);
+      setEmail("");
+      setPassword("");
+      if (!result?.accessToken) throw new Error("No access token returned.");
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({
+          token: result.accessToken,
+          user: { name: result.name, email: result.email },
+          loggedInAt: Date.now(),
+        }),
+      );
+      const displayName = result.name ?? result.email?.split("@")[0] ?? "there";
+      success(`Welcome back ${displayName}`);
+      onSuccess?.();
+    } catch (err: any) {
+      if (err?.name === "AbortError") return;
+      setApiError(err.message || "Something went wrong, please try again");
+      toastError("Login failed.");
+    } finally {
+      if (ctrlRef.current === ctrl) setLoading(false);
+    }
   }
 
   return (
@@ -27,17 +73,25 @@ export default function LoginForm() {
       <input
         type="email"
         placeholder="Email"
+        disabled={loading}
         className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 ${errors.email ? "border-red-500" : "focus:ring-primary"}`}
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          if (errors.email) setErrors({ ...errors, email: undefined });
+        }}
       />
       {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       <input
         type="password"
         placeholder="Password"
+        disabled={loading}
         className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 ${errors.password ? "border-red-500" : "focus:ring-primary"}`}
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => {
+          setPassword(e.target.value);
+          if (errors.password) setErrors({ ...errors, password: undefined });
+        }}
       />
       {errors.password && (
         <p className="text-sm text-red-500">{errors.password}</p>
@@ -45,7 +99,7 @@ export default function LoginForm() {
       <button
         type="submit"
         className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
-        disabled={!email || !password}
+        disabled={!email || !password || loading}
       >
         Log In
       </button>

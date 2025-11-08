@@ -29,7 +29,6 @@ export async function registerUser(
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-       // "X-Noroff-API-Key": import.meta.env.VITE_NOROFF_API_KEY as string,
       },
       body: JSON.stringify(body),
       signal: opts?.signal,

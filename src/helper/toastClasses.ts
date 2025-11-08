@@ -1,5 +1,5 @@
 export function getToastClasses(type: ToastType) {
-    switch (type) {
+  switch (type) {
     case "success":
       return "border-green-500 bg-green-50 text-green-800";
     case "error":
@@ -10,5 +10,5 @@ export function getToastClasses(type: ToastType) {
       return "border-yellow-500 bg-yellow-50 text-yellow-800";
     default:
       return "border-gray-300 bg-white text-gray-900";
-    }
+  }
 }

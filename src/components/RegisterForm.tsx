@@ -1,8 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { registerUser } from "@/lib/auth";
+import { registerUser } from "@/lib/register";
 import { useToast } from "@/hooks/useToast";
 
-export default function RegisterForm() {
+export default function RegisterForm({
+  onSuccess,
+}: {
+  onSuccess?: () => void;
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,11 +20,10 @@ export default function RegisterForm() {
   const { success, error } = useToast();
 
   const ctrlRef = useRef<AbortController | null>(null);
-  
+
   useEffect(() => {
     return () => ctrlRef.current?.abort();
   }, []);
-
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -42,20 +45,24 @@ export default function RegisterForm() {
     }
     setApiError(null);
     setLoading(true);
-   
+
     ctrlRef.current?.abort();
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;
 
     try {
-      const result = await registerUser({ name, email, password }, { signal: ctrl.signal });
+      const result = await registerUser(
+        { name, email, password },
+        { signal: ctrl.signal },
+      );
       console.log("Registration successful:", result);
       success("Registration successful! You can now log in.");
       setName("");
       setEmail("");
       setPassword("");
+      onSuccess?.();
     } catch (error: any) {
-      if(error?.name === "AbortError") return; 
+      if (error?.name === "AbortError") return;
       setApiError(error.message || "Something went wrong during registration.");
       error("Registration failed. Please try again.");
     } finally {
@@ -107,7 +114,9 @@ export default function RegisterForm() {
       >
         {loading ? "Registering..." : "Register"}
       </button>
-      {apiError && <p className="text-sm text-red-500 text-center">{apiError}</p>}
+      {apiError && (
+        <p className="text-sm text-red-500 text-center">{apiError}</p>
+      )}
     </form>
   );
 }

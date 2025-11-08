@@ -109,7 +109,7 @@ export default function ToastProvider({
       setToasts([]);
     },
   };
-  
+
   return (
     <ToastContext.Provider value={api}>
       {children}
