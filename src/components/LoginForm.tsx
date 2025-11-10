@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { loginUser } from "@/lib/login";
 import { useToast } from "@/hooks/useToast";
+import { getLoginErrorMessage } from "@/helper/getLoginErrorMessage";
 
 export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const [email, setEmail] = useState("");
@@ -44,7 +45,6 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
         { email, password },
         { signal: ctrl.signal },
       );
-      console.log("Login successful", result);
       setEmail("");
       setPassword("");
       if (!result?.accessToken) throw new Error("No access token returned.");
@@ -58,11 +58,11 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
       );
       const displayName = result.name ?? result.email?.split("@")[0] ?? "there";
       success(`Welcome back ${displayName}`);
-      onSuccess?.();
+      setTimeout(() => onSuccess?.(), 150);
     } catch (err: any) {
       if (err?.name === "AbortError") return;
       setApiError(err.message || "Something went wrong, please try again");
-      toastError("Login failed.");
+      toastError(getLoginErrorMessage(err?.status));
     } finally {
       if (ctrlRef.current === ctrl) setLoading(false);
     }

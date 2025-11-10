@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { registerUser } from "@/lib/register";
 import { useToast } from "@/hooks/useToast";
+import { getLoginErrorMessage } from "@/helper/getLoginErrorMessage";
 
 export default function RegisterForm({
   onSuccess,
@@ -10,6 +11,7 @@ export default function RegisterForm({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [venueManager, setVenueManager] = useState(false);
   const [errors, setErrors] = useState<{
     name?: string;
     email?: string;
@@ -17,7 +19,7 @@ export default function RegisterForm({
   }>({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const { success, error } = useToast();
+  const { success } = useToast();
 
   const ctrlRef = useRef<AbortController | null>(null);
 
@@ -52,7 +54,7 @@ export default function RegisterForm({
 
     try {
       const result = await registerUser(
-        { name, email, password },
+        { name, email, password, venueManager },
         { signal: ctrl.signal },
       );
       console.log("Registration successful:", result);
@@ -60,11 +62,12 @@ export default function RegisterForm({
       setName("");
       setEmail("");
       setPassword("");
-      onSuccess?.();
+      setVenueManager(false);
+      setTimeout(() => onSuccess?.(), 150);
     } catch (error: any) {
       if (error?.name === "AbortError") return;
       setApiError(error.message || "Something went wrong during registration.");
-      error("Registration failed. Please try again.");
+      getLoginErrorMessage(error.status);
     } finally {
       if (ctrlRef.current === ctrl) setLoading(false);
     }
@@ -107,6 +110,28 @@ export default function RegisterForm({
       {errors.password && (
         <p className="text-sm text-red-500">{errors.password}</p>
       )}
+      <label className="flex items-center gap-2 select-none">
+        <input
+          type="checkbox"
+          className="sr-only"
+          checked={venueManager}
+          onChange={(e) => setVenueManager(e.target.checked)}
+          disabled={loading}
+          aria-label="Register as venue manager"
+        />
+        <span
+          className={`inline-flex h-6 w-11 items-center rounded-full p-0.5 transition ${
+            venueManager ? "bg-primary" : "bg-gray-300"
+          }`}
+        >
+          <span
+            className={`h-5 w-5 rounded-full bg-white transition transform ${
+              venueManager ? "translate-x-5" : "translate-x-0"
+            }`}
+          />
+        </span>
+        <span className="text-sm">Venue Manager</span>
+      </label>
       <button
         type="submit"
         className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
