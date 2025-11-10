@@ -1,12 +1,7 @@
 import { apiFetch } from "@/lib/apiFetch";
+import type { AuthUser } from "@/types/auth";
 
-export interface AuthUser {
-  name: string;
-  email: string;
-  avatar?: { url?: string; alt?: string };
-  venueManager: boolean;
-}
-export interface RegisterResponse {
+export interface RegisterApiResponse {
   data: AuthUser;
 }
 
@@ -26,7 +21,7 @@ export async function registerUser(
     venueManager: payload.venueManager ?? false,
   };
 
-  const json = await apiFetch<RegisterResponse>("/auth/register", {
+  const json = await apiFetch<RegisterApiResponse>("/auth/register", {
     method: "POST",
     body,
     signal: opts?.signal,

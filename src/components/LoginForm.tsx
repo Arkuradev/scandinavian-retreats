@@ -3,8 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import { loginUser } from "@/lib/login";
 import { useToast } from "@/hooks/useToast";
 import { getLoginErrorMessage } from "@/helper/getLoginErrorMessage";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>(
@@ -48,14 +50,7 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
       setEmail("");
       setPassword("");
       if (!result?.accessToken) throw new Error("No access token returned.");
-      localStorage.setItem(
-        "auth",
-        JSON.stringify({
-          token: result.accessToken,
-          user: { name: result.name, email: result.email },
-          loggedInAt: Date.now(),
-        }),
-      );
+      login(result);
       const displayName = result.name ?? result.email?.split("@")[0] ?? "there";
       success(`Welcome back ${displayName}`);
       setTimeout(() => onSuccess?.(), 150);

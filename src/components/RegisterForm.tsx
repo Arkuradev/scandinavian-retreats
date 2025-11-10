@@ -19,7 +19,7 @@ export default function RegisterForm({
   }>({});
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
-  const { success } = useToast();
+  const { success, error: toastError } = useToast();
 
   const ctrlRef = useRef<AbortController | null>(null);
 
@@ -68,6 +68,7 @@ export default function RegisterForm({
       if (error?.name === "AbortError") return;
       setApiError(error.message || "Something went wrong during registration.");
       getLoginErrorMessage(error.status);
+      toastError("Registration failed, please try again.")
     } finally {
       if (ctrlRef.current === ctrl) setLoading(false);
     }

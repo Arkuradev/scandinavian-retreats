@@ -35,7 +35,7 @@ export function useToastContext() {
 function getToastClasses(type: ToastType) {
   switch (type) {
     case "success":
-      return "border-green-500 bg-green-50 text-green-800";
+      return "border-primary bg-white text-primary";
     case "error":
       return "border-red-500 bg-red-50 text-red-800";
     case "info":
@@ -114,14 +114,14 @@ export default function ToastProvider({
     <ToastContext.Provider value={api}>
       {children}
       <div
-        className="fixed top-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none"
+        className="fixed top-20 right-4 z-[9999] flex flex-col gap-2 pointer-events-none"
         role="region"
         aria-label="Notifications"
       >
         {toasts.map((t) => (
           <div
             key={t.id}
-            className={`pointer-events-auto rounded-lg border p-3 shadow transition-all duration-300 ${getToastClasses(t.type)}`}
+            className={`pointer-events-auto rounded border p-3 shadow transition-all duration-300 ${getToastClasses(t.type)}`}
             role="status"
             aria-live={t.role}
             tabIndex={0}

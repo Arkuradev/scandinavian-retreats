@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { User, Birdhouse } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
+import { useAuth } from "@/context/AuthContext";
+import UserMenu from "@/components/ui/userMenu";
+
 
 const linkBase = "px-3 py-2 rounded-md text-sm font-medium";
 const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -9,6 +12,7 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
 
 export default function Navbar() {
   const [authOpen, setAuthOpen] = useState(false);
+  const { user, logout, isAuthenticated } = useAuth();
   return (
     <>
       <nav className="bg-scandi-gradient shadow-lg">
@@ -32,6 +36,9 @@ export default function Navbar() {
             <NavLink to="/contact" className={linkClass}>
               Contact
             </NavLink>
+            { isAuthenticated && user ? (
+            <UserMenu user={user} onLogout={logout} />
+            ) : (
             <button
               onClick={() => setAuthOpen(true)}
               className={`${linkBase} text-white hover:bg-scandi-gradient-hover hover:scale-105 transition-all duration-150`}
@@ -39,6 +46,7 @@ export default function Navbar() {
             >
               <User className="w-5 h-5" />
             </button>
+            )}
           </div>
         </div>
       </nav>

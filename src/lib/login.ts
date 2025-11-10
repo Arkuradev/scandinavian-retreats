@@ -6,13 +6,8 @@ export type LoginResult = {
   name: string;
   email: string;
   avatar?: { url: string; alt?: string } | null;
+  venueManager: boolean;
 };
-export interface AuthContextType {
-  user: { name: string; email: string } | null;
-  login: (res: LoginResult) => void;
-  logout: () => void;
-  getToken: () => string | null;
-}
 
 export async function loginUser(
   body: LoginBody,

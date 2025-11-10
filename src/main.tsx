@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import ToastProvider from "@/components/ToastProvider";
+import AuthProvider from "@/context/AuthContext";
 
 import Layout from "./components/layout/Layout.tsx";
 import Home from "./pages/Home.tsx";
@@ -29,8 +30,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <AuthProvider>
     <ToastProvider>
       <RouterProvider router={router} />
     </ToastProvider>
+    </AuthProvider>
   </StrictMode>,
 );
