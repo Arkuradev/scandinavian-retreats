@@ -3,18 +3,17 @@ import { useState } from "react";
 import { User } from "lucide-react";
 import { useToast } from "@/hooks/useToast";
 
-
-export default function UserMenu({ 
-    user, 
-    onLogout 
-}: { 
-    user: AuthUser; 
-    onLogout: () => void 
+export default function UserMenu({
+  user,
+  onLogout,
+}: {
+  user: AuthUser;
+  onLogout: () => void;
 }) {
-    const [openMenu, setOpenMenu] = useState(false);
-    const toast = useToast();
+  const [openMenu, setOpenMenu] = useState(false);
+  const toast = useToast();
 
-   return (
+  return (
     <div className="relative">
       <button
         type="button"
@@ -24,9 +23,9 @@ export default function UserMenu({
         aria-expanded={openMenu}
         aria-controls="user-menu"
       >
-        {/* Keep icon or just the name – your call */}
-        {/* <User className="w-5 h-5" /> */}
-        <span><User className="w-5 h-5" /></span>
+        <span>
+          <User className="w-5 h-5" />
+        </span>
       </button>
 
       {openMenu && (

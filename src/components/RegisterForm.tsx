@@ -68,7 +68,7 @@ export default function RegisterForm({
       if (error?.name === "AbortError") return;
       setApiError(error.message || "Something went wrong during registration.");
       getLoginErrorMessage(error.status);
-      toastError("Registration failed, please try again.")
+      toastError("Registration failed, please try again.");
     } finally {
       if (ctrlRef.current === ctrl) setLoading(false);
     }

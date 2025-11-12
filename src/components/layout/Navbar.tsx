@@ -5,7 +5,6 @@ import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/context/AuthContext";
 import UserMenu from "@/components/ui/userMenu";
 
-
 const linkBase = "px-3 py-2 rounded-md text-sm font-medium";
 const linkClass = ({ isActive }: { isActive: boolean }) =>
   `${linkBase} ${isActive ? "bg-primary text-white scale-105 transition-all duration-150" : "text-white hover:bg-scandi-gradient-hover hover:scale-105 hover:transition-all hover:duration-150"}`;
@@ -36,16 +35,16 @@ export default function Navbar() {
             <NavLink to="/contact" className={linkClass}>
               Contact
             </NavLink>
-            { isAuthenticated && user ? (
-            <UserMenu user={user} onLogout={logout} />
+            {isAuthenticated && user ? (
+              <UserMenu user={user} onLogout={logout} />
             ) : (
-            <button
-              onClick={() => setAuthOpen(true)}
-              className={`${linkBase} text-white hover:bg-scandi-gradient-hover hover:scale-105 transition-all duration-150`}
-              aria-label="Open login/register"
-            >
-              <User className="w-5 h-5" />
-            </button>
+              <button
+                onClick={() => setAuthOpen(true)}
+                className={`${linkBase} text-white hover:bg-scandi-gradient-hover hover:scale-105 transition-all duration-150`}
+                aria-label="Open login/register"
+              >
+                <User className="w-5 h-5" />
+              </button>
             )}
           </div>
         </div>

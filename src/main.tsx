@@ -31,9 +31,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
-    <ToastProvider>
-      <RouterProvider router={router} />
-    </ToastProvider>
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
     </AuthProvider>
   </StrictMode>,
 );

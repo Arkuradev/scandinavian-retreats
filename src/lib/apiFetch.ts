@@ -1,4 +1,4 @@
-const BASE_URL = "https://v2.api.noroff.dev";
+const BASE_URL = import.meta.env.VITE_BASE_API_URL as string;
 
 type ApiOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE";

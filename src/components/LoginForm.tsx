@@ -52,7 +52,7 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
       if (!result?.accessToken) throw new Error("No access token returned.");
       login(result);
       const displayName = result.name ?? result.email?.split("@")[0] ?? "there";
-      success(`Welcome back ${displayName}`);
+      success(`Welcome ${displayName}.`);
       setTimeout(() => onSuccess?.(), 150);
     } catch (err: any) {
       if (err?.name === "AbortError") return;
