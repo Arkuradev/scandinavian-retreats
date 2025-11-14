@@ -4,6 +4,8 @@ export default function Home() {
       <h1 className="text-4xl md:text-5xl font-bold text-blue-600">
         Welcome to Scandinavian Retreats
       </h1>
+
+      <div></div>
     </section>
   );
 }

@@ -32,7 +32,7 @@ export default function UserMenu({
         <div
           id="user-menu"
           role="menu"
-          className="absolute right-0 mt-6 w-48 rounded-md bg-white shadow-lg ring-1 ring-black/5 overflow-hidden"
+          className="absolute right-0 mt-6 w-48 z-50 rounded-md bg-white shadow-lg ring-1 ring-black/5 overflow-hidden"
         >
           <a
             href="#"

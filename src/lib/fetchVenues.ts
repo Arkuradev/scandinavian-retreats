@@ -17,10 +17,29 @@ export async function getVenues(opts: HttpOptions = {}) {
     signal,
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
       "X-Noroff-API-Key": API_KEY,
     },
   });
   if (!res.ok)
     throw new Error(`Failed to fetch venues: ${res.status} ${res.statusText}`);
+  return res.json();
+}
+export async function searchVenues(opts: { q: string; signal?: AbortSignal }) {
+  const { signal, q } = opts;
+  const res = await fetch(
+    `${BASE_URL}/holidaze/venues/search?q=${encodeURIComponent(q)}`,
+    {
+      signal,
+      headers: {
+        "Content-Type": "application/json",
+        "X-Noroff-API-Key": API_KEY,
+      },
+    },
+  );
+  if (!res.ok)
+    throw new Error(
+      `Failed to fetch search result: ${res.status} ${res.statusText}`,
+    );
   return res.json();
 }
