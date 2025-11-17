@@ -1,6 +1,7 @@
 import type { AuthUser } from "@/types/auth";
 import { useState } from "react";
 import { User } from "lucide-react";
+import { NavLink } from "react-router-dom";
 import { useToast } from "@/hooks/useToast";
 
 export default function UserMenu({
@@ -23,39 +24,40 @@ export default function UserMenu({
         aria-expanded={openMenu}
         aria-controls="user-menu"
       >
-        <span>
-          <User className="w-5 h-5" />
-        </span>
+        <User className="w-5 h-5 text-hz-primary" />
       </button>
 
       {openMenu && (
         <div
           id="user-menu"
           role="menu"
-          className="absolute right-0 mt-6 w-48 z-50 rounded-md bg-white shadow-lg ring-1 ring-black/5 overflow-hidden"
+          className="absolute right-0 mt-2 w-48 z-50 rounded-md bg-white shadow-lg ring-1 ring-black/5 overflow-hidden"
         >
-          <a
-            href="#"
+          <div className="border-b border-gray-100">
+            <div className="px-4 py-2 text-xs text-gray-500">Signed in as</div>
+            <div className="px-4 pb-2 text-sm font-medium text-gray-900">
+              {user.name}
+            </div>
+          </div>
+
+          <NavLink
+            to={`/profile/${user.name}`}
             role="menuitem"
-            className="block px-4 py-2 text-sm hover:bg-gray-100"
-            // later: link to /u/:username
-          >
-            {user.name}
-          </a>
-          <a
-            href="#"
-            role="menuitem"
-            className="block px-4 py-2 text-sm hover:bg-gray-100"
-          >
-            Dashboard
-          </a>
-          <a
-            href="#"
-            role="menuitem"
-            className="block px-4 py-2 text-sm hover:bg-gray-100"
+            className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
+            onClick={() => setOpenMenu(false)}
           >
             Profile
-          </a>
+          </NavLink>
+
+          <NavLink
+            to="/dashboard"
+            role="menuitem"
+            className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
+            onClick={() => setOpenMenu(false)}
+          >
+            Dashboard
+          </NavLink>
+
           <button
             type="button"
             role="menuitem"
@@ -64,7 +66,7 @@ export default function UserMenu({
               onLogout();
               toast.info("You've been logged out");
             }}
-            className="w-full text-left block px-4 py-2 text-sm hover:bg-gray-100"
+            className="w-full text-left block px-4 py-2 text-sm text-black hover:bg-gray-100"
           >
             Logout
           </button>

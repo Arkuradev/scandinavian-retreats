@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { User, Birdhouse } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/context/AuthContext";
@@ -14,13 +14,13 @@ export default function Navbar() {
   const { user, logout, isAuthenticated } = useAuth();
   return (
     <>
-      <nav className="bg-scandi-gradient shadow-lg">
+      <nav className="bg-black shadow-lg sticky top-0 z-100">
         <div className="mx-auto max-w-6xl px-4 h-20 flex items-center justify-between">
           <NavLink
             to="/"
             className="flex items-center text-lg font-bold text-white tracking-wide"
           >
-            <Birdhouse className="w-7 h-7" /> Scandinavian Retreats
+            <Birdhouse className="w-7 h-7" /> Holidaze Retreats
           </NavLink>
           <div className="flex items-center gap-2">
             <NavLink to="/" className={linkClass} end>
