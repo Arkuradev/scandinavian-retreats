@@ -52,7 +52,7 @@ export default function Hero() {
             {/* Image + overlay */}
             <div className="relative h-40 md:h-48">
               <img
-                src="/src/assets/images/herosectionimage.jpg"
+                src="/assets/images/herosectionimage.jpg"
                 alt="Hero"
                 className="h-full w-full object-cover"
               />
