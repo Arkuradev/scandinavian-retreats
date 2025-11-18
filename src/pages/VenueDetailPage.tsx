@@ -10,6 +10,8 @@ import {
   MapPin,
   Users,
 } from "lucide-react";
+import { createBooking } from "@/lib/bookings";
+import { useToast } from "@/hooks/useToast";
 
 export default function VenueDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -17,13 +19,14 @@ export default function VenueDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const ctrlRef = useRef<AbortController | null>(null);
-
+  const { success, error: toastError } = useToast();
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [guests, setGuests] = useState(1);
   const [bookingError, setBookingError] = useState<string | null>(null);
   const [bookingLoading, setBookingLoading] = useState(false);
-
+    
+  
   useEffect(() => {
     if (!id) {
       setError("No venue ID provided");
@@ -31,11 +34,12 @@ export default function VenueDetailPage() {
       return;
     }
 
+    
     const venueId = id;
     ctrlRef.current?.abort();
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;
-
+    
     async function load() {
       try {
         setLoading(true);
@@ -56,6 +60,54 @@ export default function VenueDetailPage() {
 
     return () => ctrl.abort();
   }, [id]);
+
+  async function handleBookingSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setBookingError(null);
+    if(!venue) return;
+
+    if(!dateFrom || !dateTo) {
+        return setBookingError("Please select both check-in and check-out dates.");
+    }
+    
+    const from = new Date(dateFrom);
+    const to = new Date(dateTo);
+
+    if(from >= to) {
+        return setBookingError("Check-out date must be after check-in date.");
+    }
+
+    if(guests < 1) {
+        return setBookingError("At least 1 guest is required to make a booking.");
+    } 
+
+    if(guests > venue.maxGuests) {
+        return setBookingError("This venue allows up to ${venue.maxGuests} guests.");
+    }
+
+    setBookingLoading(true);
+
+    try{
+        const booking = await createBooking({
+            dateFrom: from.toISOString(),
+            dateTo: to.toISOString(),
+            guests,
+            venueId: venue.id,
+        });
+
+        success("Booking created successfully!");
+        console.log("Booking created:", booking);
+
+        setDateFrom("");
+        setDateTo("");
+        setGuests(1);
+    } catch (err: any) {
+        setBookingError(err.message || "Something went wrong while creating booking");
+        toastError("Could not create booking, please try again.");
+    } finally {
+        setBookingLoading(false);
+    }
+  }
 
   if (loading) {
     return (
@@ -153,10 +205,62 @@ export default function VenueDetailPage() {
             <h2 className="text-lg font-semibold text-hz-text mb-2">
               Book this stay
             </h2>
-            <p className="text-sm text-hz-muted">
-              Booking form coming next – this is where date and guest selection
-              will live.
-            </p>
+             <form onSubmit={handleBookingSubmit} className="space-y-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label className="block text-sm font-medium text-hz-text mb-1">
+          Check-in
+        </label>
+        <input
+          type="date"
+          value={dateFrom}
+          onChange={(e) => setDateFrom(e.target.value)}
+          className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-hz-text mb-1">
+          Check-out
+        </label>
+        <input
+          type="date"
+          value={dateTo}
+          onChange={(e) => setDateTo(e.target.value)}
+          className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+        />
+      </div>
+    </div>
+
+    <div className="max-w-[200px]">
+      <label className="block text-sm font-medium text-hz-text mb-1">
+        Guests
+      </label>
+      <input
+        type="number"
+        min={1}
+        max={venue.maxGuests}
+        value={guests}
+        onChange={(e) => setGuests(Number(e.target.value))}
+        className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+      />
+      <p className="mt-1 text-xs text-hz-muted">
+        Max {venue.maxGuests} guests for this venue.
+      </p>
+    </div>
+
+    {bookingError && (
+      <p className="text-sm text-red-500">{bookingError}</p>
+    )}
+
+    <button
+      type="submit"
+      className="btn-primary w-full sm:w-auto"
+      disabled={bookingLoading}
+    >
+      {bookingLoading ? "Booking..." : "Book now"}
+    </button>
+  </form>
           </section>
         </div>
       </section>
