@@ -1,5 +1,8 @@
 const BASE_URL = import.meta.env.VITE_BASE_API_URL as string;
 const API_KEY = import.meta.env.VITE_NOROFF_API_KEY as string;
+import { apiFetch } from "@/lib/apiFetch";
+import type { Venue } from "@/types/holidaze";
+
 type HttpOptions = {
   signal?: AbortSignal;
   params?: Record<string, string | number | boolean>;
@@ -25,6 +28,7 @@ export async function getVenues(opts: HttpOptions = {}) {
     throw new Error(`Failed to fetch venues: ${res.status} ${res.statusText}`);
   return res.json();
 }
+
 export async function searchVenues(opts: { q: string; signal?: AbortSignal }) {
   const { signal, q } = opts;
   const res = await fetch(
@@ -42,4 +46,16 @@ export async function searchVenues(opts: { q: string; signal?: AbortSignal }) {
       `Failed to fetch search result: ${res.status} ${res.statusText}`,
     );
   return res.json();
+}
+
+export async function getVenueById(
+  id: string,
+  opts?: { signal?: AbortSignal },
+): Promise<Venue> {
+  const json = await apiFetch<{ data: Venue }>(`/holidaze/venues/${id}`, {
+    method: "GET",
+    signal: opts?.signal,
+  });
+
+  return json.data;
 }

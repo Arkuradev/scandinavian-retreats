@@ -8,16 +8,15 @@
     @apply bg-hz-surface-soft text-hz-text font-sans;
   }
 }
-/*
+
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium
-           bg-hz-primary text-white shadow-sm
-           hover:bg-hz-accent
-           focus:outline-none focus:ring-2 focus:ring-hz-primary-soft focus:ring-offset-2
-           transition-colors;
+    @apply inline-flex justify-center items-center rounded-md hover:border hover:border-hz-primary bg-hz-primary px-6 py-3 
+    text-sm font-medium text-black/70 shadow-md hover:bg-hz-primary-soft hover:scale-[1.02]
+    transition-transform duration-150;
   }
-
+}
+/*
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium
            border border-hz-border bg-white text-hz-text

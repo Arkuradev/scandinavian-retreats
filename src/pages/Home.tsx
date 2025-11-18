@@ -61,10 +61,7 @@ export default function Home() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <Link
-            to="/venues"
-            className="text-white inline-flex justify-center py-2 px-4 rounded bg-scandi-gradient-hover hover:scale-105 transition-all duration-150"
-          >
+          <Link to="/venues" className="btn-primary">
             Explore Venues
           </Link>
         </div>

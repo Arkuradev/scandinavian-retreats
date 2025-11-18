@@ -13,7 +13,7 @@ export type Venue = {
     breakfast?: boolean;
     pets?: boolean;
   };
-  location?: { city?: string; country?: string };
+  location?: { city?: string; country?: string; continent?: string };
 };
 
 export type VenuesResponse = { data: Venue[]; meta: unknown };

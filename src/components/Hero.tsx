@@ -23,10 +23,7 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
-            <Link
-              to="/venues"
-              className="inline-flex justify-center items-center rounded-md bg-hz-primary px-6 py-3 text-sm font-medium text-hz-text shadow-md hover:bg-hz-accent hover:scale-[1.02] transition-transform duration-150"
-            >
+            <Link to="/venues" className="btn-primary">
               Explore venues
             </Link>
 
@@ -48,20 +45,29 @@ export default function Hero() {
 
         {/* RIGHT: Visual / stats card */}
         <div className="relative">
-          {/* Glow behind card */}
-          <div className="absolute -inset-1 rounded-3xl bg-sky-300/40 blur-2xl opacity-80" />
+          {/* Glow */}
+          <div className="pointer-events-none absolute -inset-2 rounded-3xl bg-hz-primary/40 blur-3xl opacity-80 -z-10" />
 
-          <div className="relative rounded-3xl bg-hz-surface border border-hz-border shadow-hz-card overflow-hidden">
-            {/* Top image / gradient area – swap for a real image later if you want */}
-            <div className="h-40 md:h-48 bg-gradient-to-tr from-sky-200 via-sky-300 to-blue-300 flex items-end p-4">
-              <div className="space-y-1 text-hz-text">
-                <p className="text-xs uppercase tracking-wide text-hz-text/80">
-                  Featured retreat
-                </p>
-                <p className="text-lg font-semibold">Seaside Loft, Barcelona</p>
-                <p className="text-xs text-hz-text/70">
-                  Sleeps 2 · Balcony · Ocean view
-                </p>
+          <div className="relative z-10 rounded-3xl bg-hz-surface border border-hz-border shadow-hz-card overflow-hidden">
+            {/* Image + overlay */}
+            <div className="relative h-40 md:h-48">
+              <img
+                src="/src/assets/images/herosectionimage.jpg"
+                alt="Hero"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-black/40 via-black/10 to-transparent">
+                <div className="space-y-1 text-white">
+                  <p className="text-xs uppercase tracking-wide opacity-80">
+                    Featured retreat
+                  </p>
+                  <p className="text-lg font-semibold">
+                    Seaside Loft, Barcelona
+                  </p>
+                  <p className="text-xs opacity-80">
+                    Sleeps 2 · Balcony · Ocean view
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -69,15 +75,15 @@ export default function Hero() {
             <div className="grid grid-cols-3 divide-x divide-hz-border bg-hz-surface-soft">
               <div className="p-4 text-center">
                 <p className="text-sm font-semibold text-hz-text">200+</p>
-                <p className="text-[11px] text-hz-muted">Cities covered</p>
+                <p className="text-[11px] text-hz-text">Cities covered</p>
               </div>
               <div className="p-4 text-center">
                 <p className="text-sm font-semibold text-hz-text">4.7</p>
-                <p className="text-[11px] text-hz-muted">Avg. guest rating</p>
+                <p className="text-[11px] text-hz-text">Avg. guest rating</p>
               </div>
               <div className="p-4 text-center">
                 <p className="text-sm font-semibold text-hz-text">No fees</p>
-                <p className="text-[11px] text-hz-muted">Transparent pricing</p>
+                <p className="text-[11px] text-hz-text">Transparent pricing</p>
               </div>
             </div>
 

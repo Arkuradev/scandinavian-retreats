@@ -6,7 +6,6 @@ import { useAuth } from "@/context/AuthContext";
 
 export default function MobileBottomNav() {
   const { isAuthenticated, user } = useAuth();
-  console.log("Mobile nav auth state:", { isAuthenticated, user });
   const isLoggedIn = isAuthenticated;
   const isVenueManager = !!user?.venueManager;
 

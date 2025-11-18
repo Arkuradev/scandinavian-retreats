@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { User, Birdhouse } from "lucide-react";
+import { User } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/context/AuthContext";
 import UserMenu from "@/components/ui/userMenu";
@@ -42,7 +42,6 @@ export default function AppHeader() {
             to="/"
             className="flex items-center text-lg font-bold text-hz-text tracking-wide"
           >
-            <Birdhouse className="w-6 h-6 mr-1" />
             Holidaze Retreats
           </NavLink>
 

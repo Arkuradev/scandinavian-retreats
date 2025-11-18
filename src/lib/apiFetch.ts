@@ -16,7 +16,6 @@ export async function apiFetch<T>(
   const isFormData =
     typeof FormData !== "undefined" && opts.body instanceof FormData;
 
-  // Try to read token from localStorage (AuthContext already writes this)
   let token: string | null = null;
   try {
     const raw = localStorage.getItem("auth");
