@@ -99,6 +99,7 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
       >
         Log In
       </button>
+      {apiError && <p className="text-red-500 text-sm mt-2">{apiError}</p>}
     </form>
   );
 }
