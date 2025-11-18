@@ -18,6 +18,12 @@ export default function VenueDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const ctrlRef = useRef<AbortController | null>(null);
 
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [guests, setGuests] = useState(1);
+  const [bookingError, setBookingError] = useState<string | null>(null);
+  const [bookingLoading, setBookingLoading] = useState(false);
+
   useEffect(() => {
     if (!id) {
       setError("No venue ID provided");
