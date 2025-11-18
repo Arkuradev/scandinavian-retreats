@@ -51,6 +51,7 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
       setPassword("");
       if (!result?.accessToken) throw new Error("No access token returned.");
       login(result);
+      console.log("LOGIN RESULT FROM API:", result); // REMOVE THIS LATER
       const displayName = result.name ?? result.email?.split("@")[0] ?? "there";
       success(`Welcome ${displayName}.`);
       setTimeout(() => onSuccess?.(), 150);

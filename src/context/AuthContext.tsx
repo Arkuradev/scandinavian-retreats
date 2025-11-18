@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type { AuthUser } from "@/types/auth";
 import type { LoginResult } from "@/lib/login";
+import { getProfile } from "@/lib/getProfile";
 
 export interface AuthContextType {
   user: AuthUser | null;
@@ -37,13 +38,30 @@ export default function AuthProvider({
     }
   }, []);
 
-  const login = (res: LoginResult) => {
+  const login = async (res: LoginResult) => {
+    // 1. Save token first
+    setToken(res.accessToken);
+
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        token: res.accessToken,
+        user: null,
+      }),
+    );
+
+    // 2. Fetch real profile with correct venueManager
+    const profile = await getProfile(res.name, res.accessToken);
+
+    // 3. Build the correct user object
     const next = {
-      name: res.name,
-      email: res.email,
-      avatar: res.avatar ?? undefined,
-      venueManager: res.venueManager ?? false,
+      name: profile.name,
+      email: profile.email,
+      avatar: profile.avatar ?? undefined,
+      venueManager: profile.venueManager ?? false,
     };
+
+    // 4. Store in state + storage
     setUser(next);
     setToken(res.accessToken);
     localStorage.setItem(
