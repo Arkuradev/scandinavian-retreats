@@ -94,7 +94,8 @@ export default function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
       )}
       <button
         type="submit"
-        className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
+        className="w-full bg-hz-primary text-black/70 font-semibold py-2 rounded-lg hover:border hover:border-hz-primary
+         hover:bg-hz-primary-soft transition"
         disabled={!email || !password || loading}
       >
         Log In

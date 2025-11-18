@@ -122,7 +122,7 @@ export default function RegisterForm({
         />
         <span
           className={`inline-flex h-6 w-11 items-center rounded-full p-0.5 transition ${
-            venueManager ? "bg-primary" : "bg-gray-300"
+            venueManager ? "bg-hz-primary" : "bg-gray-300"
           }`}
         >
           <span
@@ -131,11 +131,11 @@ export default function RegisterForm({
             }`}
           />
         </span>
-        <span className="text-sm">Venue Manager</span>
+        <span className="text-sm">Register as Venue Manager</span>
       </label>
       <button
         type="submit"
-        className="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
+        className="w-full bg-hz-primary text-black/70 font-semibold py-2 rounded-lg hover:border hover:border-hz-primary hover:bg-hz-primary-soft transition"
         disabled={!name || !email || !password || loading}
       >
         {loading ? "Registering..." : "Register"}

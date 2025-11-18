@@ -34,7 +34,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
       }`}
     >
       <div
-        className={`bg-white rounded-2xl w-full max-w-md p-6 shadow-lg relative transform transition-all duration-300 ease-out ${
+        className={`bg-hz-surface-soft rounded-2xl w-full max-w-md p-6 shadow-lg relative transform transition-all duration-300 ease-out ${
           visible
             ? "translate-y-0 opacity-100 scale-100"
             : "translate-y-8 opacity-0 scale-95"
@@ -43,7 +43,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
       >
         <button
           onClick={handleClose}
-          className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+          className="absolute top-3 right-3 font-bold text-hz-text hover:text-hz-accent"
         >
           ✕
         </button>
@@ -51,15 +51,15 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
         <div className="flex justify-center mb-6">
           <div className="relative flex bg-gray-100 rounded-full p-1 w-60">
             <div
-              className={`absolute top-1 bottom-1 w-[calc(50%-0.25rem)] rounded-full bg-primary transition-transform duration-300 ease-in-out ${
+              className={`absolute top-1 bottom-1 w-[calc(50%-0.25rem)] rounded-full bg-hz-primary transition-transform duration-300 ease-in-out ${
                 isLogin ? "translate-x-0" : "translate-x-full"
               }`}
             ></div>
 
             <button
               onClick={() => setIsLogin(true)}
-              className={`relative z-10 flex-1 py-2 text-sm font-medium transition-colors ${
-                isLogin ? "text-white" : "text-gray-600"
+              className={`relative  z-10 flex-1 py-2 text-sm font-medium transition-colors ${
+                isLogin ? "text-black/70" : "text-hz-muted"
               }`}
             >
               Login
@@ -68,7 +68,7 @@ export default function AuthModal({ onClose }: { onClose: () => void }) {
             <button
               onClick={() => setIsLogin(false)}
               className={`relative z-10 flex-1 py-2 text-sm font-medium transition-colors ${
-                !isLogin ? "text-white" : "text-gray-600"
+                !isLogin ? "text-black/70" : "text-hz-muted"
               }`}
             >
               Register
