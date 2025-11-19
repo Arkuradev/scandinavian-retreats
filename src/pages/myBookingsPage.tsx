@@ -3,6 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/useToast";
 import { getBookingsForProfile, cancelBooking } from "@/lib/bookings"; // we’ll make this
 import type { Booking } from "@/lib/bookings";
+import { Link } from "react-router-dom"; 
 
 export default function MyBookingsPage() {
   const { user, isAuthenticated } = useAuth();
@@ -110,12 +111,12 @@ export default function MyBookingsPage() {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                 <div>
                   {venueId ? (
-                    <a
-                      href={`/venues/${venueId}`}
+                    <Link
+                      to={`/venues/${venueId}`}
                       className="text-lg font-semibold text-hz-primary hover:underline"
                     >
                       {venueName}
-                    </a>
+                    </Link>
                   ) : (
                     <p className="text-lg font-semibold text-hz-text">
                       {venueName}
