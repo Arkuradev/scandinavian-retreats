@@ -83,7 +83,7 @@ export default function VenueDetailPage() {
     if (from < today) {
       return setBookingError("You can only make a booking for a future date.");
     }
-    
+
     if (from >= to) {
       return setBookingError("Check-out date must be after check-in date.");
     }
@@ -112,7 +112,7 @@ export default function VenueDetailPage() {
         venueId: venue.id,
       });
 
-      // Prevent duplicate bookings on the same date for the same user. 
+      // Prevent duplicate bookings on the same date for user.
       const bookingWithCustomer = {
         ...booking,
         customer: booking.customer ?? {
@@ -125,25 +125,30 @@ export default function VenueDetailPage() {
       };
 
       setVenue((prev) =>
-      prev
-        ? { ...prev, bookings: [...(prev.bookings ?? []), bookingWithCustomer] }
-        : prev,
+        prev
+          ? {
+              ...prev,
+              bookings: [...(prev.bookings ?? []), bookingWithCustomer],
+            }
+          : prev,
       );
 
       const normalizedFrom = dateFrom;
       const normalizedTo = dateTo;
 
       const hasSameBooking = (venue.bookings ?? []).some((b) => {
-      const bFrom = b.dateFrom?.slice(0, 10);
-      const bTo = b.dateTo?.slice(0, 10);
-      const sameRange = bFrom === normalizedFrom && bTo === normalizedTo;
-      const sameUser = b.customer?.name === user.name;
-      return sameRange && sameUser;
-    })
+        const bFrom = b.dateFrom?.slice(0, 10);
+        const bTo = b.dateTo?.slice(0, 10);
+        const sameRange = bFrom === normalizedFrom && bTo === normalizedTo;
+        const sameUser = b.customer?.name === user.name;
+        return sameRange && sameUser;
+      });
 
-    if (hasSameBooking) {
-      return setBookingError("You already have a booking for these dates at this venue.")
-    }
+      if (hasSameBooking) {
+        return setBookingError(
+          "You already have a booking for these dates at this venue.",
+        );
+      }
 
       success(`You have booked ${venue.name}.`);
       console.log("Booking created:", booking);
@@ -184,49 +189,51 @@ export default function VenueDetailPage() {
   const media = venue.media ?? [];
   const mainImage = media[activeImageIndex] ?? media[0];
   const bookings = venue.bookings ?? [];
+  const myBookings = user
+    ? bookings.filter((b) => b.customer?.name === user.name)
+    : [];
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
       {/* Top: image + summary */}
       <section className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
-        {/* LEFT: big image */}
-        {/* LEFT: image + gallery */}
-<div className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card overflow-hidden">
-  {/* Main image */}
-  <div className="w-full h-64 md:h-80 bg-hz-surface-soft">
-    <img
-      src={mainImage?.url || "https://picsum.photos/800/500?blur=2"}
-      alt={mainImage?.alt || venue.name}
-      className="w-full h-full object-cover"
-    />
-  </div>
+        <div className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card overflow-hidden">
+          <div className="w-full h-64 md:h-80 bg-hz-surface-soft">
+            <img
+              src={mainImage?.url || "https://picsum.photos/800/500?blur=2"}
+              alt={mainImage?.alt || venue.name}
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-  {/* Thumbnails */}
-  {media.length > 1 && (
-    <div className="flex gap-2 p-3 overflow-x-auto bg-hz-surface-soft border-t border-hz-border">
-      {media.map((img, index) => (
-        <button
-          key={img.url + index}
-          type="button"
-          onClick={() => setActiveImageIndex(index)}
-          className={`
+          {/* Thumbnails */}
+          {media.length > 1 && (
+            <div className="flex gap-2 p-3 overflow-x-auto bg-hz-surface-soft border-t border-hz-border">
+              {media.map((img, index) => (
+                <button
+                  key={img.url + index}
+                  type="button"
+                  onClick={() => setActiveImageIndex(index)}
+                  className={`
             relative flex-shrink-0 h-16 w-20 shadow-lg rounded-md overflow-hidden border 
-            ${index === activeImageIndex 
-              ? "border-hz-primary ring-2 ring-hz-primary/60" 
-              : "border-hz-border hover:border-hz-primary/60"}
+            ${
+              index === activeImageIndex
+                ? "border-hz-primary ring-2 ring-hz-primary/60"
+                : "border-hz-border hover:border-hz-primary/60"
+            }
           `}
-          aria-label={`View image ${index + 1}`}
-        >
-          <img
-            src={img.url}
-            alt={img.alt || `${venue.name} photo ${index + 1}`}
-            className="h-full w-full object-cover"
-          />
-        </button>
-      ))}
-    </div>
-  )}
-</div>
+                  aria-label={`View image ${index + 1}`}
+                >
+                  <img
+                    src={img.url}
+                    alt={img.alt || `${venue.name} photo ${index + 1}`}
+                    className="h-full w-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* RIGHT: info + (later) booking card */}
         <div className="space-y-4">
@@ -350,21 +357,27 @@ export default function VenueDetailPage() {
               </button>
             </form>
 
-            {bookings.length > 0 && (
+            {isAuthenticated && myBookings.length > 0 && (
               <div className="mt-4 border-t border-hz-border pt-3">
                 <h3 className="text-sm font-medium text-hz-text">
-                  Unavailable dates
+                  You have booked this stay from
                 </h3>
                 <ul className="mt-2 space-y-1 max-h-32 overflow-y-auto text-xs text-hz-muted">
-                  {bookings.map((b) => {
+                  {myBookings.map((b) => {
                     const from = new Date(b.dateFrom);
                     const to = new Date(b.dateTo);
                     const range = `${from.toLocaleDateString()} → ${to.toLocaleDateString()}`;
                     return <li key={b.id}>• {range}</li>;
                   })}
+                  
                 </ul>
               </div>
             )}
+            {!isAuthenticated && (
+  <p className="mt-3 text-xs text-hz-muted">
+    Log in to see your bookings for this venue.
+  </p>
+)}
           </section>
         </div>
       </section>

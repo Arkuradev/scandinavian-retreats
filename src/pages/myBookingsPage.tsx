@@ -3,7 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/useToast";
 import { getBookingsForProfile, cancelBooking } from "@/lib/bookings"; // we’ll make this
 import type { Booking } from "@/lib/bookings";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 export default function MyBookingsPage() {
   const { user, isAuthenticated } = useAuth();
@@ -54,6 +54,8 @@ export default function MyBookingsPage() {
   }, [isAuthenticated, user?.name]);
 
   async function handleCancelBooking(id: string) {
+    const yes = window.confirm("Are you sure you want to delete this booking?");
+    if (!yes) return;
     try {
       await cancelBooking(id);
       setBookings((prev) => prev.filter((b) => b.id !== id));
@@ -63,7 +65,6 @@ export default function MyBookingsPage() {
       toastError("Could not cancel booking, please try again.");
     }
   }
-
   if (loading) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
@@ -71,7 +72,6 @@ export default function MyBookingsPage() {
       </main>
     );
   }
-
   if (error) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
@@ -79,7 +79,6 @@ export default function MyBookingsPage() {
       </main>
     );
   }
-
   if (bookings.length === 0) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
@@ -98,10 +97,10 @@ export default function MyBookingsPage() {
           const to = new Date(booking.dateTo);
           const range = `${from.toLocaleDateString()} → ${to.toLocaleDateString()}`;
 
-          const venue = booking.venue; // might be undefined
+          const venue = booking.venue;
           const venueName = venue?.name ?? "View venue";
           const venueId = venue?.id ?? (booking as any).venueId;
-          // ^ if you have venueId in the booking type, replace this with booking.venueId
+        
 
           return (
             <article
