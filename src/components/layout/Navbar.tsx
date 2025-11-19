@@ -29,8 +29,8 @@ export default function Navbar() {
             <NavLink to="/venues" className={linkClass}>
               Venues
             </NavLink>
-            <NavLink to="/about" className={linkClass}>
-              About
+            <NavLink to="/bookings" className={linkClass}>
+              Bookings
             </NavLink>
             <NavLink to="/contact" className={linkClass}>
               Contact

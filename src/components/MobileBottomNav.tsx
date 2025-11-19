@@ -17,7 +17,7 @@ export default function MobileBottomNav() {
     { to: "/bookings", label: "Bookings", icon: Tickets, show: isLoggedIn },
     {
       to: "/manage-venues",
-      label: "Manage Venues",
+      label: "Manage",
       icon: Hotel,
       show: isVenueManager,
     },

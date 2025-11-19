@@ -8,7 +8,7 @@ import AuthProvider from "@/context/AuthContext";
 import Layout from "./components/layout/Layout.tsx";
 import Home from "./pages/Home.tsx";
 import Venues from "./pages/Venues.tsx";
-import About from "./pages/About.tsx";
+import MyBookingsPage from "@/pages/myBookingsPage";
 import Contact from "./pages/Contact.tsx";
 import Account from "./pages/Account.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "venues", element: <Venues /> },
       { path: "venues/:id", element: <VenueDetailPage /> },
-      { path: "about", element: <About /> },
+      { path: "bookings", element: <MyBookingsPage /> },
       { path: "contact", element: <Contact /> },
       { path: "account", element: <Account /> },
     ],

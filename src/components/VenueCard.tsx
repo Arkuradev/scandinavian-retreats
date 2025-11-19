@@ -72,7 +72,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             </p>
 
             <div className="mt-2 flex items-center justify-between">
-              <span className="font-bold text-hz-text">${venue.price}</span>
+              <span className="font-semibold text-hz-text">${venue.price}</span>
               <span className="text-xs text-hz-muted">
                 Max {venue.maxGuests} guests
               </span>

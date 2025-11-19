@@ -52,10 +52,13 @@ export async function getVenueById(
   id: string,
   opts?: { signal?: AbortSignal },
 ): Promise<Venue> {
-  const json = await apiFetch<{ data: Venue }>(`/holidaze/venues/${id}`, {
-    method: "GET",
-    signal: opts?.signal,
-  });
+  const json = await apiFetch<{ data: Venue }>(
+    `/holidaze/venues/${id}?_bookings=true`,
+    {
+      method: "GET",
+      signal: opts?.signal,
+    },
+  );
 
   return json.data;
 }

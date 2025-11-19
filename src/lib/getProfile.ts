@@ -1,8 +1,8 @@
-import { apiFetch } from "./apiFetch";
+import { apiFetch } from "@/lib/apiFetch";
 
 export async function getProfile(name: string, token: string) {
   const json = await apiFetch<{ data: any }>(
-    `/holidaze/profiles/${name}?_venues=true`,
+    `/holidaze/profiles/${name}?_venue=true`,
     {
       method: "GET",
       headers: {

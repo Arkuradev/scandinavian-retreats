@@ -54,8 +54,8 @@ export default function AppHeader() {
               <NavLink to="/venues" className={linkClass}>
                 Venues
               </NavLink>
-              <NavLink to="/about" className={linkClass}>
-                About
+              <NavLink to="/bookings" className={linkClass}>
+                My bookings
               </NavLink>
               <NavLink to="/contact" className={linkClass}>
                 Contact
