@@ -39,7 +39,6 @@ export default function MyBookingsPage() {
           signal: ctrl.signal,
         });
         setBookings(data);
-        console.log("RAW BOOKINGS FROM API:", data);
       } catch (err: any) {
         if (err?.name === "AbortError") return;
         setError(err.message || "Failed to load bookings.");
