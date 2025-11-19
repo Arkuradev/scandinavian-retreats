@@ -68,7 +68,7 @@ export default function AppHeader() {
             ) : (
               <button
                 onClick={() => setAuthOpen(true)}
-                className={`${linkBase} text-black hover:bg-scandi-gradient-hover hover:scale-105 transition-all duration-150 flex items-center justify-center`}
+                className={`${linkBase} text-black hover:scale-105 hover:text-hz-accent transition-all duration-150 flex items-center justify-center`}
                 aria-label="Open login/register"
               >
                 <User className="w-5 h-5" />
