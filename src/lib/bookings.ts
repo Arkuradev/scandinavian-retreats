@@ -8,6 +8,14 @@ export type CreateBookingBody = {
   venueId: string;
 };
 
+export type BookingCustomer = {
+  name: string;
+  email: string;
+  avatar?: { url: string; alt?: string | null } | null;
+  banner?: { url: string; alt?: string | null } | null;
+  bio?: string | null;
+};
+
 export type Booking = {
   id: string;
   dateFrom: string;
@@ -16,8 +24,7 @@ export type Booking = {
   created: string;
   updated: string;
   venue?: Venue;
-  // Check what more the API returns if needed here...
-  // Maybe add customer info for the Booking details.
+  customer: BookingCustomer;
 };
 
 export async function createBooking(

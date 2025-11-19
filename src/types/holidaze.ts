@@ -1,12 +1,6 @@
-export type Media = { url: string; alt?: string };
+import type { Booking } from "@/lib/bookings";
 
-export type Booking = {
-  id: string;
-  dateFrom: string;
-  dateTo: string;
-  guests: string;
-  // Add more if applicable e.g customer, created etc. Just need to see what feels right.
-};
+export type Media = { url: string; alt?: string };
 
 export type Venue = {
   id: string;
