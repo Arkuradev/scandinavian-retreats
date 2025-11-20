@@ -9,7 +9,7 @@ import Layout from "./components/layout/Layout.tsx";
 import Home from "./pages/Home.tsx";
 import Venues from "./pages/Venues.tsx";
 import MyBookingsPage from "@/pages/myBookingsPage";
-import Contact from "./pages/Contact.tsx";
+import ManageVenuesPage from "@/pages/ManageVenuesPage";
 import Account from "./pages/Account.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import BookingDetailPage from "@/pages/BookingDetailPage";
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
       { path: "venues/:id", element: <VenueDetailPage /> },
       { path: "bookings/:id", element: <BookingDetailPage /> },
       { path: "bookings", element: <MyBookingsPage /> },
-      { path: "contact", element: <Contact /> },
+      { path: "manage-venues", element: <ManageVenuesPage /> },
       { path: "account", element: <Account /> },
     ],
   },

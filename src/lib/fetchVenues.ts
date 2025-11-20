@@ -62,3 +62,19 @@ export async function getVenueById(
 
   return json.data;
 }
+
+export async function getVenuesForProfile(
+  profileName: string,
+  opts?: { signal?: AbortSignal }, 
+): Promise<Venue[]> {
+  const encoded = encodeURIComponent(profileName);
+
+  const json = await apiFetch<{ data: Venue[] }>(
+    `/holidaze/profiles/${encoded}/venues`,
+    {
+      method: "GET",
+      signal: opts?.signal,
+    },
+  );
+  return json.data ?? [];
+}
