@@ -12,6 +12,7 @@ import MyBookingsPage from "@/pages/myBookingsPage";
 import Contact from "./pages/Contact.tsx";
 import Account from "./pages/Account.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import BookingDetailPage from "@/pages/BookingDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "venues", element: <Venues /> },
       { path: "venues/:id", element: <VenueDetailPage /> },
+      { path: "bookings/:id", element: <BookingDetailPage /> },
       { path: "bookings", element: <MyBookingsPage /> },
       { path: "contact", element: <Contact /> },
       { path: "account", element: <Account /> },

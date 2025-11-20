@@ -111,7 +111,7 @@ export default function MyBookingsPage() {
                 <div>
                   {venueId ? (
                     <Link
-                      to={`/venues/${venueId}`}
+                      to={`/bookings/${booking.id}`}
                       className="text-lg font-semibold text-hz-primary hover:underline"
                     >
                       {venueName}

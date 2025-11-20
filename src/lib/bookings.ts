@@ -64,3 +64,17 @@ export async function cancelBooking(
     signal: opts?.signal,
   });
 }
+
+export async function getBookingById(
+  bookingId: string,
+  opts?: { signal?: AbortSignal },
+): Promise<Booking> {
+  const json = await apiFetch<{ data: Booking }>(
+    `/holidaze/bookings/${bookingId}?_venue=true`,
+    {
+      method: "GET",
+      signal: opts?.signal,
+    },
+  );
+  return json.data;
+}
