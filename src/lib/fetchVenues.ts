@@ -65,7 +65,7 @@ export async function getVenueById(
 
 export async function getVenuesForProfile(
   profileName: string,
-  opts?: { signal?: AbortSignal }, 
+  opts?: { signal?: AbortSignal },
 ): Promise<Venue[]> {
   const encoded = encodeURIComponent(profileName);
 
@@ -77,4 +77,40 @@ export async function getVenuesForProfile(
     },
   );
   return json.data ?? [];
+}
+
+// Create Venue:
+
+export type CreateVenueBody = {
+  name: string;
+  description?: string;
+  price: number;
+  maxGuests: number;
+  media?: { url: string; alt?: string }[];
+  rating?: number;
+  meta?: {
+    wifi?: boolean;
+    parking?: boolean;
+    breakfast?: boolean;
+    pets?: boolean;
+  };
+  location?: {
+    address?: string;
+    city?: string;
+    zip?: string;
+    country?: string;
+    continent?: string;
+  };
+};
+
+export async function createVenue(
+  body: CreateVenueBody,
+  opts?: { signal?: AbortSignal },
+): Promise<Venue> {
+  const json = await apiFetch<{ data: Venue }>("/holidaze/venues", {
+    method: "POST",
+    body,
+    signal: opts?.signal,
+  });
+  return json.data;
 }

@@ -100,7 +100,6 @@ export default function MyBookingsPage() {
           const venue = booking.venue;
           const venueName = venue?.name ?? "View venue";
           const venueId = venue?.id ?? (booking as any).venueId;
-        
 
           return (
             <article

@@ -33,10 +33,12 @@ export default function ManageVenuesPage() {
 
     async function load() {
       try {
-        if(!user) return;
+        if (!user) return;
         setLoading(true);
         setError(null);
-        const data = await getVenuesForProfile(user.name, { signal: ctrl.signal });
+        const data = await getVenuesForProfile(user.name, {
+          signal: ctrl.signal,
+        });
         setVenues(data);
       } catch (err: any) {
         if (err?.name === "AbortError") return;
@@ -79,18 +81,16 @@ export default function ManageVenuesPage() {
           </p>
         </div>
 
-        {/* We'll wire this up later */}
-        <button
-          type="button"
-          className="btn-primary"
-        >
-          Create new venue
-        </button>
+        {/* FIX THIS LATER */}
+        <Link className="btn-primary" to="/manage-venues/new">
+          Create Venue
+        </Link>
       </header>
 
       {venues.length === 0 ? (
         <p className="text-hz-muted text-sm">
-          You don&apos;t have any venues yet. Click &quot;Create new venue&quot; to add one.
+          You don&apos;t have any venues yet. Click &quot;Create new venue&quot;
+          to add one.
         </p>
       ) : (
         <div className="space-y-3">
@@ -102,7 +102,10 @@ export default function ManageVenuesPage() {
               {/* Thumbnail */}
               <div className="w-full sm:w-40 h-28 rounded-lg overflow-hidden bg-hz-surface-soft border border-hz-border">
                 <img
-                  src={venue.media?.[0]?.url || "https://picsum.photos/400/300?blur=2"}
+                  src={
+                    venue.media?.[0]?.url ||
+                    "https://picsum.photos/400/300?blur=2"
+                  }
                   alt={venue.media?.[0]?.alt || venue.name}
                   className="w-full h-full object-cover"
                 />
@@ -122,7 +125,9 @@ export default function ManageVenuesPage() {
                 <div className="flex flex-wrap gap-2 justify-between items-center text-xs">
                   <span className="text-hz-muted">
                     {venue.location?.city || "Unknown city"},{" "}
-                    {venue.location?.country || venue.location?.continent || "Unknown"}
+                    {venue.location?.country ||
+                      venue.location?.continent ||
+                      "Unknown"}
                   </span>
 
                   <div className="flex gap-2">

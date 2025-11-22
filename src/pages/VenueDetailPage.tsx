@@ -369,15 +369,14 @@ export default function VenueDetailPage() {
                     const range = `${from.toLocaleDateString()} → ${to.toLocaleDateString()}`;
                     return <li key={b.id}>• {range}</li>;
                   })}
-                  
                 </ul>
               </div>
             )}
             {!isAuthenticated && (
-  <p className="mt-3 text-xs text-hz-muted">
-    Log in to see your bookings for this venue.
-  </p>
-)}
+              <p className="mt-3 text-xs text-hz-muted">
+                Log in to see your bookings for this venue.
+              </p>
+            )}
           </section>
         </div>
       </section>

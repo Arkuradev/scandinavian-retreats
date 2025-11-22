@@ -23,8 +23,8 @@ export default function BookingDetailPage() {
     ctrlRef.current = ctrl;
 
     async function load() {
-        if(!id) return;
-        const bookingId = id;
+      if (!id) return;
+      const bookingId = id;
       try {
         setLoading(true);
         setError(null);
@@ -76,8 +76,8 @@ export default function BookingDetailPage() {
           {venue?.name ?? "Your stay"}
         </h1>
         <p className="text-sm text-hz-muted">
-  {range} · {booking.guests} guest{booking.guests > 1 ? "s" : ""}
-</p>
+          {range} · {booking.guests} guest{booking.guests > 1 ? "s" : ""}
+        </p>
         <p className="text-xs text-hz-muted">
           Booking ID: <span className="font-mono">{booking.id}</span>
         </p>
@@ -89,8 +89,7 @@ export default function BookingDetailPage() {
           <div className="w-full h-48 md:h-56 bg-hz-surface-soft">
             <img
               src={
-                venue.media?.[0]?.url ||
-                "https://picsum.photos/800/500?blur=2"
+                venue.media?.[0]?.url || "https://picsum.photos/800/500?blur=2"
               }
               alt={venue.media?.[0]?.alt || venue.name}
               className="w-full h-full object-cover"
@@ -105,7 +104,9 @@ export default function BookingDetailPage() {
                 <MapPin className="h-4 w-4" />
                 <span>
                   {venue.location?.city || "Unknown city"},{" "}
-                  {venue.location?.country || venue.location?.continent || "Unknown"}
+                  {venue.location?.country ||
+                    venue.location?.continent ||
+                    "Unknown"}
                 </span>
               </div>
               <p className="text-sm text-hz-muted">

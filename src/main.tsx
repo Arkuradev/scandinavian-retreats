@@ -5,13 +5,14 @@ import "./index.css";
 import ToastProvider from "@/components/ToastProvider";
 import VenueDetailPage from "@/pages/VenueDetailPage";
 import AuthProvider from "@/context/AuthContext";
-import Layout from "./components/layout/Layout.tsx";
-import Home from "./pages/Home.tsx";
-import Venues from "./pages/Venues.tsx";
-import MyBookingsPage from "@/pages/myBookingsPage";
+import Layout from "@/components/layout/Layout";
+import Home from "@/pages/Home.tsx";
+import Venues from "@/pages/Venues";
+import CreateVenuePage from "@/pages/CreateVenuePage";
+import MyBookingsPage from "@/pages/MyBookingsPage";
 import ManageVenuesPage from "@/pages/ManageVenuesPage";
-import Account from "./pages/Account.tsx";
-import NotFound from "./pages/NotFound.tsx";
+import Account from "@/pages/Account.tsx";
+import NotFound from "@/pages/NotFound.tsx";
 import BookingDetailPage from "@/pages/BookingDetailPage";
 
 const router = createBrowserRouter([
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "bookings/:id", element: <BookingDetailPage /> },
       { path: "bookings", element: <MyBookingsPage /> },
       { path: "manage-venues", element: <ManageVenuesPage /> },
+      { path: "manage-venues/new", element: <CreateVenuePage /> },
       { path: "account", element: <Account /> },
     ],
   },
