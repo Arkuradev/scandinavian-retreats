@@ -42,7 +42,7 @@ export default function Home() {
 
       {/* VENUE SECTION */}
       <section id="latest-venues" className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-semibold mb-4">Latest venues</h2>
+        <h2 className="text-2xl font-semibold mb-4">Latest venues For testing</h2>
         {error && <p className="text-red-500">{error}</p>}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {loading &&

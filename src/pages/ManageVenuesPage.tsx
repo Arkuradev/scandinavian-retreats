@@ -11,7 +11,7 @@ export default function ManageVenuesPage() {
   const [error, setError] = useState<string | null>(null);
   const ctrlRef = useRef<AbortController | null>(null);
 
-  // 1) Guard: must be logged in + venueManager
+
   if (!isAuthenticated || !user) {
     return <Navigate to="/" replace />;
   }
