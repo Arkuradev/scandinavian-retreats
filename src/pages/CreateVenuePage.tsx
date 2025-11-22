@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/useToast";
 import { createVenue, type CreateVenueBody } from "@/lib/fetchVenues";
-import { Star } from "lucide-react";
+import { Wifi, ParkingCircle, Coffee, PawPrint, Star } from "lucide-react";
 
-
- type StarRatingProps = {
+type StarRatingProps = {
   rating: number;
   max?: number;
   onChange: (value: number) => void;
@@ -30,9 +29,7 @@ function StarRating({ rating, max = 5, onChange }: StarRatingProps) {
           >
             <Star
               className={`h-5 w-5 transition-colors ${
-                isActive
-                  ? "text-yellow-500 fill-yellow-500"
-                  : "text-gray-300"
+                isActive ? "text-yellow-500 fill-yellow-500" : "text-gray-300"
               }`}
             />
           </button>
@@ -45,8 +42,6 @@ function StarRating({ rating, max = 5, onChange }: StarRatingProps) {
     </div>
   );
 }
-
-
 
 export default function CreateVenuePage() {
   const { user, isAuthenticated } = useAuth();
@@ -157,7 +152,9 @@ export default function CreateVenuePage() {
     } catch (err: any) {
       if (err?.name === "AbortError") return;
       console.error(err);
-      setApiError(err.message || "Something went wrong while creating the venue.");
+      setApiError(
+        err.message || "Something went wrong while creating the venue.",
+      );
       toastError("Could not create venue, please try again.");
     } finally {
       if (ctrlRef.current === ctrl) {
@@ -210,11 +207,10 @@ export default function CreateVenuePage() {
           </div>
         </div>
 
-        
-    <div className="space-y-1">
-  <p className="text-sm font-medium text-hz-text">Rating</p>
-  <StarRating rating={rating} onChange={setRating} />
-</div>
+        <div className="space-y-1">
+          <p className="text-sm font-medium text-hz-text">Rating</p>
+          <StarRating rating={rating} onChange={setRating} />
+        </div>
         {/* Price + Max guests */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
@@ -297,9 +293,7 @@ export default function CreateVenuePage() {
 
         {/* Amenities */}
         <div>
-          <p className="text-sm font-medium text-hz-text mb-2">
-            Amenities
-          </p>
+          <p className="text-sm font-medium text-hz-text mb-2">Amenities</p>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <label className="inline-flex items-center gap-2">
               <input
@@ -307,7 +301,10 @@ export default function CreateVenuePage() {
                 checked={wifi}
                 onChange={(e) => setWifi(e.target.checked)}
               />
-              <span>Wi-Fi</span>
+              <span className="inline-flex gap-2">
+                <Wifi className="h-4 w-4 text-hz-primary" />
+                Wi-Fi
+              </span>
             </label>
             <label className="inline-flex items-center gap-2">
               <input
@@ -315,7 +312,10 @@ export default function CreateVenuePage() {
                 checked={parking}
                 onChange={(e) => setParking(e.target.checked)}
               />
-              <span>Parking</span>
+              <span className="inline-flex gap-2">
+                <ParkingCircle className="h-4 w-4 text-hz-primary" />
+                Parking
+              </span>
             </label>
             <label className="inline-flex items-center gap-2">
               <input
@@ -323,7 +323,10 @@ export default function CreateVenuePage() {
                 checked={breakfast}
                 onChange={(e) => setBreakfast(e.target.checked)}
               />
-              <span>Breakfast</span>
+              <span className="inline-flex gap-2">
+                <Coffee className="h-4 w-4 text-hz-primary" />
+                Breakfast
+              </span>
             </label>
             <label className="inline-flex items-center gap-2">
               <input
@@ -331,21 +334,18 @@ export default function CreateVenuePage() {
                 checked={pets}
                 onChange={(e) => setPets(e.target.checked)}
               />
-              <span>Pets allowed</span>
+              <span className="inline-flex gap-2">
+                <PawPrint className="h-4 w-4 text-hz-primary" />
+                Pets
+              </span>
             </label>
           </div>
         </div>
 
-        {apiError && (
-          <p className="text-sm text-red-500">{apiError}</p>
-        )}
+        {apiError && <p className="text-sm text-red-500">{apiError}</p>}
 
         <div className="flex flex-wrap gap-3">
-          <button
-            type="submit"
-            className="btn-primary"
-            disabled={submitting}
-          >
+          <button type="submit" className="btn-primary" disabled={submitting}>
             {submitting ? "Creating venue..." : "Create venue"}
           </button>
 

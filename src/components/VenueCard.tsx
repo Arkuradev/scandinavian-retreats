@@ -1,6 +1,6 @@
 import type { Venue } from "@/types/holidaze";
 import { Link } from "react-router-dom";
-import { Wifi, ParkingCircle, Coffee, PawPrint } from "lucide-react";
+import { Wifi, ParkingCircle, Coffee, PawPrint, Star } from "lucide-react";
 
 export default function VenueCard({ venue }: { venue: Venue }) {
   return (
@@ -70,6 +70,15 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             <p className="text-sm text-hz-muted">
               {venue.location?.city || "—"}
             </p>
+
+            {typeof venue.rating === "number" && venue.rating > 0 && (
+              <div className="mt-1 flex items-center gap-1">
+                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                <span className="text-xs text-hz-muted">
+                  {venue.rating} / 5
+                </span>
+              </div>
+            )}
 
             <div className="mt-2 flex items-center justify-between">
               <span className="font-semibold text-hz-text">${venue.price}</span>

@@ -11,6 +11,7 @@ import {
   PawPrint,
   MapPin,
   Users,
+  Star,
 } from "lucide-react";
 import { createBooking } from "@/lib/bookings";
 import { useToast } from "@/hooks/useToast";
@@ -48,7 +49,6 @@ export default function VenueDetailPage() {
         setError(null);
         const data = await getVenueById(venueId, { signal: ctrl.signal });
         setVenue(data);
-        console.log("RAW RESPONSE:", data);
       } catch (err: any) {
         if (err?.name === "AbortError") return;
         setError(err.message || "Failed to load venue.");
@@ -151,8 +151,6 @@ export default function VenueDetailPage() {
       }
 
       success(`You have booked ${venue.name}.`);
-      console.log("Booking created:", booking);
-      console.log(venue.bookings);
 
       setDateFrom("");
       setDateTo("");
@@ -251,6 +249,13 @@ export default function VenueDetailPage() {
               </span>
             </div>
           </div>
+
+          {typeof venue.rating === "number" && venue.rating > 0 && (
+            <div className="mt-2 flex items-center gap-1 text-sm text-hz-muted">
+              <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+              <span>{venue.rating} / 5</span>
+            </div>
+          )}
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-hz-primary">

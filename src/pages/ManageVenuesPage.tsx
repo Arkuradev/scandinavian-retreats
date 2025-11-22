@@ -11,7 +11,6 @@ export default function ManageVenuesPage() {
   const [error, setError] = useState<string | null>(null);
   const ctrlRef = useRef<AbortController | null>(null);
 
-
   if (!isAuthenticated || !user) {
     return <Navigate to="/" replace />;
   }
