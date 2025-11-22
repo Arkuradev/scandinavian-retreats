@@ -242,7 +242,7 @@ export default function VenueDetailPage() {
               {venue.name}
             </h1>
             <div className="mt-1 flex items-center gap-2 text-sm text-hz-muted">
-              <MapPin className="h-4 w-4" />
+              <MapPin className="h-4 w-4 text-hz-primary" />
               <span>
                 {venue.location?.city || "Unknown city"},{" "}
                 {venue.location?.country ||
@@ -272,25 +272,25 @@ export default function VenueDetailPage() {
           </div>
 
           {/* Meta icons */}
-          <div className="flex flex-wrap gap-3 text-hz-primary">
+          <div className="flex flex-wrap gap-3">
             {venue.meta?.wifi && (
               <span className="inline-flex items-center gap-1 text-sm">
-                <Wifi className="h-4 w-4" /> Wi-Fi
+                <Wifi className="h-4 w-4 text-hz-primary" /> Wi-Fi
               </span>
             )}
             {venue.meta?.parking && (
               <span className="inline-flex items-center gap-1 text-sm">
-                <ParkingCircle className="h-4 w-4" /> Parking
+                <ParkingCircle className="h-4 w-4 text-hz-primary" /> Parking
               </span>
             )}
             {venue.meta?.breakfast && (
               <span className="inline-flex items-center gap-1 text-sm">
-                <Coffee className="h-4 w-4" /> Breakfast
+                <Coffee className="h-4 w-4 text-hz-primary" /> Breakfast
               </span>
             )}
             {venue.meta?.pets && (
               <span className="inline-flex items-center gap-1 text-sm">
-                <PawPrint className="h-4 w-4" /> Pets allowed
+                <PawPrint className="h-4 w-4 text-hz-primary" /> Pets allowed
               </span>
             )}
           </div>
