@@ -68,7 +68,8 @@ export default function VenueCard({ venue }: { venue: Venue }) {
               {venue.name}
             </h3>
             <p className="text-sm text-hz-muted">
-              {venue.location?.city || "—"}
+              {venue.location?.city || ""}
+              {", " + venue.location?.country || "-"}
             </p>
 
             {typeof venue.rating === "number" && venue.rating > 0 && (

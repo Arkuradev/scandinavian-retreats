@@ -137,12 +137,11 @@ export default function ManageVenuesPage() {
                       View
                     </Link>
                     {/* We'll hook these up later */}
-                    <button
-                      type="button"
-                      className="text-hz-muted hover:text-hz-primary"
+                    <Link to={`/manage-venues/edit/${venue.id}`}
+                    className="text-hz-primary hover:underline"
                     >
-                      Edit
-                    </button>
+                    Edit
+                    </Link>
                   </div>
                 </div>
               </div>

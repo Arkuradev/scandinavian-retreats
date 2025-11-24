@@ -11,9 +11,8 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex justify-center items-center rounded-md hover:border hover:border-hz-primary bg-hz-primary px-6 py-3 
-    text-sm font-medium text-black/70 shadow-md hover:bg-hz-primary-soft hover:scale-[1.02]
-    transition-transform duration-150;
+    @apply inline-flex justify-center items-center rounded-md bg-hz-primary px-6 py-3 
+    text-sm font-medium text-black/70 shadow-md hover:bg-hz-accent hover:text-hz-surface;
   }
 }
 /*

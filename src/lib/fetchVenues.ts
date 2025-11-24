@@ -63,6 +63,21 @@ export async function getVenueById(
   return json.data;
 }
 
+// Edit Venue
+
+export async function updateVenue(
+  id: string,
+  body: CreateVenueBody,
+  opts?: { signal?: AbortSignal },
+): Promise<Venue> {
+  const json = await apiFetch<{ data: Venue }>(`/holidaze/venues/${id}`, {
+    method: "PUT",
+    body,
+    signal: opts?.signal,
+  });
+  return json.data;
+}
+
 export async function getVenuesForProfile(
   profileName: string,
   opts?: { signal?: AbortSignal },

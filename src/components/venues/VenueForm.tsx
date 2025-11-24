@@ -1,0 +1,367 @@
+import { useState, useEffect } from "react";
+import type { CreateVenueBody } from "@/lib/fetchVenues";
+import { Star } from "lucide-react";
+
+type VenueFormMode = "create" | "edit";
+
+export type VenueFormInitial = {
+  name?: string;
+  description?: string;
+  price?: number;
+  maxGuests?: number;
+  city?: string;
+  country?: string;
+  imageUrl?: string;
+  rating?: number;
+  wifi?: boolean;
+  parking?: boolean;
+  breakfast?: boolean;
+  pets?: boolean;
+};
+
+type VenueFormProps = {
+  mode?: VenueFormMode;
+  initial?: VenueFormInitial;
+  submitting?: boolean;
+  apiError?: string | null;
+  onSubmit: (body: CreateVenueBody) => void;
+  onCancel?: () => void;
+};
+
+type StarRatingProps = {
+  rating: number;
+  max?: number;
+  onChange: (value: number) => void;
+};
+
+function StarRating({ rating, max = 5, onChange }: StarRatingProps) {
+  const stars = Array.from({ length: max }, (_, i) => i + 1);
+
+  return (
+    <div className="flex items-center gap-2">
+      {stars.map((value) => {
+        const isActive = value <= rating;
+
+        return (
+          <button
+            key={value}
+            type="button"
+            onClick={() => onChange(value)}
+            className="p-0.5"
+            aria-label={`Set rating to ${value} star${value > 1 ? "s" : ""}`}
+          >
+            <Star
+              className={`h-5 w-5 transition-colors ${
+                isActive
+                  ? "text-yellow-500 fill-yellow-500"
+                  : "text-gray-300"
+              }`}
+            />
+          </button>
+        );
+      })}
+
+      {rating > 0 && (
+        <span className="text-sm text-hz-muted">{rating} Star Venue</span>
+      )}
+    </div>
+  );
+}
+
+export default function VenueForm({
+  mode = "create",
+  initial,
+  submitting = false,
+  apiError,
+  onSubmit,
+  onCancel,
+}: VenueFormProps) {
+  const [name, setName] = useState(initial?.name ?? "");
+  const [description, setDescription] = useState(initial?.description ?? "");
+  const [price, setPrice] = useState<number | "">(initial?.price ?? "");
+  const [maxGuests, setMaxGuests] = useState<number | "">(initial?.maxGuests ?? "");
+
+  const [city, setCity] = useState(initial?.city ?? "");
+  const [country, setCountry] = useState(initial?.country ?? "");
+
+  // Media – single URL for now
+  const [imageUrl, setImageUrl] = useState(initial?.imageUrl ?? "");
+
+
+  const [wifi, setWifi] = useState(initial?.wifi ?? false);
+  const [parking, setParking] = useState(initial?.parking ?? false);
+  const [breakfast, setBreakfast] = useState(initial?.breakfast ?? false);
+  const [pets, setPets] = useState(initial?.pets ?? false);
+
+  const [rating, setRating] = useState(initial?.rating ?? 1);
+
+  const [localError, setLocalError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!initial) return;
+    setName(initial.name ?? "");
+    setDescription(initial.description ?? "");
+    setPrice(initial.price ?? "");
+    setMaxGuests(initial.maxGuests ?? "");
+    setCity(initial.city ?? "");
+    setCountry(initial.country ?? "");
+    setImageUrl(initial.imageUrl ?? "");
+    setWifi(initial.wifi ?? false);
+    setParking(initial.parking ?? false);
+    setBreakfast(initial.breakfast ?? false);
+    setPets(initial.pets ?? false);
+    setRating(initial.rating ?? 0);
+  }, [initial]);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLocalError(null);
+
+    const trimmedName = name.trim();
+    if (!trimmedName) {
+      setLocalError("Name is required.");
+      return;
+    }
+    if (price === "" || Number(price) <= 0) {
+      setLocalError("Please provide a valid price above 0.");
+      return;
+    }
+    if (maxGuests === "" || Number(maxGuests) < 1) {
+      setLocalError("Max guests must be at least 1.");
+      return;
+    }
+
+    const body: CreateVenueBody = {
+      name: trimmedName,
+      description: description.trim() || undefined,
+      price: Number(price),
+      maxGuests: Number(maxGuests),
+      rating,
+      meta: {
+        wifi,
+        parking,
+        breakfast,
+        pets,
+      },
+      location: {
+        city: city.trim() || undefined,
+        country: country.trim() || undefined,
+      },
+    };
+
+    if (imageUrl.trim()) {
+      body.media = [
+        {
+          url: imageUrl.trim(),
+          alt: `${trimmedName} photo`,
+        },
+      ];
+    }
+
+    onSubmit(body);
+  }
+
+  const title =
+    mode === "create" ? "Create a new venue" : "Edit venue details";
+  const subtitle =
+    mode === "create"
+      ? "Add a new stay to Holidaze. You can edit details later if needed."
+      : "Update this venue’s information. Changes will be visible to guests.";
+
+  return (
+    <section className="max-w-3xl mx-auto">
+      <header className="mb-6 space-y-1">
+        <h1 className="text-2xl font-semibold text-hz-text">{title}</h1>
+        <p className="text-sm text-hz-muted">{subtitle}</p>
+      </header>
+
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-6 shadow-hz-card"
+      >
+        <div className="space-y-3">
+          <div>
+            <label className="block text-sm font-medium text-hz-text mb-1">
+              Name<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              placeholder="Cozy cabin by the lake"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-hz-text mb-1">
+              Description
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={4}
+              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              placeholder="Describe what makes this place special..."
+            />
+          </div>
+        </div>
+
+        
+        <div className="space-y-1">
+          <p className="text-sm font-medium text-hz-text">Rating</p>
+          <StarRating rating={rating} onChange={setRating} />
+        </div>
+
+        
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium text-hz-text mb-1">
+              Price per night (USD)<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="number"
+              min={1}
+              value={price}
+              onChange={(e) =>
+                setPrice(e.target.value === "" ? "" : Number(e.target.value))
+              }
+              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-hz-text mb-1">
+              Max guests<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="number"
+              min={1}
+              value={maxGuests}
+              onChange={(e) =>
+                setMaxGuests(
+                  e.target.value === "" ? "" : Number(e.target.value),
+                )
+              }
+              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+            />
+          </div>
+        </div>
+
+        {/* Location */}
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium text-hz-text mb-1">
+              City
+            </label>
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              placeholder="Oslo"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-hz-text mb-1">
+              Country
+            </label>
+            <input
+              type="text"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              placeholder="Norway"
+            />
+          </div>
+        </div>
+
+        {/* Media */}
+        <div>
+          <label className="block text-sm font-medium text-hz-text mb-1">
+            Image URL
+          </label>
+          <input
+            type="url"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+            placeholder="https://images.unsplash.com/..."
+          />
+          <p className="mt-1 text-xs text-hz-muted">
+            Use a valid image URL (Unsplash works great for testing).
+          </p>
+        </div>
+
+        {/* Amenities */}
+        <div>
+          <p className="text-sm font-medium text-hz-text mb-2">Amenities</p>
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <label className="inline-flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={wifi}
+                onChange={(e) => setWifi(e.target.checked)}
+              />
+              <span>Wi-Fi</span>
+            </label>
+            <label className="inline-flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={parking}
+                onChange={(e) => setParking(e.target.checked)}
+              />
+              <span>Parking</span>
+            </label>
+            <label className="inline-flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={breakfast}
+                onChange={(e) => setBreakfast(e.target.checked)}
+              />
+              <span>Breakfast</span>
+            </label>
+            <label className="inline-flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={pets}
+                onChange={(e) => setPets(e.target.checked)}
+              />
+              <span>Pets allowed</span>
+            </label>
+          </div>
+        </div>
+
+        {(localError || apiError) && (
+          <p className="text-sm text-red-500">{localError ?? apiError}</p>
+        )}
+
+        <div className="flex flex-wrap gap-3">
+          <button
+            type="submit"
+            className="btn-primary"
+            disabled={submitting}
+          >
+            {submitting
+              ? mode === "create"
+                ? "Creating venue..."
+                : "Saving changes..."
+              : mode === "create"
+              ? "Create venue"
+              : "Save changes"}
+          </button>
+
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="text-sm text-hz-muted hover:text-hz-primary"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
+      </form>
+    </section>
+  );
+}

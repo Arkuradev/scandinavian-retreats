@@ -4,7 +4,7 @@ import AppHeader from "@/components/AppHeader";
 
 export default function AppLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-hz-surface-soft text-hz-text">
+    <div className="min-h-screen flex flex-col bg-hz-surface text-hz-text">
       <AppHeader /> {/* ⬅ no props */}
       <main className="flex-1 pb-16">
         <Outlet />
