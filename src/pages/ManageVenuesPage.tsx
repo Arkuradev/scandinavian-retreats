@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { getVenuesForProfile } from "@/lib/fetchVenues";
+import { getVenuesForProfile, deleteVenue } from "@/lib/fetchVenues";
 import type { Venue } from "@/types/holidaze";
+import { useToast } from "@/hooks/useToast";
 
 export default function ManageVenuesPage() {
   const { user, isAuthenticated } = useAuth();
+  const { success, error: toastError } = useToast();
   const [venues, setVenues] = useState<Venue[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -54,6 +56,22 @@ export default function ManageVenuesPage() {
     return () => ctrl.abort();
   }, [user.name]);
 
+  async function handleDelete(venueId: string) {
+    const ok = window.confirm(
+      "Are you sure you want to delete this venue? This cannot be undone.",
+    );
+    if (!ok) return;
+    setVenues((prev) => prev.filter((v) => v.id !== venueId));
+
+    try {
+      await deleteVenue(venueId);
+      success("Venue has been deleted.");
+    } catch (err) {
+      console.error(err);
+      toastError("Could not delete venue, please try again.");
+    }
+  }
+
   if (loading) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
@@ -69,7 +87,6 @@ export default function ManageVenuesPage() {
       </main>
     );
   }
-
   return (
     <main className="max-w-6xl mx-auto px-4 py-10 space-y-4">
       <header className="flex items-center justify-between gap-4 mb-4">
@@ -137,11 +154,19 @@ export default function ManageVenuesPage() {
                       View
                     </Link>
                     {/* We'll hook these up later */}
-                    <Link to={`/manage-venues/edit/${venue.id}`}
-                    className="text-hz-primary hover:underline"
+                    <Link
+                      to={`/manage-venues/edit/${venue.id}`}
+                      className="text-hz-primary hover:underline"
                     >
-                    Edit
+                      Edit
                     </Link>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(venue.id)}
+                      className="text-red-500 hover:underline"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

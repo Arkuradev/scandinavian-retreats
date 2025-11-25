@@ -38,6 +38,8 @@ export default function VenueCard({ venue }: { venue: Venue }) {
           duration-300 
           group-hover:scale-[1.02] 
           group-hover:shadow-xl
+          group-hover:shadow-hz-primary-hover
+          
         "
       >
         <div
@@ -52,7 +54,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
           transition-all 
           duration-300 
           group-hover:scale-[1.02] 
-          group-hover:shadow-xl
+          group-hover:shadow-xl-hz
         "
         >
           <img

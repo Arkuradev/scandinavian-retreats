@@ -39,9 +39,7 @@ export default function AuthProvider({
   }, []);
 
   const login = async (res: LoginResult) => {
-    // 1. Save token first
     setToken(res.accessToken);
-
     localStorage.setItem(
       "auth",
       JSON.stringify({
@@ -50,10 +48,8 @@ export default function AuthProvider({
       }),
     );
 
-    // 2. Fetch real profile with correct venueManager
     const profile = await getProfile(res.name, res.accessToken);
 
-    // 3. Build the correct user object
     const next = {
       name: profile.name,
       email: profile.email,
@@ -61,7 +57,6 @@ export default function AuthProvider({
       venueManager: profile.venueManager ?? false,
     };
 
-    // 4. Store in state + storage
     setUser(next);
     setToken(res.accessToken);
     localStorage.setItem(

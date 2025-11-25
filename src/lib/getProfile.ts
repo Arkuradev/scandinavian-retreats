@@ -13,3 +13,6 @@ export async function getProfile(name: string, token: string) {
 
   return json.data;
 }
+
+// GOT ANOTHER ONE IN PROFILE.TS, CHECK IF THIS CAN BE KEPT AND THE NEW ONE IN PROFILE.TS
+// CAN BE REMOVED.

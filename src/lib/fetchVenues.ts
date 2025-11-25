@@ -53,28 +53,13 @@ export async function getVenueById(
   opts?: { signal?: AbortSignal },
 ): Promise<Venue> {
   const json = await apiFetch<{ data: Venue }>(
-    `/holidaze/venues/${id}?_bookings=true`,
+    `/holidaze/venues/${id}?_bookings=true&_owner=true`,
     {
       method: "GET",
       signal: opts?.signal,
     },
   );
 
-  return json.data;
-}
-
-// Edit Venue
-
-export async function updateVenue(
-  id: string,
-  body: CreateVenueBody,
-  opts?: { signal?: AbortSignal },
-): Promise<Venue> {
-  const json = await apiFetch<{ data: Venue }>(`/holidaze/venues/${id}`, {
-    method: "PUT",
-    body,
-    signal: opts?.signal,
-  });
   return json.data;
 }
 
@@ -128,4 +113,28 @@ export async function createVenue(
     signal: opts?.signal,
   });
   return json.data;
+}
+
+// Edit Venue
+
+export async function updateVenue(
+  id: string,
+  body: CreateVenueBody,
+  opts?: { signal?: AbortSignal },
+): Promise<Venue> {
+  const json = await apiFetch<{ data: Venue }>(`/holidaze/venues/${id}`, {
+    method: "PUT",
+    body,
+    signal: opts?.signal,
+  });
+  return json.data;
+}
+
+// Delete Venue
+
+export async function deleteVenue(id: string, opts?: { signal?: AbortSignal }) {
+  await apiFetch<unknown>(`/holidaze/venues/${id}`, {
+    method: "DELETE",
+    signal: opts?.signal,
+  });
 }

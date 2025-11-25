@@ -36,17 +36,24 @@ export default function UserMenu({
           <div className="border-b border-gray-100">
             <div className="px-4 py-2 text-xs text-gray-500">Signed in as</div>
             <div className="px-4 pb-2 text-sm font-medium text-gray-900">
-              {user.name}
+              <NavLink
+                to={`/profile/${user.name}`}
+                role="menuitem"
+                onClick={() => setOpenMenu(false)}
+                className="hover:text-hz-primary"
+              >
+                {user.name}
+              </NavLink>
             </div>
           </div>
 
           <NavLink
-            to={`/profile/${user.name}`}
+            to={`/profile/edit`}
             role="menuitem"
             className="block px-4 py-2 text-sm text-black hover:bg-gray-100"
             onClick={() => setOpenMenu(false)}
           >
-            Profile
+            Edit Profile
           </NavLink>
 
           <NavLink

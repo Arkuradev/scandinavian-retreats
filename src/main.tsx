@@ -15,6 +15,8 @@ import ManageVenuesPage from "@/pages/ManageVenuesPage";
 import Account from "@/pages/Account.tsx";
 import NotFound from "@/pages/NotFound.tsx";
 import BookingDetailPage from "@/pages/BookingDetailPage";
+import EditProfilePage from "@/pages/EditProfilePage";
+import PublicProfilePage from "@/pages/PublicProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +33,8 @@ const router = createBrowserRouter([
       { path: "manage-venues/new", element: <CreateVenuePage /> },
       { path: "manage-venues/edit/:id", element: <EditVenuePage /> },
       { path: "account", element: <Account /> },
+      { path: "profile/edit", element: <EditProfilePage /> },
+      { path: "profile/:name", element: <PublicProfilePage /> },
     ],
   },
 ]);

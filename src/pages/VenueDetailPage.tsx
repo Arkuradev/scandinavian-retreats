@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import type { Venue } from "@/types/holidaze";
 import { getVenueById } from "@/lib/fetchVenues";
 import { useAuth } from "@/context/AuthContext";
@@ -184,6 +184,7 @@ export default function VenueDetailPage() {
       </main>
     );
   }
+
   const media = venue.media ?? [];
   const mainImage = media[activeImageIndex] ?? media[0];
   const bookings = venue.bookings ?? [];
@@ -239,6 +240,18 @@ export default function VenueDetailPage() {
             <h1 className="text-2xl md:text-3xl font-semibold text-hz-text">
               {venue.name}
             </h1>
+            <div className="mt-1 mb-2 flex items-center gap-1 text-sm">
+              {/* COME BACK TO STYLE THIS */}
+              <p className="text-hz-muted">Venue listed by</p>
+              {venue.owner?.name && (
+                <Link
+                  to={`/profile/${encodeURIComponent(venue.owner.name)}`}
+                  className="text-sm font-medium text-hz-primary hover:underline"
+                >
+                  {venue.owner.name}
+                </Link>
+              )}
+            </div>
             <div className="mt-1 flex items-center gap-2 text-sm text-hz-muted">
               <MapPin className="h-4 w-4 text-hz-primary" />
               <span>
@@ -300,7 +313,6 @@ export default function VenueDetailPage() {
             )}
           </div>
 
-          {/* Booking card placeholder – we hook into this next */}
           <section className="mt-4 p-4 rounded-xl border border-hz-border bg-hz-surface-soft">
             <h2 className="text-lg font-semibold text-hz-text mb-2">
               Book this stay

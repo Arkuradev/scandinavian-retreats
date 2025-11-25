@@ -52,9 +52,7 @@ function StarRating({ rating, max = 5, onChange }: StarRatingProps) {
           >
             <Star
               className={`h-5 w-5 transition-colors ${
-                isActive
-                  ? "text-yellow-500 fill-yellow-500"
-                  : "text-gray-300"
+                isActive ? "text-yellow-500 fill-yellow-500" : "text-gray-300"
               }`}
             />
           </button>
@@ -79,14 +77,15 @@ export default function VenueForm({
   const [name, setName] = useState(initial?.name ?? "");
   const [description, setDescription] = useState(initial?.description ?? "");
   const [price, setPrice] = useState<number | "">(initial?.price ?? "");
-  const [maxGuests, setMaxGuests] = useState<number | "">(initial?.maxGuests ?? "");
+  const [maxGuests, setMaxGuests] = useState<number | "">(
+    initial?.maxGuests ?? "",
+  );
 
   const [city, setCity] = useState(initial?.city ?? "");
   const [country, setCountry] = useState(initial?.country ?? "");
 
   // Media – single URL for now
   const [imageUrl, setImageUrl] = useState(initial?.imageUrl ?? "");
-
 
   const [wifi, setWifi] = useState(initial?.wifi ?? false);
   const [parking, setParking] = useState(initial?.parking ?? false);
@@ -161,8 +160,7 @@ export default function VenueForm({
     onSubmit(body);
   }
 
-  const title =
-    mode === "create" ? "Create a new venue" : "Edit venue details";
+  const title = mode === "create" ? "Create a new venue" : "Edit venue details";
   const subtitle =
     mode === "create"
       ? "Add a new stay to Holidaze. You can edit details later if needed."
@@ -207,13 +205,11 @@ export default function VenueForm({
           </div>
         </div>
 
-        
         <div className="space-y-1">
           <p className="text-sm font-medium text-hz-text">Rating</p>
           <StarRating rating={rating} onChange={setRating} />
         </div>
 
-        
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-hz-text mb-1">
@@ -337,18 +333,14 @@ export default function VenueForm({
         )}
 
         <div className="flex flex-wrap gap-3">
-          <button
-            type="submit"
-            className="btn-primary"
-            disabled={submitting}
-          >
+          <button type="submit" className="btn-primary" disabled={submitting}>
             {submitting
               ? mode === "create"
                 ? "Creating venue..."
                 : "Saving changes..."
               : mode === "create"
-              ? "Create venue"
-              : "Save changes"}
+                ? "Create venue"
+                : "Save changes"}
           </button>
 
           {onCancel && (
