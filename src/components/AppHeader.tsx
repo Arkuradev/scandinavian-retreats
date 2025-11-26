@@ -4,6 +4,7 @@ import { User } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/context/AuthContext";
 import UserMenu from "@/components/ui/userMenu";
+import logo from "@/assets/logo.png";
 
 const linkBase =
   "relative px-3 py-1 text-sm font-medium text-hz-text transition-all duration-200";
@@ -40,12 +41,18 @@ export default function AppHeader() {
     <>
       <header className="bg-white border-slate-200 shadow-lg sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
-          {/* Logo */}
           <NavLink
             to="/"
-            className="flex items-center text-lg font-bold text-hz-text tracking-wide"
+            className="flex items-center gap-3 font-bold text-hz-text tracking-wide"
           >
-            Holidaze Retreats
+            <div className="h-9 w-9 flex items-center justify-center rounded-full bg-hz-primary/10">
+              <img
+                src={logo}
+                alt="Holidaze logo"
+                className="h-8 w-8 object-contain"
+              />
+            </div>
+            <span className="text-lg">Holidaze Retreats</span>
           </NavLink>
 
           <div className="flex items-center gap-2">
