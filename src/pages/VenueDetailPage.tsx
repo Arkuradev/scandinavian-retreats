@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import DatePicker from "react-datepicker";
 import type { Venue } from "@/types/holidaze";
 import { getVenueById } from "@/lib/fetchVenues";
 import { useAuth } from "@/context/AuthContext";
@@ -23,8 +24,11 @@ export default function VenueDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const ctrlRef = useRef<AbortController | null>(null);
   const { success, error: toastError } = useToast();
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
+  const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
+    null,
+    null,
+  ]);
+  const [startDate, endDate] = dateRange;
   const [guests, setGuests] = useState(1);
   const [bookingError, setBookingError] = useState<string | null>(null);
   const [bookingLoading, setBookingLoading] = useState(false);
@@ -69,14 +73,14 @@ export default function VenueDetailPage() {
     setBookingError(null);
     if (!venue) return;
 
-    if (!dateFrom || !dateTo) {
+    if (!startDate || !endDate) {
       return setBookingError(
         "Please select both check-in and check-out dates.",
       );
     }
 
-    const from = new Date(dateFrom);
-    const to = new Date(dateTo);
+    const from = new Date(startDate);
+    const to = new Date(endDate);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -100,6 +104,25 @@ export default function VenueDetailPage() {
 
     if (!isAuthenticated || !user) {
       return setBookingError("You need to be logged in to make a booking.");
+    }
+
+    const existingBookings = venue.bookings ?? [];
+
+    const normalizedFromStr = from.toISOString().slice(0, 10);
+    const normalizedToStr = to.toISOString().slice(0, 10);
+
+    const hasSameBooking = existingBookings.some((b) => {
+      const bFrom = b.dateFrom?.slice(0, 10);
+      const bTo = b.dateTo?.slice(0, 10);
+      const sameRange = bFrom === normalizedFromStr && bTo === normalizedToStr;
+      const sameUser = b.customer?.name === user.name;
+      return sameRange && sameUser;
+    });
+
+    if (hasSameBooking) {
+      return setBookingError(
+        "You already have a booking for these dates at this venue.",
+      );
     }
 
     setBookingLoading(true);
@@ -133,27 +156,9 @@ export default function VenueDetailPage() {
           : prev,
       );
 
-      const normalizedFrom = dateFrom;
-      const normalizedTo = dateTo;
-
-      const hasSameBooking = (venue.bookings ?? []).some((b) => {
-        const bFrom = b.dateFrom?.slice(0, 10);
-        const bTo = b.dateTo?.slice(0, 10);
-        const sameRange = bFrom === normalizedFrom && bTo === normalizedTo;
-        const sameUser = b.customer?.name === user.name;
-        return sameRange && sameUser;
-      });
-
-      if (hasSameBooking) {
-        return setBookingError(
-          "You already have a booking for these dates at this venue.",
-        );
-      }
-
       success(`You have booked ${venue.name}.`);
 
-      setDateFrom("");
-      setDateTo("");
+      setDateRange([null, null]);
       setGuests(1);
     } catch (err: any) {
       if (err.status === 401) {
@@ -176,7 +181,6 @@ export default function VenueDetailPage() {
       </main>
     );
   }
-
   if (error || !venue) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
@@ -184,10 +188,16 @@ export default function VenueDetailPage() {
       </main>
     );
   }
-
   const media = venue.media ?? [];
   const mainImage = media[activeImageIndex] ?? media[0];
   const bookings = venue.bookings ?? [];
+  const excludedIntervals =
+    bookings.length > 0
+      ? bookings.map((b) => ({
+          start: new Date(b.dateFrom),
+          end: new Date(b.dateTo),
+        }))
+      : [];
   const myBookings = user
     ? bookings.filter((b) => b.customer?.name === user.name)
     : [];
@@ -205,7 +215,6 @@ export default function VenueDetailPage() {
             />
           </div>
 
-          {/* Thumbnails */}
           {media.length > 1 && (
             <div className="flex gap-2 p-3 overflow-x-auto bg-hz-surface-soft border-t border-hz-border">
               {media.map((img, index) => (
@@ -262,14 +271,12 @@ export default function VenueDetailPage() {
               </span>
             </div>
           </div>
-
           {typeof venue.rating === "number" && venue.rating > 0 && (
             <div className="mt-2 flex items-center gap-1 text-sm text-hz-muted">
               <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
               <span>{venue.rating} / 5</span>
             </div>
           )}
-
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-hz-primary">
               <Users className="h-5 w-5" />
@@ -288,8 +295,6 @@ export default function VenueDetailPage() {
               </p>
             </div>
           </div>
-
-          {/* Meta icons */}
           <div className="flex flex-wrap gap-3">
             {venue.meta?.wifi && (
               <span className="inline-flex items-center gap-1 text-sm">
@@ -320,27 +325,27 @@ export default function VenueDetailPage() {
             <form onSubmit={handleBookingSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-hz-text mb-1">
-                    Check-in
-                  </label>
-                  <input
-                    type="date"
-                    value={dateFrom}
-                    onChange={(e) => setDateFrom(e.target.value)}
-                    className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-hz-text mb-1">
-                    Check-out
-                  </label>
-                  <input
-                    type="date"
-                    value={dateTo}
-                    onChange={(e) => setDateTo(e.target.value)}
-                    className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-hz-text mb-1">
+                      Dates
+                    </label>
+                    <DatePicker
+                      selectsRange
+                      startDate={startDate}
+                      endDate={endDate}
+                      onChange={(update) =>
+                        setDateRange(update as [Date | null, Date | null])
+                      }
+                      minDate={new Date()} // block today- and earlier
+                      excludeDateIntervals={excludedIntervals}
+                      dateFormat="dd-MM-yyyy"
+                      className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+                      placeholderText="Choose date"
+                    />
+                    <p className="mt-1 text-xs text-hz-muted">
+                      Greyed-out dates are unavailable for this retreat.
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -398,7 +403,6 @@ export default function VenueDetailPage() {
         </div>
       </section>
 
-      {/* Description + maybe more sections */}
       {venue.description && (
         <section className="rounded-xl border border-hz-border bg-hz-surface p-4 md:p-6">
           <h2 className="text-lg font-semibold text-hz-text mb-2">

@@ -24,7 +24,7 @@ export default function UserMenu({
         aria-expanded={openMenu}
         aria-controls="user-menu"
       >
-        <User className="w-5 h-5 text-hz-primary" />
+        <User className="w-5 h-5 text-hz-primary" aria-label="User-menu" />
       </button>
 
       {openMenu && (

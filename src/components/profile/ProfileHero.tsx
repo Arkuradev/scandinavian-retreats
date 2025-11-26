@@ -65,7 +65,7 @@ export default function ProfileHero({
             <div className="mt-3">
               <Link
                 to="/profile/edit"
-                className="text-sm text-hz-primary hover:underline"
+                className="text-sm text-hz-text hover:text-hz-primary"
               >
                 Edit profile
               </Link>

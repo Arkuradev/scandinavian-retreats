@@ -33,6 +33,9 @@ export default function AppHeader() {
   const [authOpen, setAuthOpen] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
 
+  // Come back here during polishing and hide links when logged off.
+  // Also hide Manage Venues when account is not a Venue Manager.
+
   return (
     <>
       <header className="bg-white border-slate-200 shadow-lg sticky top-0 z-40">
@@ -54,10 +57,18 @@ export default function AppHeader() {
               <NavLink to="/venues" className={linkClass}>
                 Venues
               </NavLink>
-              <NavLink to="/bookings" className={linkClass}>
+              <NavLink
+                to="/bookings"
+                className={linkClass}
+                id="loggedInUserLink"
+              >
                 My bookings
               </NavLink>
-              <NavLink to="/manage-venues" className={linkClass}>
+              <NavLink
+                to="/manage-venues"
+                className={linkClass}
+                id="loggedInVenueManager"
+              >
                 Manage Venue
               </NavLink>
             </nav>
