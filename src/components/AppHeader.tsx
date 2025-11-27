@@ -45,11 +45,11 @@ export default function AppHeader() {
             to="/"
             className="flex items-center gap-3 font-bold text-hz-text tracking-wide"
           >
-            <div className="h-9 w-9 flex items-center justify-center rounded-full bg-hz-primary/10">
+            <div className="h-[50px] w-[50px] flex items-center justify-center rounded-full">
               <img
                 src={logo}
                 alt="Holidaze logo"
-                className="h-8 w-8 object-contain"
+                className="h-14 w-14 object-contain"
               />
             </div>
             <span className="text-lg">Holidaze Retreats</span>
