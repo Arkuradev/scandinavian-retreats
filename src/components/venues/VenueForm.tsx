@@ -213,7 +213,7 @@ export default function VenueForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-hz-text mb-1">
-              Price per night (USD)<span className="text-red-500">*</span>
+              Price per night (NOK)<span className="text-red-500">*</span>
             </label>
             <input
               type="number"

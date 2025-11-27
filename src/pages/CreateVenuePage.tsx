@@ -17,7 +17,6 @@ export default function CreateVenuePage() {
     return () => ctrlRef.current?.abort();
   }, []);
 
-  // Guards
   if (!isAuthenticated || !user) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">

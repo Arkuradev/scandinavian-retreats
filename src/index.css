@@ -23,6 +23,17 @@
   cursor: not-allowed;
   border-radius: 999px; /* match rounded style if you like */
 }
+
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 /*
   .btn-secondary {
     @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium

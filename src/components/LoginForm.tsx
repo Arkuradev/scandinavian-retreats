@@ -115,7 +115,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           <p className="mt-1 text-xs text-red-500">{errors.email}</p>
         )}
       </div>
-      
+
       <div>
         <label
           htmlFor="login-password"
