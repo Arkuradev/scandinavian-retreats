@@ -5,7 +5,7 @@
 
 @layer base {
   body {
-    @apply bg-hz-surface-soft text-hz-text font-sans;
+    @apply bg-hz-primary-body text-hz-text font-sans;
   }
 }
 

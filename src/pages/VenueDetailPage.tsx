@@ -204,7 +204,6 @@ export default function VenueDetailPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
-      {/* Top: image + summary */}
       <section className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
         <div className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card overflow-hidden">
           <div className="w-full h-64 md:h-80 bg-hz-surface-soft">
