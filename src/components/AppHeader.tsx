@@ -56,7 +56,6 @@ export default function AppHeader() {
           </NavLink>
 
           <div className="flex items-center gap-2">
-            {/* Desktop nav links */}
             <nav className="hidden md:flex items-center gap-2">
               <NavLink to="/" className={linkClass} end>
                 Home
@@ -79,8 +78,6 @@ export default function AppHeader() {
                 Manage Venue
               </NavLink>
             </nav>
-
-            {/* User menu / auth button (always visible) */}
             {isAuthenticated && user ? (
               <UserMenu user={user} onLogout={logout} />
             ) : (

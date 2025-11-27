@@ -40,7 +40,6 @@ export default function Home() {
     <main className="min-h-screen">
       <Hero />
 
-      {/* VENUE SECTION */}
       <section id="latest-venues" className="max-w-6xl mx-auto px-4 py-12">
         <h2 className="text-2xl font-semibold mb-4">Latest venues</h2>
         {error && <p className="text-red-500">{error}</p>}
