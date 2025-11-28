@@ -3,127 +3,132 @@ import { Link } from "react-router-dom";
 import { Wifi, ParkingCircle, Coffee, PawPrint, Star } from "lucide-react";
 
 export default function VenueCard({ venue }: { venue: Venue }) {
+  const coverImage =
+    venue.media?.[0]?.url || "https://picsum.photos/600/400?blur=2";
+  const coverAlt = venue.media?.[0]?.alt || venue.name;
+
+  const city = venue.location?.city?.trim();
+  const country = venue.location?.country?.trim();
+  const locationLabel =
+    city && country
+      ? `${city}, ${country}`
+      : city || country || "Location unknown";
+
+  const hasRating = typeof venue.rating === "number" && venue.rating > 0;
+
   return (
-    <div className="relative group">
-      {/* Glow effect behind card */}
+    <article className="relative group">
       <div
         className="
           pointer-events-none
-          absolute 
-          -inset-2 
-          rounded-2xl 
-          bg-hz-primary/30 
-          blur-3xl 
-          opacity-0 
-          group-hover:opacity-80 
-          transition-opacity 
-          duration-300
+          absolute -inset-2
+          rounded-3xl
+          bg-hz-primary/60
+          blur-3xl
+          opacity-0
+          group-hover:opacity-80
+          transition-opacity duration-300
           -z-10
         "
       />
-
-      {/* Actual card */}
       <Link
         to={`/venues/${venue.id}`}
         className="
-          relative 
-          block
-          rounded-2xl 
-          overflow-hidden 
-          border 
-          border-hz-border
-          bg-hz-surface 
+          relative block
+          overflow-hidden
+          rounded-2xl
+          border border-hz-border
+          bg-hz-surface
           shadow-hz-card
-          transition-all 
-          duration-300 
-          group-hover:scale-[1.02] 
-          group-hover:shadow-xl
-          group-hover:shadow-hz-primary-hover
-          
+          transition-transform duration-200
+          hover:-translate-y-0.5
+          hover:shadow-xl
         "
+        aria-label={`View details for ${venue.name}`}
       >
-        <div
-          className="
-          relative 
-          rounded-2xl 
-          overflow-hidden 
-          border 
-          border-hz-border
-          bg-hz-surface 
-          shadow-hz-card
-          transition-all 
-          duration-300 
-          group-hover:scale-[1.02] 
-          group-hover:shadow-xl-hz
-        "
-        >
+        <div className="relative h-40 w-full overflow-hidden bg-hz-surface-soft">
           <img
-            src={
-              venue.media?.[0]?.url || "https://picsum.photos/600/400?blur=2"
-            }
-            alt={venue.media?.[0]?.alt || venue.name}
-            className="h-40 w-full object-cover"
+            src={coverImage}
+            alt={coverAlt}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
 
-          <div className="p-3">
-            <h3 className="font-semibold text-lg text-hz-text line-clamp-1">
-              {venue.name}
-            </h3>
-            <p className="text-sm text-hz-muted">
-              {venue.location?.city || ""}
-              {", " + venue.location?.country || "-"}
-            </p>
+          {hasRating && (
+            <div className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-1">
+              <Star className="h-3.5 w-3.5 text-yellow-400 fill-yellow-400" />
+              <span className="text-[11px] font-medium text-white">
+                {venue.rating.toFixed(1)}
+              </span>
+            </div>
+          )}
+        </div>
 
-            {typeof venue.rating === "number" && venue.rating > 0 && (
-              <div className="mt-1 flex items-center gap-1">
-                <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                <span className="text-xs text-hz-muted">
-                  {venue.rating} / 5
-                </span>
-              </div>
-            )}
+        <div className="p-3.5 space-y-1.5">
+          <h3 className="font-semibold text-base md:text-lg text-hz-text line-clamp-1">
+            {venue.name}
+          </h3>
+          <p className="text-xs md:text-sm text-hz-muted line-clamp-1">
+            {locationLabel}
+          </p>
 
-            <div className="mt-2 flex items-center justify-between">
+          <div className="mt-2 flex items-center justify-between">
+            <div className="flex flex-col">
               <span className="text-sm font-semibold text-hz-text">
                 {venue.price} NOK
               </span>
-              <span className="text-xs text-hz-muted">
-                Max {venue.maxGuests} guests
-              </span>
+              <span className="text-[11px] text-hz-muted">per night</span>
             </div>
+            <span className="text-xs text-hz-muted">
+              Max {venue.maxGuests} guest{venue.maxGuests > 1 ? "s" : ""}
+            </span>
+          </div>
 
-            <div className="mt-3 flex items-center gap-2 text-hz-primary">
-              {venue.meta?.wifi && <Wifi className="h-5 w-5" />}
-              {venue.meta?.parking && <ParkingCircle className="h-5 w-5" />}
-              {venue.meta?.breakfast && <Coffee className="h-5 w-5" />}
-              {venue.meta?.pets && <PawPrint className="h-5 w-5" />}
-            </div>
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-hz-primary">
+            {venue.meta?.wifi && (
+              <span className="inline-flex items-center gap-1 text-[11px]">
+                <Wifi className="h-4 w-4" />
+                <span className="sr-only">Wi-Fi</span>
+              </span>
+            )}
+            {venue.meta?.parking && (
+              <span className="inline-flex items-center gap-1 text-[11px]">
+                <ParkingCircle className="h-4 w-4" />
+                <span className="sr-only">Parking</span>
+              </span>
+            )}
+            {venue.meta?.breakfast && (
+              <span className="inline-flex items-center gap-1 text-[11px]">
+                <Coffee className="h-4 w-4" />
+                <span className="sr-only">Breakfast included</span>
+              </span>
+            )}
+            {venue.meta?.pets && (
+              <span className="inline-flex items-center gap-1 text-[11px]">
+                <PawPrint className="h-4 w-4" />
+                <span className="sr-only">Pets allowed</span>
+              </span>
+            )}
           </div>
         </div>
       </Link>
-    </div>
+    </article>
   );
 }
 
 export function VenueSkeletonCard() {
   return (
-    <div className="w-full rounded-xl overflow-hidden border border-hz-border bg-hz-surface shadow-sm animate-pulse">
-      {/* image area */}
+    <div className="w-full rounded-2xl overflow-hidden border border-hz-border bg-hz-surface shadow-hz-card animate-pulse">
       <div className="h-40 w-full bg-hz-primary-soft" />
 
-      <div className="p-3 space-y-2">
-        {/* title */}
+      <div className="p-3.5 space-y-2">
         <div className="h-4 w-2/3 bg-hz-primary-soft rounded" />
-        {/* location line */}
+
         <div className="h-3 w-1/3 bg-hz-primary-soft rounded" />
 
-        {/* price + guests row */}
         <div className="mt-2 flex items-center justify-between">
           <div className="h-4 w-16 bg-hz-primary-soft rounded" />
           <div className="h-3 w-20 bg-hz-primary-soft rounded" />
         </div>
-
-        {/* icons row */}
         <div className="mt-3 flex items-center gap-2">
           <div className="h-5 w-5 bg-hz-primary-soft rounded-full" />
           <div className="h-5 w-5 bg-hz-primary-soft rounded-full" />
