@@ -202,7 +202,7 @@ export default function Home() {
                 bg-white/70 text-hz-text px-4 py-2 text-sm 
                 border border-hz-border shadow-sm
                 hover:bg-white hover:shadow-md hover:-translate-y-0.5
-                transition-transform transition-shadow duration-150
+                transition-shadow duration-150
               "
             >
               <Waves className="h-4 w-4 text-hz-primary" />
@@ -216,7 +216,7 @@ export default function Home() {
                 bg-white/70 text-hz-text px-4 py-2 text-sm 
                 border border-hz-border shadow-sm
                 hover:bg-white hover:shadow-md hover:-translate-y-0.5
-                transition-transform transition-shadow duration-150
+                transition-shadow duration-150
               "
             >
               <Mountain className="h-4 w-4 text-hz-primary" />
@@ -230,7 +230,7 @@ export default function Home() {
                 bg-white/70 text-hz-text px-4 py-2 text-sm 
                 border border-hz-border shadow-sm
                 hover:bg-white hover:shadow-md hover:-translate-y-0.5
-                transition-transform transition-shadow duration-150
+                transition-shadow duration-150
               "
             >
               <Building2 className="h-4 w-4 text-hz-primary" />
@@ -244,7 +244,7 @@ export default function Home() {
                 bg-white/70 text-hz-text px-4 py-2 text-sm 
                 border border-hz-border shadow-sm
                 hover:bg-white hover:shadow-md hover:-translate-y-0.5
-                transition-transform transition-shadow duration-150
+                transition-shadow duration-150
               "
             >
               <Trees className="h-4 w-4 text-hz-primary" />

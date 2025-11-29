@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import AppHeader from "@/components/AppHeader";
+import Footer from "@/components/layout/Footer";
 
 export default function AppLayout() {
   return (
@@ -10,9 +11,7 @@ export default function AppLayout() {
         <Outlet />
       </main>
       <MobileBottomNav />
-      <footer className="border-t border-hz-border py-6 text-center text-sm text-hz-muted">
-        © {new Date().getFullYear()} Holidaze Retreats
-      </footer>
+      <Footer />
     </div>
   );
 }
