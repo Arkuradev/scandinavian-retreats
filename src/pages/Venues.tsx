@@ -10,6 +10,7 @@ import {
   PawPrint,
   SlidersHorizontal,
 } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 type SortKey = "created" | "price" | "rating" | "maxGuests";
 
@@ -67,6 +68,39 @@ function filterVenues(venues: Venue[], filters: Filters): Venue[] {
   });
 }
 
+function applyMoodFilters(mood: string, prev: Filters): Filters {
+  // Start from previous filters but adjust a few that “fit” the mood.
+  switch (mood) {
+    case "coastal":
+      return {
+        ...prev,
+        // keep country/city free to avoid zero-results
+        wifi: true,
+        // don’t force others off – just turn on wifi
+      };
+    case "mountain":
+      return {
+        ...prev,
+        parking: true,
+        pets: prev.pets, // leave as is in case the user already set it
+      };
+    case "city":
+      return {
+        ...prev,
+        wifi: true,
+        breakfast: true,
+      };
+    case "countryside":
+      return {
+        ...prev,
+        pets: true,
+        parking: true,
+      };
+    default:
+      return prev;
+  }
+}
+
 export default function Venues() {
   const [data, setData] = useState<Venue[]>([]);
   const [loadingInitial, setLoadingInitial] = useState(false);
@@ -83,6 +117,9 @@ export default function Venues() {
   const LIMIT = 12;
   const isSearching = searchTerm.trim().length > 0;
   const [showFilters, setShowFilters] = useState(false);
+  const [searchParams] = useSearchParams();
+  const moodParam = searchParams.get("mood");
+  const [activeMood, setActiveMood] = useState<string | null>(null);
 
   const [filters, setFilters] = useState<Filters>({
     country: "",
@@ -95,6 +132,17 @@ export default function Venues() {
     breakfast: false,
     pets: false,
   });
+
+  useEffect(() => {
+    if (!moodParam) {
+      setActiveMood(null);
+      return;
+    }
+
+    setActiveMood(moodParam);
+    setShowFilters(true);
+    setFilters((prev) => applyMoodFilters(moodParam, prev));
+  }, [moodParam]);
 
   function updateFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -194,6 +242,18 @@ export default function Venues() {
       <h1 className="text-3xl font-semibold mb-4 text-hz-text">
         {isSearching ? "Search results" : "Venues available"}
       </h1>
+      {activeMood && (
+        <p className="mb-3 text-sm text-hz-muted">
+          Showing stays for{" "}
+          <span className="font-medium text-hz-text">
+            {activeMood === "coastal" && "Coastal escapes"}
+            {activeMood === "mountain" && "Mountain cabins"}
+            {activeMood === "city" && "City breaks"}
+            {activeMood === "countryside" && "Countryside stays"}
+          </span>
+          . You can adjust filters to refine your search.
+        </p>
+      )}
       <div className="flex flex-col gap-4 mb-8">
         {/* Top row: search + sort + filter toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -218,7 +278,7 @@ export default function Venues() {
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-hz-muted hover:text-hz-text"
                 aria-label="Clear search"
               >
-                ×
+                x
               </button>
             )}
           </div>
@@ -233,7 +293,7 @@ export default function Venues() {
             >
               <option value="price">Price</option>
               <option value="rating">Rating</option>
-              <option value="maxGuests">Max Guests</option>
+              <option value="maxGuests">Guests</option>
             </select>
 
             <button
@@ -241,7 +301,7 @@ export default function Venues() {
               className="rounded border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm hover:bg-hz-primary-soft/60 transition-all"
               aria-label="Toggle sort order"
             >
-              {sortOrder === "asc" ? "Low to High" : "High to Low"}
+              {sortOrder === "asc" ? "Low - High" : "High - Low"}
             </button>
 
             {/* Filters toggle */}
@@ -253,7 +313,7 @@ export default function Venues() {
               aria-controls="venue-filters-panel"
             >
               <SlidersHorizontal className="h-4 w-4 text-hz-primary" />
-              <span>{showFilters ? "Hide filters" : "Show filters"}</span>
+              <span>{showFilters ? "Filter" : "Filter"}</span>
             </button>
           </div>
         </div>
