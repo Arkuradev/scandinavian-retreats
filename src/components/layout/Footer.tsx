@@ -18,7 +18,7 @@ export default function Footer() {
           <div className="space-y-3">
             <Link to="/" className="inline-flex items-center gap-2">
               <img
-                src="src/assets/logo.png"
+                src="/assets/images/logo.png"
                 alt="Holidaze Retreats logo"
                 className="h-14 w-14 rounded-lg bg-white p-1.5"
               />
@@ -195,7 +195,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      {/* Auth modal */}
       {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
     </footer>
   );
