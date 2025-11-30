@@ -13,6 +13,7 @@ export default {
       colors: {
         "hz-primary": "#0EA5E9",
         "hz-primary-body": "#f5fbff",
+        "hz-primary-footer": "#33387c",
         "hz-primary-soft": "#E0F2FE",
         "hz-primary-hover": "#b8e1fc",
         "hz-accent": "#0284C7",
@@ -20,7 +21,7 @@ export default {
         "hz-surface-soft": "#F0F9FF",
         "hz-border": "#E2E8F0",
         "hz-text": "#0F172A",
-        "hz-muted": "#64748B",
+        "hz-muted": "#475569",
       },
       boxShadow: {
         "hz-card": "0 10px 25px rgba(15, 23, 42, 0.08)",

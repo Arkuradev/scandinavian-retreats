@@ -87,25 +87,25 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             {venue.meta?.wifi && (
               <span className="inline-flex items-center gap-1 text-[11px]">
                 <Wifi className="h-4 w-4" />
-                <span className="sr-only">Wi-Fi</span>
+                <span className="sr-only text-hz-text">Wi-Fi</span>
               </span>
             )}
             {venue.meta?.parking && (
               <span className="inline-flex items-center gap-1 text-[11px]">
                 <ParkingCircle className="h-4 w-4" />
-                <span className="sr-only">Parking</span>
+                <span className="sr-only text-hz-text">Parking</span>
               </span>
             )}
             {venue.meta?.breakfast && (
               <span className="inline-flex items-center gap-1 text-[11px]">
                 <Coffee className="h-4 w-4" />
-                <span className="sr-only">Breakfast included</span>
+                <span className="sr-only text-hz-text">Breakfast included</span>
               </span>
             )}
             {venue.meta?.pets && (
               <span className="inline-flex items-center gap-1 text-[11px]">
                 <PawPrint className="h-4 w-4" />
-                <span className="sr-only">Pets allowed</span>
+                <span className="sr-only text-hz-text">Pets allowed</span>
               </span>
             )}
           </div>

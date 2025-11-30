@@ -105,10 +105,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why book with Holidaze */}
       <section
         aria-labelledby="why-book-heading"
-        className="border-t border-hz-border/60 bg-hz-surface-soft/60"
+        className="border-t border-hz-border/60 bg-gradient-to-b from-hz-surface-soft via-hz-primary-body/60 to-hz-surface"
       >
         <div className="max-w-6xl mx-auto px-4 py-10 md:py-14">
           <div className="max-w-2xl mb-8">
