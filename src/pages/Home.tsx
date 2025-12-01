@@ -242,13 +242,13 @@ export default function Home() {
             >
               <Trees className="h-4 w-4 text-hz-primary" />
               <span>Countryside stays</span>
-            </Link> 
+            </Link>
           </div>
           <div className="mt-3 flex text-xs text-hz-muted">
-              <span>
-                Tip: you can refine your search further on the Venues page.
-              </span>
-            </div>
+            <span>
+              Tip: you can refine your search further on the Venues page.
+            </span>
+          </div>
         </div>
       </section>
     </main>
