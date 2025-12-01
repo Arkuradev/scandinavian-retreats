@@ -282,6 +282,7 @@ export default function VenueDetailPage() {
         <div className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card overflow-hidden">
           <div className="relative w-full h-64 md:h-80 bg-hz-surface-soft">
             <img
+              loading="lazy"
               src={mainImage?.url || "https://picsum.photos/800/500?blur=2"}
               alt={mainImage?.alt || venue.name}
               className="w-full h-full object-cover"

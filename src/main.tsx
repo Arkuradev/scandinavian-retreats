@@ -13,7 +13,6 @@ import CreateVenuePage from "@/pages/CreateVenuePage";
 import EditVenuePage from "@/pages/EditVenuePage";
 import MyBookingsPage from "@/pages/MyBookingsPage";
 import ManageVenuesPage from "@/pages/ManageVenuesPage";
-import Account from "@/pages/Account.tsx";
 import NotFound from "@/pages/NotFound.tsx";
 import BookingDetailPage from "@/pages/BookingDetailPage";
 import EditProfilePage from "@/pages/EditProfilePage";
@@ -33,7 +32,6 @@ const router = createBrowserRouter([
       { path: "manage-venues", element: <ManageVenuesPage /> },
       { path: "manage-venues/new", element: <CreateVenuePage /> },
       { path: "manage-venues/edit/:id", element: <EditVenuePage /> },
-      { path: "account", element: <Account /> },
       { path: "profile/edit", element: <EditProfilePage /> },
       { path: "profile/:name", element: <PublicProfilePage /> },
     ],

@@ -168,6 +168,7 @@ function ProfileVenueCard({ venue }: ProfileVenueCardProps) {
         <div className="relative h-36 w-full bg-hz-surface-soft">
           {mainImage?.url ? (
             <img
+              loading="lazy"
               src={mainImage.url}
               alt={mainImage.alt || venue.name}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"

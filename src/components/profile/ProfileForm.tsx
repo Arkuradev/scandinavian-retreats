@@ -32,7 +32,6 @@ export default function ProfileForm({
 
   const [localError, setLocalError] = useState<string | null>(null);
 
-  // Sync when initial changes (e.g. after profile fetch)
   useEffect(() => {
     if (!initial) return;
     setAvatarUrl(initial.avatarUrl ?? "");

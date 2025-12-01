@@ -44,6 +44,7 @@ export default function AppHeader() {
           >
             <div className="h-[50px] w-[50px] flex items-center justify-center rounded-full">
               <img
+                loading="lazy"
                 src={logo}
                 alt="Holidaze logo"
                 className="h-14 w-14 object-contain"

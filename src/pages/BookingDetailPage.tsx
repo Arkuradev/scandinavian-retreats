@@ -88,6 +88,7 @@ export default function BookingDetailPage() {
         {venue && (
           <div className="w-full h-48 md:h-56 bg-hz-surface-soft">
             <img
+              loading="lazy"
               src={
                 venue.media?.[0]?.url || "https://picsum.photos/800/500?blur=2"
               }

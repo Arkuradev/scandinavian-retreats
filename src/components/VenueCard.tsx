@@ -48,6 +48,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
       >
         <div className="relative h-40 w-full overflow-hidden bg-hz-surface-soft">
           <img
+            loading="lazy"
             src={coverImage}
             alt={coverAlt}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"

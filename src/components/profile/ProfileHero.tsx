@@ -19,6 +19,7 @@ export default function ProfileHero({
       <div className="h-40 w-full bg-hz-surface-soft relative">
         {bannerUrl && (
           <img
+            loading="lazy"
             src={bannerUrl}
             alt={profile.banner?.alt || `${profile.name}'s banner`}
             className="h-full w-full object-cover"
@@ -32,6 +33,7 @@ export default function ProfileHero({
           <div className="h-24 w-24 md:h-28 md:w-28 rounded-full border-4 border-hz-surface bg-hz-surface-soft overflow-hidden">
             {avatarUrl ? (
               <img
+                loading="lazy"
                 src={avatarUrl}
                 alt={profile.avatar?.alt || `${profile.name}'s avatar`}
                 className="h-full w-full object-cover"
