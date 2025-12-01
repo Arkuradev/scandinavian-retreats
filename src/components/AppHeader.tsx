@@ -39,7 +39,7 @@ export default function AppHeader() {
 
   return (
     <>
-      <header className="bg-white border-slate-200 shadow-lg sticky top-0 z-40">
+      <header className="bg-hz-surface border-slate-200 shadow-lg sticky top-0 z-40">
         <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
           <NavLink
             to="/"

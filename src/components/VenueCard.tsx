@@ -57,7 +57,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
             <div className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-black/70 px-2 py-1">
               <Star className="h-3.5 w-3.5 text-yellow-400 fill-yellow-400" />
               <span className="text-[11px] font-medium text-white">
-                {venue.rating.toFixed(1)}
+                {venue.rating}
               </span>
             </div>
           )}

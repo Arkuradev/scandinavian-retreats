@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/useToast";
 import { getBookingsForProfile, cancelBooking } from "@/lib/bookings";
 import type { Booking } from "@/lib/bookings";
-import { Link } from "react-router-dom";
+import { MapPin, CalendarDays } from "lucide-react";
 
 function normalizeDate(d: Date) {
   const copy = new Date(d);
@@ -96,8 +97,12 @@ export default function MyBookingsPage() {
 
   if (loading) {
     return (
-      <main className="max-w-6xl mx-auto px-4 py-10">
-        <p className="text-hz-muted">Loading your bookings…</p>
+      <main className="max-w-6xl mx-auto px-4 py-10 space-y-6">
+        <div className="space-y-2 animate-pulse">
+          <div className="h-5 w-40 bg-hz-primary-soft rounded" />
+          <div className="h-3 w-64 bg-hz-primary-soft rounded" />
+        </div>
+        <BookingSkeletonList />
       </main>
     );
   }
@@ -112,11 +117,12 @@ export default function MyBookingsPage() {
 
   if (bookings.length === 0) {
     return (
-      <main className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="text-2xl font-semibold text-hz-text mb-2">
-          My bookings
-        </h1>
-        <p className="text-hz-muted">You don&apos;t have any bookings yet.</p>
+      <main className="max-w-6xl mx-auto px-4 py-10 space-y-3">
+        <h1 className="text-2xl font-semibold text-hz-text">My bookings</h1>
+        <p className="text-sm text-hz-muted">
+          You don&apos;t have any bookings yet. Once you book a retreat, it will
+          appear here.
+        </p>
       </main>
     );
   }
@@ -132,35 +138,54 @@ export default function MyBookingsPage() {
     const venueName = venue?.name ?? "View venue";
     const venueId = venue?.id ?? (booking as any).venueId;
 
+    const city = venue?.location?.city;
+    const country = venue?.location?.country;
+    const locationLabel =
+      city && country
+        ? `${city}, ${country}`
+        : city || country || "Location unknown";
+
     return (
       <article
         key={booking.id}
-        className="rounded-xl border border-hz-border bg-hz-surface shadow-hz-card p-4 flex flex-col gap-2"
+        className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card p-4 md:p-5 flex flex-col gap-3"
       >
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="space-y-1">
             {venueId ? (
               <Link
                 to={`/bookings/${booking.id}`}
-                className="text-lg font-semibold text-hz-primary hover:underline"
+                className="text-base md:text-lg font-semibold text-hz-text hover:text-hz-primary"
               >
                 {venueName}
               </Link>
             ) : (
-              <p className="text-lg font-semibold text-hz-text">{venueName}</p>
+              <p className="text-base md:text-lg font-semibold text-hz-text">
+                {venueName}
+              </p>
             )}
-            <p className="text-xs text-hz-muted">
-              {range} · {booking.guests} guest
-              {booking.guests > 1 ? "s" : ""}
-            </p>
+
+            <div className="flex flex-wrap items-center gap-3 text-xs text-hz-muted">
+              <span className="inline-flex items-center gap-1">
+                <CalendarDays className="h-4 w-4 text-hz-primary" />
+                <span>{range}</span>
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <MapPin className="h-4 w-4 text-hz-primary" />
+                <span>{locationLabel}</span>
+              </span>
+              <span>
+                {booking.guests} guest{booking.guests > 1 ? "s" : ""}
+              </span>
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 items-center">
+          <div className="flex flex-col items-start sm:items-end gap-2">
             {showCancel && (
               <button
                 type="button"
                 onClick={() => handleCancelBooking(booking.id)}
-                className="text-xs text-red-500 hover:underline"
+                className="text-xs font-medium text-red-600 hover:text-red-700 hover:underline underline-offset-2"
               >
                 Cancel booking
               </button>
@@ -173,34 +198,60 @@ export default function MyBookingsPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
-      <header>
-        <h1 className="text-2xl font-semibold text-hz-text">My bookings</h1>
+      <header className="space-y-1">
+        <h1 className="text-2xl md:text-3xl font-semibold text-hz-text">
+          My bookings
+        </h1>
         <p className="text-sm text-hz-muted">
-          View your upcoming stays and your previous trips.
+          View your upcoming stays and your previous trips in one place.
         </p>
       </header>
+
+      {/* Upcoming */}
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-hz-text">
-          Upcoming bookings
-        </h2>
+        <header className="flex items-center justify-between gap-2">
+          <h2 className="text-lg font-semibold text-hz-text">
+            Upcoming bookings
+          </h2>
+          {upcoming.length > 0 && (
+            <p className="text-xs text-hz-muted">
+              {upcoming.length} active booking
+              {upcoming.length > 1 ? "s" : ""}
+            </p>
+          )}
+        </header>
+
         {upcoming.length === 0 ? (
-          <p className="text-sm text-hz-muted">
-            You don&apos;t have any upcoming bookings.
-          </p>
+          <div className="rounded-2xl border border-dashed border-hz-border bg-hz-surface-soft px-4 py-5 text-sm text-hz-muted">
+            You don&apos;t have any upcoming bookings. Once you book a new stay,
+            it will show up here.
+          </div>
         ) : (
           <div className="space-y-3">
             {upcoming.map((b) => renderBookingCard(b, true))}
           </div>
         )}
       </section>
+
+      {/* Previous */}
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-hz-text">
-          Previous bookings
-        </h2>
+        <header className="flex items-center justify-between gap-2">
+          <h2 className="text-lg font-semibold text-hz-text">
+            Previous bookings
+          </h2>
+          {previous.length > 0 && (
+            <p className="text-xs text-hz-muted">
+              {previous.length} completed stay
+              {previous.length > 1 ? "s" : ""}
+            </p>
+          )}
+        </header>
+
         {previous.length === 0 ? (
-          <p className="text-sm text-hz-muted">
-            You haven&apos;t completed any stays yet.
-          </p>
+          <div className="rounded-2xl border border-dashed border-hz-border bg-hz-surface-soft px-4 py-5 text-sm text-hz-muted">
+            You haven&apos;t completed any stays yet. Once your trips are
+            finished, they&apos;ll appear here.
+          </div>
         ) : (
           <div className="space-y-3">
             {previous.map((b) => renderBookingCard(b, false))}
@@ -208,5 +259,24 @@ export default function MyBookingsPage() {
         )}
       </section>
     </main>
+  );
+}
+
+/* ---------- Skeleton list for loading state ----------- */
+
+function BookingSkeletonList() {
+  return (
+    <section aria-hidden="true" className="space-y-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div
+          key={i}
+          className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card p-4 md:p-5 animate-pulse space-y-3"
+        >
+          <div className="h-4 w-40 bg-hz-primary-soft rounded" />
+          <div className="h-3 w-64 bg-hz-primary-soft rounded" />
+          <div className="h-3 w-32 bg-hz-primary-soft rounded" />
+        </div>
+      ))}
+    </section>
   );
 }
