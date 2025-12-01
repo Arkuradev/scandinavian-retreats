@@ -49,6 +49,7 @@ export default function Hero() {
           <div className="relative z-10 rounded-3xl bg-hz-surface border border-hz-border shadow-hz-card overflow-hidden">
             <div className="relative h-40 md:h-48">
               <img
+                fetchPriority="high"
                 src="/assets/images/herosectionimage.jpg"
                 alt="Hero"
                 className="h-full w-full object-cover"
