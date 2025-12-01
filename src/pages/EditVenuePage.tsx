@@ -59,9 +59,10 @@ export default function EditVenuePage() {
       </main>
     );
   }
+
   if (!user.venueManager) {
     return (
-      <main className="max-6xl mx-auto px-4 py-10">
+      <main className="max-w-6xl mx-auto px-4 py-10">
         <p className="text-hz-muted">
           You need to be logged in as a venue manager to edit venues.
         </p>
@@ -110,7 +111,14 @@ export default function EditVenuePage() {
         maxGuests: venue.maxGuests,
         city: venue.location?.city ?? "",
         country: venue.location?.country ?? "",
+
         imageUrl: venue.media?.[0]?.url ?? "",
+        media:
+          venue.media?.map((m) => ({
+            url: m.url ?? "",
+            alt: m.alt ?? "",
+          })) ?? [],
+
         rating: venue.rating,
         wifi: venue.meta?.wifi ?? false,
         parking: venue.meta?.parking ?? false,

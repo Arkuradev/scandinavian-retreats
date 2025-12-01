@@ -12,6 +12,7 @@ export type VenueFormInitial = {
   city?: string;
   country?: string;
   imageUrl?: string;
+  media?: { url?: string; alt?: string }[];
   rating?: number;
   wifi?: boolean;
   parking?: boolean;
@@ -66,6 +67,8 @@ function StarRating({ rating, max = 5, onChange }: StarRatingProps) {
   );
 }
 
+type MediaField = { url: string; alt: string };
+
 export default function VenueForm({
   mode = "create",
   initial,
@@ -84,9 +87,6 @@ export default function VenueForm({
   const [city, setCity] = useState(initial?.city ?? "");
   const [country, setCountry] = useState(initial?.country ?? "");
 
-  // Media – single URL for now
-  const [imageUrl, setImageUrl] = useState(initial?.imageUrl ?? "");
-
   const [wifi, setWifi] = useState(initial?.wifi ?? false);
   const [parking, setParking] = useState(initial?.parking ?? false);
   const [breakfast, setBreakfast] = useState(initial?.breakfast ?? false);
@@ -96,6 +96,20 @@ export default function VenueForm({
 
   const [localError, setLocalError] = useState<string | null>(null);
 
+  // 🔹 NEW: multi-image state
+  const [mediaFields, setMediaFields] = useState<MediaField[]>(() => {
+    if (initial?.media && initial.media.length > 0) {
+      return initial.media.map((m) => ({
+        url: m.url ?? "",
+        alt: m.alt ?? "",
+      }));
+    }
+    if (initial?.imageUrl) {
+      return [{ url: initial.imageUrl, alt: "" }];
+    }
+    return [{ url: "", alt: "" }];
+  });
+
   useEffect(() => {
     if (!initial) return;
     setName(initial.name ?? "");
@@ -104,12 +118,25 @@ export default function VenueForm({
     setMaxGuests(initial.maxGuests ?? "");
     setCity(initial.city ?? "");
     setCountry(initial.country ?? "");
-    setImageUrl(initial.imageUrl ?? "");
     setWifi(initial.wifi ?? false);
     setParking(initial.parking ?? false);
     setBreakfast(initial.breakfast ?? false);
     setPets(initial.pets ?? false);
     setRating(initial.rating ?? 0);
+
+    // sync media when editing existing venue
+    if (initial.media && initial.media.length > 0) {
+      setMediaFields(
+        initial.media.map((m) => ({
+          url: m.url ?? "",
+          alt: m.alt ?? "",
+        })),
+      );
+    } else if (initial.imageUrl) {
+      setMediaFields([{ url: initial.imageUrl, alt: "" }]);
+    } else {
+      setMediaFields([{ url: "", alt: "" }]);
+    }
   }, [initial]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -148,16 +175,51 @@ export default function VenueForm({
       },
     };
 
-    if (imageUrl.trim()) {
-      body.media = [
-        {
-          url: imageUrl.trim(),
-          alt: `${trimmedName} photo`,
-        },
-      ];
+    // 🔹 Collect media from all non-empty URLs
+    const cleanedMedia = mediaFields
+      .map((field) => ({
+        url: field.url.trim(),
+        alt: field.alt.trim(),
+      }))
+      .filter((m) => m.url.length > 0)
+      .map((m) => ({
+        url: m.url,
+        alt: m.alt || `${trimmedName} photo`,
+      }));
+
+    if (cleanedMedia.length > 0) {
+      body.media = cleanedMedia;
     }
 
     onSubmit(body);
+  }
+
+  function updateMediaField(
+    index: number,
+    key: keyof MediaField,
+    value: string,
+  ) {
+    setMediaFields((prev) =>
+      prev.map((field, i) =>
+        i === index
+          ? {
+              ...field,
+              [key]: value,
+            }
+          : field,
+      ),
+    );
+  }
+
+  function addMediaField() {
+    setMediaFields((prev) => [...prev, { url: "", alt: "" }]);
+  }
+
+  function removeMediaField(index: number) {
+    setMediaFields((prev) => {
+      if (prev.length === 1) return prev; // keep at least one row
+      return prev.filter((_, i) => i !== index);
+    });
   }
 
   const title = mode === "create" ? "Create a new venue" : "Edit venue details";
@@ -177,6 +239,7 @@ export default function VenueForm({
         onSubmit={handleSubmit}
         className="space-y-6 rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-6 shadow-hz-card"
       >
+        {/* Basic info */}
         <div className="space-y-3">
           <div>
             <label
@@ -213,11 +276,13 @@ export default function VenueForm({
           </div>
         </div>
 
+        {/* Rating */}
         <div className="space-y-1">
           <p className="text-sm font-medium text-hz-text">Rating</p>
           <StarRating rating={rating} onChange={setRating} />
         </div>
 
+        {/* Price & Guests */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label
@@ -296,25 +361,83 @@ export default function VenueForm({
           </div>
         </div>
 
-        {/* Media */}
-        <div>
-          <label
-            className="block text-sm font-medium text-hz-text mb-1"
-            htmlFor="imageUrl"
+        {/* 🔹 Media: multiple images */}
+        <div className="space-y-2">
+          <div className="flex items-baseline justify-between gap-2">
+            <div>
+              <p className="text-sm font-medium text-hz-text">Images</p>
+              <p className="text-xs text-hz-muted">
+                Add one or more image URLs. The first image will be used as the
+                main cover.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            {mediaFields.map((field, index) => (
+              <div
+                key={index}
+                className="grid gap-2 sm:grid-cols-[minmax(0,2.2fr)_minmax(0,1.4fr)_auto] items-start"
+              >
+                <div>
+                  <label
+                    className="block text-xs font-medium text-hz-text mb-1"
+                    htmlFor={`media-url-${index}`}
+                  >
+                    Image URL {index + 1}
+                  </label>
+                  <input
+                    id={`media-url-${index}`}
+                    type="url"
+                    value={field.url}
+                    onChange={(e) =>
+                      updateMediaField(index, "url", e.target.value)
+                    }
+                    className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-xs md:text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+                    placeholder="https://images.unsplash.com/..."
+                  />
+                </div>
+
+                <div>
+                  <label
+                    className="block text-xs font-medium text-hz-text mb-1"
+                    htmlFor={`media-alt-${index}`}
+                  >
+                    Alt text (optional)
+                  </label>
+                  <input
+                    id={`media-alt-${index}`}
+                    type="text"
+                    value={field.alt}
+                    onChange={(e) =>
+                      updateMediaField(index, "alt", e.target.value)
+                    }
+                    className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-xs md:text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+                    placeholder="Cozy living room with fireplace"
+                  />
+                </div>
+
+                <div className="flex items-center pt-6">
+                  <button
+                    type="button"
+                    onClick={() => removeMediaField(index)}
+                    disabled={mediaFields.length === 1}
+                    className="text-xs text-red-500 hover:text-red-600 disabled:text-hz-muted disabled:cursor-not-allowed"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={addMediaField}
+            className="mt-1 inline-flex items-center text-xs text-hz-primary hover:text-hz-accent"
           >
-            Image URL
-          </label>
-          <input
-            id="imageUrl"
-            type="url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
-            placeholder="https://images.unsplash.com/..."
-          />
-          <p className="mt-1 text-xs text-hz-muted">
-            Use a valid image URL (Unsplash works great for testing).
-          </p>
+            + Add another image
+          </button>
         </div>
 
         {/* Amenities */}

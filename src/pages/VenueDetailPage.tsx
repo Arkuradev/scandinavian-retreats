@@ -13,9 +13,76 @@ import {
   MapPin,
   Users,
   Star,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { createBooking } from "@/lib/bookings";
 import { useToast } from "@/hooks/useToast";
+
+function VenueDetailSkeleton() {
+  return (
+    <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
+      {/* Top grid: gallery + booking/info card */}
+      <section className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
+        {/* Left: gallery skeleton */}
+        <div className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card overflow-hidden animate-pulse">
+          <div className="w-full h-64 md:h-80 bg-hz-primary-soft" />
+
+          <div className="flex gap-2 p-3 bg-hz-surface-soft border-t border-hz-border">
+            <div className="h-16 w-20 bg-hz-primary-soft rounded-md" />
+            <div className="h-16 w-20 bg-hz-primary-soft rounded-md" />
+            <div className="h-16 w-20 bg-hz-primary-soft rounded-md" />
+          </div>
+        </div>
+
+        {/* Right: title/meta/booking skeleton */}
+        <div className="space-y-4 animate-pulse">
+          {/* Title + host + location */}
+          <div className="space-y-3">
+            <div className="h-6 w-2/3 bg-hz-primary-soft rounded" />
+            <div className="h-3 w-1/3 bg-hz-primary-soft rounded" />
+            <div className="h-3 w-1/2 bg-hz-primary-soft rounded" />
+          </div>
+
+          {/* Rating + guests + price row */}
+          <div className="flex items-center justify-between gap-4">
+            <div className="h-4 w-1/3 bg-hz-primary-soft rounded" />
+            <div className="h-6 w-24 bg-hz-primary-soft rounded" />
+          </div>
+
+          {/* Amenities row */}
+          <div className="flex flex-wrap gap-2">
+            <div className="h-6 w-20 bg-hz-primary-soft rounded-full" />
+            <div className="h-6 w-24 bg-hz-primary-soft rounded-full" />
+            <div className="h-6 w-20 bg-hz-primary-soft rounded-full" />
+          </div>
+
+          {/* Booking card skeleton */}
+          <section className="mt-4 p-4 rounded-xl border border-hz-border bg-hz-surface-soft space-y-4">
+            <div className="h-4 w-32 bg-hz-primary-soft rounded" />
+
+            {/* Date picker skeleton */}
+            <div className="h-10 w-full bg-hz-primary-soft rounded" />
+
+            {/* Guests skeleton */}
+            <div className="h-10 w-40 bg-hz-primary-soft rounded" />
+
+            {/* Button skeleton */}
+            <div className="h-10 w-full sm:w-40 bg-hz-primary-soft rounded-md" />
+          </section>
+        </div>
+      </section>
+
+      {/* Description section skeleton */}
+      <section className="rounded-xl border border-hz-border bg-hz-surface p-4 md:p-6 space-y-3 animate-pulse">
+        <div className="h-4 w-40 bg-hz-primary-soft rounded" />
+        <div className="h-3 w-full bg-hz-primary-soft rounded" />
+        <div className="h-3 w-5/6 bg-hz-primary-soft rounded" />
+        <div className="h-3 w-4/6 bg-hz-primary-soft rounded" />
+      </section>
+    </main>
+  );
+}
 
 export default function VenueDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -175,11 +242,7 @@ export default function VenueDetailPage() {
   }
 
   if (loading) {
-    return (
-      <main className="max-w-6xl mx-auto px-4 py-10">
-        <p className="text-hz-muted">Loading venue…</p>
-      </main>
-    );
+    return <VenueDetailSkeleton />;
   }
   if (error || !venue) {
     return (
@@ -190,6 +253,7 @@ export default function VenueDetailPage() {
   }
   const media = venue.media ?? [];
   const mainImage = media[activeImageIndex] ?? media[0];
+  const hasMultipleImages = media.length > 1;
   const bookings = venue.bookings ?? [];
   const excludedIntervals =
     bookings.length > 0
@@ -202,16 +266,87 @@ export default function VenueDetailPage() {
     ? bookings.filter((b) => b.customer?.name === user.name)
     : [];
 
+  function showPrevImage() {
+    if (!hasMultipleImages) return;
+    setActiveImageIndex((prev) => (prev === 0 ? media.length - 1 : prev - 1));
+  }
+
+  function showNextImage() {
+    if (!hasMultipleImages) return;
+    setActiveImageIndex((prev) => (prev === media.length - 1 ? 0 : prev + 1));
+  }
+
   return (
     <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
       <section className="grid gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
         <div className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card overflow-hidden">
-          <div className="w-full h-64 md:h-80 bg-hz-surface-soft">
+          <div className="relative w-full h-64 md:h-80 bg-hz-surface-soft">
             <img
               src={mainImage?.url || "https://picsum.photos/800/500?blur=2"}
               alt={mainImage?.alt || venue.name}
               className="w-full h-full object-cover"
             />
+
+            {hasMultipleImages && (
+              <>
+                {/* Left arrow */}
+                <button
+                  type="button"
+                  onClick={showPrevImage}
+                  className="
+          absolute left-3 top-1/2 -translate-y-1/2
+          inline-flex items-center justify-center
+          h-9 w-9 rounded-full
+          bg-black/55 backdrop-blur-sm
+          text-white
+          border border-white/30
+          shadow-md
+          hover:bg-black/70
+          focus:outline-none focus:ring-2 focus:ring-hz-primary
+        "
+                  aria-label="View previous photo"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+
+                {/* Right arrow */}
+                <button
+                  type="button"
+                  onClick={showNextImage}
+                  className="
+          absolute right-3 top-1/2 -translate-y-1/2
+          inline-flex items-center justify-center
+          h-9 w-9 rounded-full
+          bg-black/55 backdrop-blur-sm
+          text-white
+          border border-white/30
+          shadow-md
+          hover:bg-black/70
+          focus:outline-none focus:ring-2 focus:ring-hz-primary
+        "
+                  aria-label="View next photo"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+
+                {/* Photo counter pill */}
+                <div
+                  className="
+          absolute bottom-3 right-3
+          inline-flex items-center gap-1
+          rounded-full bg-black/60 backdrop-blur-sm
+          px-3 py-1
+          text-[11px] font-medium text-white
+          border border-white/20
+        "
+                  aria-label={`Photo ${activeImageIndex + 1} of ${media.length}`}
+                >
+                  <span>{activeImageIndex + 1}</span>
+                  <span className="opacity-70">/</span>
+                  <span className="opacity-80">{media.length}</span>
+                </div>
+              </>
+            )}
           </div>
 
           {media.length > 1 && (
