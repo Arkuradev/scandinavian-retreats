@@ -286,7 +286,7 @@ export default function VenueDetailPage() {
             <div className="text-right">
               <p className="text-sm text-hz-muted">From</p>
               <p className="text-2xl font-semibold text-hz-text">
-                ${venue.price}
+                {venue.price} kr
                 <span className="text-xs font-normal text-hz-muted">
                   {" "}
                   / night

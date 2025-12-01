@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { MapPin, Users, Tag } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { getVenuesForProfile, deleteVenue } from "@/lib/fetchVenues";
 import type { Venue } from "@/types/holidaze";
@@ -61,6 +62,8 @@ export default function ManageVenuesPage() {
       "Are you sure you want to delete this venue? This cannot be undone.",
     );
     if (!ok) return;
+
+    // Optimistic UI update
     setVenues((prev) => prev.filter((v) => v.id !== venueId));
 
     try {
@@ -69,13 +72,22 @@ export default function ManageVenuesPage() {
     } catch (err) {
       console.error(err);
       toastError("Could not delete venue, please try again.");
+      // optional: rollback if you want
     }
   }
 
   if (loading) {
     return (
-      <main className="max-w-6xl mx-auto px-4 py-10">
-        <p className="text-hz-muted">Loading your venues…</p>
+      <main className="max-w-6xl mx-auto px-4 py-10 space-y-6">
+        {/* header skeleton */}
+        <div className="flex items-center justify-between gap-4 animate-pulse">
+          <div className="space-y-2">
+            <div className="h-5 w-40 bg-hz-primary-soft rounded" />
+            <div className="h-3 w-64 bg-hz-primary-soft rounded" />
+          </div>
+          <div className="h-9 w-32 bg-hz-primary-soft rounded-lg" />
+        </div>
+        <ManageVenuesSkeletonList />
       </main>
     );
   }
@@ -87,93 +99,149 @@ export default function ManageVenuesPage() {
       </main>
     );
   }
+
   return (
-    <main className="max-w-6xl mx-auto px-4 py-10 space-y-4">
-      <header className="flex items-center justify-between gap-4 mb-4">
+    <main className="max-w-6xl mx-auto px-4 py-10 space-y-6">
+      <header className="flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-hz-text">Manage venues</h1>
+          <h1 className="text-2xl md:text-3xl font-semibold text-hz-text">
+            Manage venues
+          </h1>
           <p className="text-sm text-hz-muted">
-            Create, update, and view your listed stays.
+            Create, update, and keep track of the retreats you&apos;re hosting.
           </p>
         </div>
 
-        {/* FIX THIS LATER */}
         <Link className="btn-primary" to="/manage-venues/new">
-          Create Venue
+          Create venue
         </Link>
       </header>
 
       {venues.length === 0 ? (
-        <p className="text-hz-muted text-sm">
-          You don&apos;t have any venues yet. Click &quot;Create new venue&quot;
-          to add one.
-        </p>
+        <div className="rounded-2xl border border-dashed border-hz-border bg-hz-surface-soft px-4 py-6 text-sm text-hz-muted">
+          You don&apos;t have any venues yet. Click{" "}
+          <span className="font-medium text-hz-text">Create venue</span> to add
+          your first retreat.
+        </div>
       ) : (
-        <div className="space-y-3">
-          {venues.map((venue) => (
-            <article
-              key={venue.id}
-              className="flex flex-col sm:flex-row gap-3 rounded-xl border border-hz-border bg-hz-surface shadow-hz-card p-3"
-            >
-              {/* Thumbnail */}
-              <div className="w-full sm:w-40 h-28 rounded-lg overflow-hidden bg-hz-surface-soft border border-hz-border">
-                <img
-                  src={
-                    venue.media?.[0]?.url ||
-                    "https://picsum.photos/400/300?blur=2"
-                  }
-                  alt={venue.media?.[0]?.alt || venue.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+        <section className="space-y-3">
+          {venues.map((venue) => {
+            const cover =
+              venue.media?.[0]?.url || "https://picsum.photos/400/300?blur=2";
 
-              {/* Info */}
-              <div className="flex-1 flex flex-col justify-between gap-2">
-                <div>
-                  <h2 className="text-lg font-semibold text-hz-text">
-                    {venue.name}
-                  </h2>
-                  <p className="text-xs text-hz-muted line-clamp-2">
-                    {venue.description || "No description provided."}
-                  </p>
+            const coverAlt = venue.media?.[0]?.alt || venue.name;
+
+            const city = venue.location?.city;
+            const country = venue.location?.country;
+            const locationLabel =
+              city && country
+                ? `${city}, ${country}`
+                : city || country || "Location unknown";
+
+            return (
+              <article
+                key={venue.id}
+                className="flex flex-col sm:flex-row gap-4 rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card p-4 md:p-5"
+              >
+                {/* Thumbnail */}
+                <div className="w-full sm:w-40 h-28 rounded-xl overflow-hidden bg-hz-surface-soft border border-hz-border flex-shrink-0">
+                  <img
+                    src={cover}
+                    alt={coverAlt}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
-                <div className="flex flex-wrap gap-2 justify-between items-center text-xs">
-                  <span className="text-hz-muted">
-                    {venue.location?.city || "Unknown city"},{" "}
-                    {venue.location?.country ||
-                      venue.location?.continent ||
-                      "Unknown"}
-                  </span>
+                {/* Info + actions */}
+                <div className="flex-1 flex flex-col gap-3">
+                  <div className="space-y-1">
+                    <h2 className="text-base md:text-lg font-semibold text-hz-text line-clamp-1">
+                      {venue.name}
+                    </h2>
+                    <p className="text-xs text-hz-muted line-clamp-2">
+                      {venue.description || "No description provided yet."}
+                    </p>
 
-                  <div className="flex gap-2">
-                    <Link
-                      to={`/venues/${venue.id}`}
-                      className="text-hz-primary hover:underline"
-                    >
-                      View
-                    </Link>
-                    {/* We'll hook these up later */}
-                    <Link
-                      to={`/manage-venues/edit/${venue.id}`}
-                      className="text-hz-primary hover:underline"
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(venue.id)}
-                      className="text-red-500 hover:underline"
-                    >
-                      Delete
-                    </button>
+                    <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-hz-muted">
+                      <span className="inline-flex items-center gap-1">
+                        <MapPin className="h-4 w-4 text-hz-primary" />
+                        <span>{locationLabel}</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <Tag className="h-4 w-4 text-hz-primary" />
+                        <span>{venue.price} kr / night</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1">
+                        <Users className="h-4 w-4 text-hz-primary" />
+                        <span>
+                          Max {venue.maxGuests} guest
+                          {venue.maxGuests > 1 ? "s" : ""}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-1 text-xs">
+                    <span className="text-hz-muted">
+                      ID:{" "}
+                      <span className="font-mono text-[11px]">
+                        {venue.id.slice(0, 8)}…
+                      </span>
+                    </span>
+
+                    <div className="flex gap-3">
+                      <Link
+                        to={`/venues/${venue.id}`}
+                        className="text-hz-text hover:text-hz-primary"
+                      >
+                        View
+                      </Link>
+                      <Link
+                        to={`/manage-venues/edit/${venue.id}`}
+                        className="text-hz-text hover:text-hz-primary"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(venue.id)}
+                        className="text-red-600 hover:text-red-700"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
-        </div>
+              </article>
+            );
+          })}
+        </section>
       )}
     </main>
+  );
+}
+
+/* ---------- Skeleton list for loading state ----------- */
+
+function ManageVenuesSkeletonList() {
+  return (
+    <section aria-hidden="true" className="space-y-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div
+          key={i}
+          className="flex flex-col sm:flex-row gap-4 rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card p-4 md:p-5 animate-pulse"
+        >
+          <div className="w-full sm:w-40 h-28 rounded-xl bg-hz-primary-soft" />
+          <div className="flex-1 space-y-3">
+            <div className="h-4 w-2/3 bg-hz-primary-soft rounded" />
+            <div className="h-3 w-full bg-hz-primary-soft rounded" />
+            <div className="flex justify-between items-center gap-4 pt-2">
+              <div className="h-3 w-32 bg-hz-primary-soft rounded" />
+              <div className="h-3 w-24 bg-hz-primary-soft rounded" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
   );
 }

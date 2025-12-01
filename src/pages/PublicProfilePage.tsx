@@ -194,7 +194,7 @@ function ProfileVenueCard({ venue }: ProfileVenueCardProps) {
 
           <div className="mt-2 flex items-center justify-between text-xs text-hz-muted">
             <span className="font-semibold text-hz-text">
-              {venue.price.toLocaleString()} NOK
+              {venue.price.toLocaleString()} kr
             </span>
             <span>
               Max {venue.maxGuests} guest{venue.maxGuests > 1 ? "s" : ""}

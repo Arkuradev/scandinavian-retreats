@@ -48,7 +48,7 @@ export default function BookingDetailPage() {
   if (loading) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
-        <p className="text-hz-muted">Loading booking…</p>
+        <BookingDetailSkeleton />
       </main>
     );
   }
@@ -101,7 +101,7 @@ export default function BookingDetailPage() {
           {venue && (
             <div className="space-y-1">
               <div className="flex items-center gap-2 text-sm text-hz-muted">
-                <MapPin className="h-4 w-4" />
+                <MapPin className="h-4 w-4 text-hz-primary" />
                 <span>
                   {venue.location?.city || "Unknown city"},{" "}
                   {venue.location?.country ||
@@ -141,7 +141,7 @@ export default function BookingDetailPage() {
             <div className="flex flex-wrap gap-3 pt-2 text-sm">
               <Link
                 to={`/venues/${venue.id}`}
-                className="text-hz-primary hover:underline"
+                className="text-hz-text hover:text-hz-primary"
               >
                 View venue details
               </Link>
@@ -150,11 +150,62 @@ export default function BookingDetailPage() {
         </div>
       </section>
 
-      {/* Optional: small note */}
       <p className="text-xs text-hz-muted">
         This page serves as your booking confirmation. You&apos;ll also find
         this booking under <span className="font-medium">My bookings</span>.
       </p>
     </main>
+  );
+}
+
+/* -------- Skeleton component to mirror the layout -------- */
+
+function BookingDetailSkeleton() {
+  return (
+    <div className="space-y-6 animate-pulse">
+      {/* Header skeleton */}
+      <div className="space-y-2">
+        <div className="h-3 w-40 bg-hz-primary-soft rounded" />
+        <div className="h-6 w-64 bg-hz-primary-soft rounded" />
+        <div className="h-3 w-56 bg-hz-primary-soft rounded" />
+        <div className="h-3 w-44 bg-hz-primary-soft rounded" />
+      </div>
+
+      {/* Card skeleton */}
+      <section className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card overflow-hidden">
+        <div className="w-full h-48 md:h-56 bg-hz-primary-soft" />
+
+        <div className="p-4 md:p-6 space-y-4">
+          {/* Location + description skeleton */}
+          <div className="space-y-2">
+            <div className="h-3 w-52 bg-hz-primary-soft rounded" />
+            <div className="h-3 w-full bg-hz-primary-soft rounded" />
+            <div className="h-3 w-4/5 bg-hz-primary-soft rounded" />
+          </div>
+
+          {/* Date / guests skeleton */}
+          <div className="grid gap-4 sm:grid-cols-3 bg-hz-surface-soft rounded-xl border border-hz-border p-4">
+            <div className="space-y-2">
+              <div className="h-2 w-16 bg-hz-primary-soft rounded" />
+              <div className="h-4 w-28 bg-hz-primary-soft rounded" />
+            </div>
+            <div className="space-y-2">
+              <div className="h-2 w-16 bg-hz-primary-soft rounded" />
+              <div className="h-4 w-28 bg-hz-primary-soft rounded" />
+            </div>
+            <div className="space-y-2">
+              <div className="h-2 w-16 bg-hz-primary-soft rounded" />
+              <div className="h-4 w-20 bg-hz-primary-soft rounded" />
+            </div>
+          </div>
+
+          {/* Link row skeleton */}
+          <div className="h-3 w-32 bg-hz-primary-soft rounded" />
+        </div>
+      </section>
+
+      {/* tiny note skeleton */}
+      <div className="h-3 w-72 bg-hz-primary-soft rounded" />
+    </div>
   );
 }

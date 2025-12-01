@@ -74,7 +74,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
           <div className="mt-2 flex items-center justify-between">
             <div className="flex flex-col">
               <span className="text-sm font-semibold text-hz-text">
-                {venue.price} NOK
+                {venue.price} kr
               </span>
               <span className="text-[11px] text-hz-muted">per night</span>
             </div>

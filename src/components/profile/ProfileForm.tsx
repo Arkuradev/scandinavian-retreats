@@ -84,20 +84,28 @@ export default function ProfileForm({
       >
         {/* Avatar */}
         <div>
-          <label className="block text-sm font-medium text-hz-text mb-1">
+          <label
+            className="block text-sm font-medium text-hz-text mb-1"
+            htmlFor="avatar"
+          >
             Avatar URL
           </label>
           <input
+            id="avatar"
             type="url"
             value={avatarUrl}
             onChange={(e) => setAvatarUrl(e.target.value)}
             className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             placeholder="https://images.unsplash.com/..."
           />
-          <label className="mt-2 block text-xs font-medium text-hz-text mb-1">
+          <label
+            className="mt-2 block text-xs font-medium text-hz-text mb-1"
+            htmlFor="avatarAlt"
+          >
             Avatar alt text
           </label>
           <input
+            id="avatarAlt"
             type="text"
             value={avatarAlt}
             onChange={(e) => setAvatarAlt(e.target.value)}
@@ -108,20 +116,28 @@ export default function ProfileForm({
 
         {/* Banner */}
         <div>
-          <label className="block text-sm font-medium text-hz-text mb-1">
+          <label
+            className="block text-sm font-medium text-hz-text mb-1"
+            htmlFor="bannerUrl"
+          >
             Banner URL
           </label>
           <input
+            id="bannerUrl"
             type="url"
             value={bannerUrl}
             onChange={(e) => setBannerUrl(e.target.value)}
             className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             placeholder="https://images.unsplash.com/..."
           />
-          <label className="mt-2 block text-xs font-medium text-hz-text mb-1">
+          <label
+            className="mt-2 block text-xs font-medium text-hz-text mb-1"
+            htmlFor="bannerAlt"
+          >
             Banner alt text
           </label>
           <input
+            id="bannerAlt"
             type="text"
             value={bannerAlt}
             onChange={(e) => setBannerAlt(e.target.value)}
@@ -132,10 +148,14 @@ export default function ProfileForm({
 
         {/* Bio */}
         <div>
-          <label className="block text-sm font-medium text-hz-text mb-1">
+          <label
+            className="block text-sm font-medium text-hz-text mb-1"
+            htmlFor="bio"
+          >
             Bio
           </label>
           <textarea
+            id="bio"
             value={bio ?? ""}
             onChange={(e) => setBio(e.target.value)}
             rows={4}
@@ -157,7 +177,7 @@ export default function ProfileForm({
             <button
               type="button"
               onClick={onCancel}
-              className="text-sm text-hz-muted hover:text-hz-primary"
+              className="text-sm text-hz-text hover:text-hz-primary"
             >
               Cancel
             </button>

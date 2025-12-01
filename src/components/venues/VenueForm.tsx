@@ -179,10 +179,14 @@ export default function VenueForm({
       >
         <div className="space-y-3">
           <div>
-            <label className="block text-sm font-medium text-hz-text mb-1">
-              Name<span className="text-red-500">*</span>
+            <label
+              className="block text-sm font-medium text-hz-text mb-1"
+              htmlFor="name"
+            >
+              Name
             </label>
             <input
+              id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -192,10 +196,14 @@ export default function VenueForm({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-hz-text mb-1">
+            <label
+              className="block text-sm font-medium text-hz-text mb-1"
+              htmlFor="description"
+            >
               Description
             </label>
             <textarea
+              id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
@@ -212,10 +220,14 @@ export default function VenueForm({
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-hz-text mb-1">
-              Price per night (NOK)<span className="text-red-500">*</span>
+            <label
+              className="block text-sm font-medium text-hz-text mb-1"
+              htmlFor="price"
+            >
+              Price per night (NOK)
             </label>
             <input
+              id="price"
               type="number"
               min={1}
               value={price}
@@ -227,10 +239,14 @@ export default function VenueForm({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-hz-text mb-1">
-              Max guests<span className="text-red-500">*</span>
+            <label
+              className="block text-sm font-medium text-hz-text mb-1"
+              htmlFor="maxGuests"
+            >
+              Max guests
             </label>
             <input
+              id="maxGuests"
               type="number"
               min={1}
               value={maxGuests}
@@ -247,10 +263,14 @@ export default function VenueForm({
         {/* Location */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-hz-text mb-1">
+            <label
+              className="block text-sm font-medium text-hz-text mb-1"
+              htmlFor="city"
+            >
               City
             </label>
             <input
+              id="city"
               type="text"
               value={city}
               onChange={(e) => setCity(e.target.value)}
@@ -259,10 +279,14 @@ export default function VenueForm({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-hz-text mb-1">
+            <label
+              className="block text-sm font-medium text-hz-text mb-1"
+              htmlFor="country"
+            >
               Country
             </label>
             <input
+              id="country"
               type="text"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
@@ -274,10 +298,14 @@ export default function VenueForm({
 
         {/* Media */}
         <div>
-          <label className="block text-sm font-medium text-hz-text mb-1">
+          <label
+            className="block text-sm font-medium text-hz-text mb-1"
+            htmlFor="imageUrl"
+          >
             Image URL
           </label>
           <input
+            id="imageUrl"
             type="url"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
@@ -293,32 +321,39 @@ export default function VenueForm({
         <div>
           <p className="text-sm font-medium text-hz-text mb-2">Amenities</p>
           <div className="grid grid-cols-2 gap-2 text-sm">
-            <label className="inline-flex items-center gap-2">
+            <label className="inline-flex items-center gap-2" htmlFor="wifi">
               <input
+                id="wifi"
                 type="checkbox"
                 checked={wifi}
                 onChange={(e) => setWifi(e.target.checked)}
               />
               <span>Wi-Fi</span>
             </label>
-            <label className="inline-flex items-center gap-2">
+            <label className="inline-flex items-center gap-2" htmlFor="parking">
               <input
+                id="parking"
                 type="checkbox"
                 checked={parking}
                 onChange={(e) => setParking(e.target.checked)}
               />
               <span>Parking</span>
             </label>
-            <label className="inline-flex items-center gap-2">
+            <label
+              className="inline-flex items-center gap-2"
+              htmlFor="breakfast"
+            >
               <input
+                id="breakfast"
                 type="checkbox"
                 checked={breakfast}
                 onChange={(e) => setBreakfast(e.target.checked)}
               />
               <span>Breakfast</span>
             </label>
-            <label className="inline-flex items-center gap-2">
+            <label className="inline-flex items-center gap-2" htmlFor="pets">
               <input
+                id="pets"
                 type="checkbox"
                 checked={pets}
                 onChange={(e) => setPets(e.target.checked)}
@@ -347,7 +382,7 @@ export default function VenueForm({
             <button
               type="button"
               onClick={onCancel}
-              className="text-sm text-hz-muted hover:text-hz-primary"
+              className="text-sm text-hz-text hover:text-hz-primary"
             >
               Cancel
             </button>
