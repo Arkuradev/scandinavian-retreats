@@ -185,12 +185,6 @@ export default function Home() {
                 getaways, city breaks, and cabins in the countryside.
               </p>
             </div>
-
-            <div className="hidden md:flex text-xs text-hz-muted">
-              <span>
-                Tip: you can refine your search further on the Venues page.
-              </span>
-            </div>
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -248,8 +242,13 @@ export default function Home() {
             >
               <Trees className="h-4 w-4 text-hz-primary" />
               <span>Countryside stays</span>
-            </Link>
+            </Link> 
           </div>
+          <div className="mt-3 flex text-xs text-hz-muted">
+              <span>
+                Tip: you can refine your search further on the Venues page.
+              </span>
+            </div>
         </div>
       </section>
     </main>
