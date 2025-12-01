@@ -171,23 +171,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-200">
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col items-center justify-between gap-3">
+          <p className="text-xs text-slate-200 mb-5 lg:mb-0">
             © {new Date().getFullYear()} Holidaze Retreats. All rights
             reserved.
           </p>
-
-          <div className="flex gap-4 text-xs text-slate-200 py-2">
-            <Link to="/privacy" className="hover:text-hz-primary transition">
-              Privacy
-            </Link>
-            <Link to="/terms" className="hover:text-hz-primary transition">
-              Terms
-            </Link>
-            <Link to="/cookies" className="hover:text-hz-primary transition">
-              Cookies
-            </Link>
-          </div>
         </div>
       </div>
       {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
