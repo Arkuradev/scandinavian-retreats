@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { registerUser } from "@/lib/register";
 import { useToast } from "@/hooks/useToast";
-import { getLoginErrorMessage } from "@/helper/getLoginErrorMessage";
 
 type RegisterFormProps = {
   onSuccess?: () => void;
@@ -67,8 +66,8 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
         { name, email, password, venueManager },
         { signal: ctrl.signal },
       );
-      console.log("Registration successful:", result);
-      success("Registration successful! You can now log in.");
+
+      success(`Welcome aboard, ${result.name}! You can now log in.`);
 
       setName("");
       setEmail("");
@@ -80,7 +79,6 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
     } catch (error: any) {
       if (error?.name === "AbortError") return;
       setApiError(error.message || "Something went wrong during registration.");
-      getLoginErrorMessage(error.status);
       toastError("Registration failed, please try again.");
     } finally {
       if (ctrlRef.current === ctrl) setLoading(false);

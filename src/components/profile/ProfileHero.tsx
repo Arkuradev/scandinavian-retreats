@@ -15,7 +15,6 @@ export default function ProfileHero({
 
   return (
     <section className="mb-8 overflow-hidden rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card">
-      {/* Banner */}
       <div className="h-40 w-full bg-hz-surface-soft relative">
         {bannerUrl && (
           <img
@@ -26,9 +25,7 @@ export default function ProfileHero({
           />
         )}
       </div>
-
       <div className="p-4 md:p-6 flex flex-col gap-4 md:flex-row md:items-center">
-        {/* Avatar */}
         <div className="-mt-2 md:-mt-5">
           <div className="h-24 w-24 md:h-28 md:w-28 rounded-full border-4 border-hz-surface bg-hz-surface-soft overflow-hidden">
             {avatarUrl ? (
@@ -45,8 +42,6 @@ export default function ProfileHero({
             )}
           </div>
         </div>
-
-        {/* Text */}
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-2xl font-semibold text-hz-text">
@@ -58,11 +53,9 @@ export default function ProfileHero({
               </span>
             )}
           </div>
-
           <p className="mt-2 text-sm text-hz-muted">
             {profile.bio || "This host has not added a bio yet."}
           </p>
-
           {isOwnProfile && (
             <div className="mt-3">
               <Link

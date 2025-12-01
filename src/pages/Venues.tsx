@@ -257,7 +257,6 @@ export default function Venues() {
       <div className="flex flex-col gap-4 mb-8">
         {/* Top row: search + sort + filter toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          {/* Search */}
           <div className="flex-1 relative">
             <label htmlFor="venue-search" className="sr-only">
               Search venues
@@ -325,9 +324,7 @@ export default function Venues() {
             className="rounded-2xl border border-hz-border bg-hz-surface-soft p-4 md:p-5 shadow-hz-card space-y-4"
             aria-label="Filter venues"
           >
-            {/* Row 1: Location */}
             <div className="grid gap-3 md:grid-cols-3">
-              {/* Country */}
               <div>
                 <label
                   htmlFor="filter-country"
@@ -344,8 +341,6 @@ export default function Venues() {
                   className="w-full rounded border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
                 />
               </div>
-
-              {/* City */}
               <div>
                 <label
                   htmlFor="filter-city"
@@ -362,15 +357,12 @@ export default function Venues() {
                   className="w-full rounded border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
                 />
               </div>
-
-              {/* Price range sliders */}
               <div>
                 <span className="block text-sm font-medium text-hz-text mb-1">
                   Price range (NOK)
                 </span>
 
                 <div className="space-y-3">
-                  {/* Min slider */}
                   <div>
                     <div className="flex items-center justify-between mb-1">
                       <label
@@ -391,7 +383,6 @@ export default function Venues() {
                       value={currentMinPrice}
                       onChange={(e) => {
                         const value = Number(e.target.value);
-                        // don’t let min go above current max
                         const clamped = Math.min(value, currentMaxPrice);
                         updateFilter("minPrice", clamped);
                       }}
@@ -399,8 +390,6 @@ export default function Venues() {
                       aria-label="Minimum price"
                     />
                   </div>
-
-                  {/* Max slider */}
                   <div>
                     <div className="flex items-center justify-between mb-1">
                       <label
@@ -421,7 +410,6 @@ export default function Venues() {
                       value={currentMaxPrice}
                       onChange={(e) => {
                         const value = Number(e.target.value);
-                        // don’t let max go below current min
                         const clamped = Math.max(value, currentMinPrice);
                         updateFilter("maxPrice", clamped);
                       }}
@@ -429,8 +417,6 @@ export default function Venues() {
                       aria-label="Maximum price"
                     />
                   </div>
-
-                  {/* Summary row */}
                   <div className="flex justify-between text-xs text-hz-muted">
                     <span>
                       From{" "}
@@ -448,8 +434,6 @@ export default function Venues() {
                 </div>
               </div>
             </div>
-
-            {/* Row 2: Amenities + rating */}
             <div className="flex flex-wrap items-center gap-4">
               <fieldset className="flex flex-wrap items-center gap-4">
                 <legend className="text-sm font-medium text-hz-text sr-only">

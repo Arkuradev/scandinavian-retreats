@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 export default function Hero() {
   return (
     <section className="relative text-hz-text overflow-hidden">
-      {/* Angled blue background layer */}
       <div
         className="
           absolute inset-0 
@@ -13,9 +12,7 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      {/* Content */}
       <div className="relative max-w-6xl mx-auto px-4 py-16 lg:py-24 grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-center">
-        {/* LEFT: Text + CTAs */}
         <div className="space-y-6">
           <p className="text-sm uppercase tracking-[0.2em] text-hz-text/80">
             Holidaze
@@ -31,8 +28,6 @@ export default function Hero() {
             Browse verified venues, compare prices, and book your next escape in
             just a few clicks.
           </p>
-
-          {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <Link to="/venues" className="btn-primary">
               Explore venues
@@ -42,8 +37,6 @@ export default function Hero() {
               View latest stays
             </a>
           </div>
-
-          {/* Reassurance row */}
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs md:text-sm text-hz-text pt-4">
             <p>✓ Verified hosts</p>
             <p>✓ Transparent pricing</p>
@@ -51,13 +44,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* RIGHT: Visual / stats card */}
         <div className="relative">
-          {/* Glow */}
           <div className="pointer-events-none absolute -inset-2 rounded-3xl bg-hz-primary/40 blur-3xl opacity-80 -z-10" />
-
           <div className="relative z-10 rounded-3xl bg-hz-surface border border-hz-border shadow-hz-card overflow-hidden">
-            {/* Image + overlay */}
             <div className="relative h-40 md:h-48">
               <img
                 src="/assets/images/herosectionimage.jpg"
@@ -78,8 +67,6 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-
-            {/* Stats / highlights */}
             <div className="grid grid-cols-3 divide-x divide-hz-border bg-hz-surface-soft">
               <div className="p-4 text-center">
                 <p className="text-sm font-semibold text-hz-text">200+</p>
@@ -94,8 +81,6 @@ export default function Hero() {
                 <p className="text-[11px] text-hz-text">Transparent pricing</p>
               </div>
             </div>
-
-            {/* Bottom little note */}
             <div className="px-4 py-3 border-t border-hz-border bg-hz-surface">
               <p className="text-[11px] text-hz-muted">
                 “The booking process was super smooth and the place looked

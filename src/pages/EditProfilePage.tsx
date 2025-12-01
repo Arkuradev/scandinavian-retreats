@@ -60,8 +60,7 @@ export default function EditProfilePage() {
       const updated = await updateProfile(user.name, bodyFromForm);
       setProfile(updated);
       success("Profile updated.");
-      // Optional: we could also update AuthContext.user avatar here later.
-      navigate(`/profile/${user.name}`); // or `/profile/my-profile` etc.
+      navigate(`/profile/${user.name}`);
     } catch (err: any) {
       if (err?.name === "AbortError") return;
       setApiError(err.message || "Failed to update profile.");
@@ -102,7 +101,7 @@ export default function EditProfilePage() {
         submitting={saving}
         apiError={apiError}
         onSubmit={handleSubmit}
-        onCancel={() => navigate("/account")}
+        onCancel={() => navigate(`/profile/${user.name}`)}
       />
     </main>
   );

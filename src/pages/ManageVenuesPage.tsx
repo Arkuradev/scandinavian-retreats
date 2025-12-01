@@ -72,7 +72,6 @@ export default function ManageVenuesPage() {
     } catch (err) {
       console.error(err);
       toastError("Could not delete venue, please try again.");
-      // optional: rollback if you want
     }
   }
 

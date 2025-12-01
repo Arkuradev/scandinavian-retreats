@@ -52,7 +52,6 @@ export default function AppHeader() {
             </div>
             <span className="text-lg">Holidaze Retreats</span>
           </NavLink>
-
           <div className="flex items-center gap-2">
             <nav className="hidden md:flex items-center gap-2">
               <NavLink to="/" className={linkClass} end>
@@ -61,7 +60,6 @@ export default function AppHeader() {
               <NavLink to="/venues" className={linkClass}>
                 Venues
               </NavLink>
-
               {isAuthenticated && (
                 <NavLink
                   to="/bookings"
@@ -72,7 +70,6 @@ export default function AppHeader() {
                 </NavLink>
               )}
             </nav>
-
             {isAuthenticated && user ? (
               <UserMenu user={user} onLogout={logout} />
             ) : (
@@ -87,7 +84,6 @@ export default function AppHeader() {
           </div>
         </div>
       </header>
-
       {authOpen && <AuthModal onClose={() => setAuthOpen(false)} />}
     </>
   );

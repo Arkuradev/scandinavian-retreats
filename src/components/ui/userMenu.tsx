@@ -21,7 +21,6 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
 
   return (
     <div className="relative">
-      {/* Trigger button */}
       <button
         type="button"
         onClick={() => setOpenMenu((v) => !v)}
@@ -56,7 +55,6 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
             shadow-hz-card overflow-hidden
           "
         >
-          {/* Top: identity */}
           <div className="border-b border-hz-border/70 bg-hz-surface-soft px-4 py-3">
             <p className="text-[11px] uppercase tracking-[0.18em] text-hz-muted">
               Signed in as
@@ -70,8 +68,6 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
               {user.name}
             </NavLink>
           </div>
-
-          {/* Links */}
           <div className="py-1">
             <NavLink
               to="/profile/edit"
@@ -81,7 +77,6 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
             >
               Edit profile
             </NavLink>
-
             {user.venueManager && (
               <NavLink
                 to="/manage-venues"
@@ -93,8 +88,6 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
               </NavLink>
             )}
           </div>
-
-          {/* Logout */}
           <button
             type="button"
             role="menuitem"

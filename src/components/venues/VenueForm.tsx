@@ -83,20 +83,14 @@ export default function VenueForm({
   const [maxGuests, setMaxGuests] = useState<number | "">(
     initial?.maxGuests ?? "",
   );
-
   const [city, setCity] = useState(initial?.city ?? "");
   const [country, setCountry] = useState(initial?.country ?? "");
-
   const [wifi, setWifi] = useState(initial?.wifi ?? false);
   const [parking, setParking] = useState(initial?.parking ?? false);
   const [breakfast, setBreakfast] = useState(initial?.breakfast ?? false);
   const [pets, setPets] = useState(initial?.pets ?? false);
-
   const [rating, setRating] = useState(initial?.rating ?? 1);
-
   const [localError, setLocalError] = useState<string | null>(null);
-
-  // 🔹 NEW: multi-image state
   const [mediaFields, setMediaFields] = useState<MediaField[]>(() => {
     if (initial?.media && initial.media.length > 0) {
       return initial.media.map((m) => ({
@@ -124,7 +118,6 @@ export default function VenueForm({
     setPets(initial.pets ?? false);
     setRating(initial.rating ?? 0);
 
-    // sync media when editing existing venue
     if (initial.media && initial.media.length > 0) {
       setMediaFields(
         initial.media.map((m) => ({
@@ -175,7 +168,6 @@ export default function VenueForm({
       },
     };
 
-    // 🔹 Collect media from all non-empty URLs
     const cleanedMedia = mediaFields
       .map((field) => ({
         url: field.url.trim(),
@@ -217,7 +209,7 @@ export default function VenueForm({
 
   function removeMediaField(index: number) {
     setMediaFields((prev) => {
-      if (prev.length === 1) return prev; // keep at least one row
+      if (prev.length === 1) return prev;
       return prev.filter((_, i) => i !== index);
     });
   }
@@ -239,7 +231,6 @@ export default function VenueForm({
         onSubmit={handleSubmit}
         className="space-y-6 rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-6 shadow-hz-card"
       >
-        {/* Basic info */}
         <div className="space-y-3">
           <div>
             <label
@@ -276,13 +267,10 @@ export default function VenueForm({
           </div>
         </div>
 
-        {/* Rating */}
         <div className="space-y-1">
           <p className="text-sm font-medium text-hz-text">Rating</p>
           <StarRating rating={rating} onChange={setRating} />
         </div>
-
-        {/* Price & Guests */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label
@@ -324,8 +312,6 @@ export default function VenueForm({
             />
           </div>
         </div>
-
-        {/* Location */}
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label
@@ -360,8 +346,6 @@ export default function VenueForm({
             />
           </div>
         </div>
-
-        {/* 🔹 Media: multiple images */}
         <div className="space-y-2">
           <div className="flex items-baseline justify-between gap-2">
             <div>
@@ -372,7 +356,6 @@ export default function VenueForm({
               </p>
             </div>
           </div>
-
           <div className="space-y-3">
             {mediaFields.map((field, index) => (
               <div
@@ -397,7 +380,6 @@ export default function VenueForm({
                     placeholder="https://images.unsplash.com/..."
                   />
                 </div>
-
                 <div>
                   <label
                     className="block text-xs font-medium text-hz-text mb-1"
@@ -430,7 +412,6 @@ export default function VenueForm({
               </div>
             ))}
           </div>
-
           <button
             type="button"
             onClick={addMediaField}
@@ -439,8 +420,6 @@ export default function VenueForm({
             + Add another image
           </button>
         </div>
-
-        {/* Amenities */}
         <div>
           <p className="text-sm font-medium text-hz-text mb-2">Amenities</p>
           <div className="grid grid-cols-2 gap-2 text-sm">
@@ -485,11 +464,9 @@ export default function VenueForm({
             </label>
           </div>
         </div>
-
         {(localError || apiError) && (
           <p className="text-sm text-red-500">{localError ?? apiError}</p>
         )}
-
         <div className="flex flex-wrap gap-3">
           <button type="submit" className="btn-primary" disabled={submitting}>
             {submitting
@@ -500,7 +477,6 @@ export default function VenueForm({
                 ? "Create venue"
                 : "Save changes"}
           </button>
-
           {onCancel && (
             <button type="button" onClick={onCancel} className="btn-cancel">
               Cancel

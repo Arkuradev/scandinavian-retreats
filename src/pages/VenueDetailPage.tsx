@@ -385,7 +385,6 @@ export default function VenueDetailPage() {
               {venue.name}
             </h1>
             <div className="mt-1 mb-2 flex items-center gap-1 text-sm">
-              {/* COME BACK TO STYLE THIS */}
               <p className="text-hz-muted">Venue listed by</p>
               {venue.owner?.name && (
                 <Link
@@ -471,7 +470,7 @@ export default function VenueDetailPage() {
                       onChange={(update) =>
                         setDateRange(update as [Date | null, Date | null])
                       }
-                      minDate={new Date()} // block today- and earlier
+                      minDate={new Date()}
                       excludeDateIntervals={excludedIntervals}
                       dateFormat="dd-MM-yyyy"
                       className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"

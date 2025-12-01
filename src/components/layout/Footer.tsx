@@ -26,12 +26,10 @@ export default function Footer() {
                 Holidaze Retreats
               </span>
             </Link>
-
             <p className="text-sm text-slate-200 max-w-xs leading-relaxed">
               Discover unique stays around the world, curated retreats, coastal
               escapes, and unforgettable experiences.
             </p>
-
             <div className="flex gap-4 pt-1">
               <a
                 href="https://instagram.com"
@@ -43,7 +41,7 @@ export default function Footer() {
                 <Instagram className="h-5 w-5" />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/Arkuradev/holidaze-retreats"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-200 hover:text-hz-primary transition-colors"
@@ -60,7 +58,6 @@ export default function Footer() {
               </a>
             </div>
           </div>
-
           <div>
             <h3 className="font-semibold text-white mb-3">Explore</h3>
             <ul className="space-y-2 text-sm text-slate-200">
@@ -95,7 +92,6 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
           <div>
             <h3 className="font-semibold text-slate-50 mb-3">Your Account</h3>
             <ul className="space-y-2 text-sm text-slate-200">
@@ -155,7 +151,6 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
           <div>
             <h3 className="font-semibold text-white mb-3">Support</h3>
             <ul className="space-y-2 text-sm text-slate-200">

@@ -48,7 +48,6 @@ export default function ProfileForm({
     const trimmedAvatar = avatarUrl.trim();
     const trimmedBanner = bannerUrl.trim();
 
-    // You can add stronger validation later if you want
     const body: ProfileUpdateBody = {
       bio: bio.trim() || null,
       avatar: trimmedAvatar
@@ -76,12 +75,10 @@ export default function ProfileForm({
           Update your avatar, banner image, and bio.
         </p>
       </header>
-
       <form
         onSubmit={handleSubmit}
         className="space-y-6 rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-6 shadow-hz-card"
       >
-        {/* Avatar */}
         <div>
           <label
             className="block text-sm font-medium text-hz-text mb-1"
@@ -112,8 +109,6 @@ export default function ProfileForm({
             placeholder="Short description for screen readers"
           />
         </div>
-
-        {/* Banner */}
         <div>
           <label
             className="block text-sm font-medium text-hz-text mb-1"
@@ -144,8 +139,6 @@ export default function ProfileForm({
             placeholder="Short description for screen readers"
           />
         </div>
-
-        {/* Bio */}
         <div>
           <label
             className="block text-sm font-medium text-hz-text mb-1"
@@ -162,11 +155,9 @@ export default function ProfileForm({
             placeholder="Tell guests a bit about yourself..."
           />
         </div>
-
         {(localError || apiError) && (
           <p className="text-sm text-red-500">{localError ?? apiError}</p>
         )}
-
         <div className="flex flex-wrap gap-3">
           <button type="submit" className="btn-primary" disabled={submitting}>
             {submitting ? "Saving changes..." : "Save changes"}

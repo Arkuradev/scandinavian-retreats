@@ -65,10 +65,10 @@
 
 .react-datepicker__day--disabled {
   opacity: 0.6;
-  background-color: rgba(248, 113, 113, 0.2); 
+  background-color: rgba(248, 113, 113, 0.2);
   color: #b91c1c;
   cursor: not-allowed;
-  border-radius: 999px; 
+  border-radius: 999px;
 }
 
 @keyframes toast-enter {
@@ -97,7 +97,7 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(255,255,255,0.03),
+    rgba(255, 255, 255, 0.03),
     transparent 50%
   );
   pointer-events: none;
