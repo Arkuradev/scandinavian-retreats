@@ -37,7 +37,7 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
         aria-expanded={openMenu}
         aria-controls="user-menu"
       >
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-hz-primary text-white text-xs font-semibold">
+        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-hz-primary text-hz-text text-xs font-semibold">
           {initial}
         </span>
         <span className="hidden sm:inline-block max-w-[120px] truncate">
