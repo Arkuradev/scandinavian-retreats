@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
-    <section className="relative text-white overflow-hidden">
+    <section className="relative text-hz-text overflow-hidden">
       {/* Angled blue background layer */}
       <div
         className="
@@ -17,16 +17,16 @@ export default function Hero() {
       <div className="relative max-w-6xl mx-auto px-4 py-16 lg:py-24 grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-center">
         {/* LEFT: Text + CTAs */}
         <div className="space-y-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-white/80">
+          <p className="text-sm uppercase tracking-[0.2em] text-hz-text/80">
             Holidaze
           </p>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
             Find your next
-            <span className="block text-hz-surface">retreat, anywhere.</span>
+            <span className="block text-hz-text">retreat, anywhere.</span>
           </h1>
 
-          <p className="text-base md:text-lg text-hz-surface-soft/90 max-w-xl">
+          <p className="text-base md:text-lg text-hz-text/90 max-w-xl">
             Unique stays, cosy cabins, and seaside hideaways around the world.
             Browse verified venues, compare prices, and book your next escape in
             just a few clicks.
@@ -44,7 +44,7 @@ export default function Hero() {
           </div>
 
           {/* Reassurance row */}
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs md:text-sm text-hz-surface pt-4">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs md:text-sm text-hz-text pt-4">
             <p>✓ Verified hosts</p>
             <p>✓ Transparent pricing</p>
             <p>✓ Secure booking</p>
