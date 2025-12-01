@@ -11,8 +11,55 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex justify-center items-center rounded-md bg-hz-primary px-6 py-3 
-    text-sm font-medium text-black/70 shadow-md hover:bg-hz-accent hover:text-hz-surface;
+    @apply inline-flex items-center justify-center
+    rounded-lg
+    bg-hz-primary
+    px-6 py-2.5
+    text-sm font-semibold text-hz-text
+    shadow-md
+    border border-hz-primary-hover/70
+    transition-all duration-150 ease-out
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-hz-primary
+    focus-visible:ring-offset-2 focus-visible:ring-offset-hz-primary-body
+    hover:bg-hz-accent hover:border-hz-accent
+    hover:-translate-y-0.5 hover:shadow-lg
+    active:translate-y-0 active:shadow-md
+    disabled:opacity-60 disabled:cursor-not-allowed
+    motion-safe:transform;
+  }
+  .btn-hero-ghost {
+    @apply inline-flex items-center justify-center
+    rounded-lg
+    border border-white/70
+    bg-white/10
+    px-6 py-2.5
+    text-sm font-medium text-white
+    shadow-sm
+    transition-all duration-150 ease-out
+    hover:bg-white/20 hover:border-white
+    hover:-translate-y-0.5 hover:shadow-md
+    active:translate-y-0 active:shadow-sm
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70
+    focus-visible:ring-offset-2 focus-visible:ring-offset-hz-primary-body
+    disabled:opacity-60 disabled:cursor-not-allowed
+    motion-safe:transform;
+  }
+  .btn-cancel {
+    @apply inline-flex items-center justify-center
+    rounded-lg
+    border border-white/70
+    bg-red-500/60
+    px-6 py-2.5
+    text-sm font-medium text-white
+    shadow-sm
+    transition-all duration-150 ease-out
+    hover:bg-red-500 hover:border-white
+    hover:-translate-y-0.5 hover:shadow-md
+    active:translate-y-0 active:shadow-sm
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70
+    focus-visible:ring-offset-2 focus-visible:ring-offset-hz-primary-body
+    disabled:opacity-60 disabled:cursor-not-allowed
+    motion-safe:transform;
   }
 }
 
@@ -34,24 +81,8 @@
     transform: translateY(0) scale(1);
   }
 }
-/*
-  .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium
-           border border-hz-border bg-white text-hz-text
-           hover:bg-hz-primary-soft
-           transition-colors;
-  }
 
-  .card {
-    @apply relative rounded-xl border border-hz-border bg-hz-surface shadow-hz-card;
-  }
-
-  .card-hover-glow::before {
-    content: "";
-    @apply absolute inset-0 rounded-xl bg-sky-300/30 blur-2xl opacity-0 transition-opacity duration-300;
-  }
-
-  .card-hover-glow:hover::before {
-    @apply opacity-70;
-  }
-} */
+.hero-angled-bg {
+  /* Simple diagonal cut: full width, but bottom edge slopes up on the right */
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+}

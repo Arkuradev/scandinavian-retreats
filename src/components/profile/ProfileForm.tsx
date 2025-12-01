@@ -174,11 +174,7 @@ export default function ProfileForm({
           </button>
 
           {onCancel && (
-            <button
-              type="button"
-              onClick={onCancel}
-              className="text-sm text-hz-text hover:text-hz-primary"
-            >
+            <button type="button" onClick={onCancel} className="btn-cancel">
               Cancel
             </button>
           )}

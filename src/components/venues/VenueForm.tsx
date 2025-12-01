@@ -422,9 +422,9 @@ export default function VenueForm({
                     type="button"
                     onClick={() => removeMediaField(index)}
                     disabled={mediaFields.length === 1}
-                    className="text-xs text-red-500 hover:text-red-600 disabled:text-hz-muted disabled:cursor-not-allowed"
+                    className="text-xs font-semibold mt-2 text-red-500 hover:text-red-600 disabled:text-hz-muted disabled:cursor-not-allowed"
                   >
-                    Remove
+                    X
                   </button>
                 </div>
               </div>
@@ -502,11 +502,7 @@ export default function VenueForm({
           </button>
 
           {onCancel && (
-            <button
-              type="button"
-              onClick={onCancel}
-              className="text-sm text-hz-text hover:text-hz-primary"
-            >
+            <button type="button" onClick={onCancel} className="btn-cancel">
               Cancel
             </button>
           )}

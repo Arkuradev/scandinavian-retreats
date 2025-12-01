@@ -27,7 +27,7 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
         onClick={() => setOpenMenu((v) => !v)}
         className="
           flex items-center gap-2 px-2.5 py-1.5
-          rounded-full border border-hz-border bg-hz-surface
+          rounded-lg border border-hz-border bg-hz-surface
           shadow-sm
           text-sm font-medium text-hz-text
           hover:bg-hz-primary-soft/60 hover:border-hz-primary

@@ -2,8 +2,19 @@ import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
-    <section className="bg-hz-hero text-white">
-      <div className="max-w-6xl mx-auto px-4 py-16 lg:py-24 grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-center">
+    <section className="relative text-white overflow-hidden">
+      {/* Angled blue background layer */}
+      <div
+        className="
+          absolute inset-0 
+          bg-hz-hero 
+          hero-angled-bg
+        "
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div className="relative max-w-6xl mx-auto px-4 py-16 lg:py-24 grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-center">
         {/* LEFT: Text + CTAs */}
         <div className="space-y-6">
           <p className="text-sm uppercase tracking-[0.2em] text-white/80">
@@ -27,10 +38,7 @@ export default function Hero() {
               Explore venues
             </Link>
 
-            <a
-              href="#venue-section" // make sure your venues section uses id="venue-section"
-              className="inline-flex justify-center items-center rounded-md border border-white/70 bg-white/10 px-6 py-3 text-sm font-medium text-white hover:bg-white/20 transition-colors duration-150"
-            >
+            <a href="#venue-section" className="btn-hero-ghost">
               View latest stays
             </a>
           </div>
