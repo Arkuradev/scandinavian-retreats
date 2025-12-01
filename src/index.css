@@ -65,10 +65,10 @@
 
 .react-datepicker__day--disabled {
   opacity: 0.6;
-  background-color: rgba(248, 113, 113, 0.2); /* soft red wash */
-  color: #b91c1c; /* red-700-ish */
+  background-color: rgba(248, 113, 113, 0.2); 
+  color: #b91c1c;
   cursor: not-allowed;
-  border-radius: 999px; /* match rounded style if you like */
+  border-radius: 999px; 
 }
 
 @keyframes toast-enter {
@@ -83,6 +83,22 @@
 }
 
 .hero-angled-bg {
-  /* Simple diagonal cut: full width, but bottom edge slopes up on the right */
   clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+}
+
+.footer-angled-bg {
+  position: relative;
+  clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+}
+
+.footer-angled-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255,255,255,0.03),
+    transparent 50%
+  );
+  pointer-events: none;
 }

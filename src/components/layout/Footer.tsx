@@ -12,15 +12,15 @@ export default function Footer() {
     ? `/profile/${encodeURIComponent(user.name)}`
     : null;
   return (
-    <footer className="mt-16 border-t border-black/10 bg-hz-primary-footer">
-      <div className="max-w-6xl mx-auto px-4 py-10">
+    <footer className="mt-16 border-t border-black/10 bg-hz-text/80 footer-angled-bg">
+      <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-3">
             <Link to="/" className="inline-flex items-center gap-2">
               <img
                 src="/assets/images/logo.png"
                 alt="Holidaze Retreats logo"
-                className="h-14 w-14 rounded-lg bg-white p-1.5"
+                className="h-14 w-14 rounded-lg bg-hz-surface p-1.5"
               />
               <span className="text-lg font-semibold text-white">
                 Holidaze Retreats
@@ -182,7 +182,7 @@ export default function Footer() {
             reserved.
           </p>
 
-          <div className="flex gap-4 text-xs text-slate-200">
+          <div className="flex gap-4 text-xs text-slate-200 py-2">
             <Link to="/privacy" className="hover:text-hz-primary transition">
               Privacy
             </Link>
