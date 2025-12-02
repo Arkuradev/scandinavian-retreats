@@ -53,7 +53,7 @@ function StarRating({ rating, max = 5, onChange }: StarRatingProps) {
           >
             <Star
               className={`h-5 w-5 transition-colors ${
-                isActive ? "text-yellow-500 fill-yellow-500" : "text-gray-300"
+                isActive ? "text-yellow-400 fill-yellow-400" : "text-hz-muted"
               }`}
             />
           </button>
@@ -229,7 +229,7 @@ export default function VenueForm({
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-6 shadow-hz-card"
+        className="space-y-6 rounded-2xl border border-hz-border bg-hz-surface-soft p-4 md:p-6 shadow-hz-card"
       >
         <div className="space-y-3">
           <div>
@@ -244,7 +244,7 @@ export default function VenueForm({
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
               placeholder="Cozy cabin by the lake"
             />
           </div>
@@ -261,7 +261,7 @@ export default function VenueForm({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
-              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
               placeholder="Describe what makes this place special..."
             />
           </div>
@@ -287,7 +287,7 @@ export default function VenueForm({
               onChange={(e) =>
                 setPrice(e.target.value === "" ? "" : Number(e.target.value))
               }
-              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             />
           </div>
 
@@ -308,7 +308,7 @@ export default function VenueForm({
                   e.target.value === "" ? "" : Number(e.target.value),
                 )
               }
-              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             />
           </div>
         </div>
@@ -325,7 +325,7 @@ export default function VenueForm({
               type="text"
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
               placeholder="Oslo"
             />
           </div>
@@ -341,7 +341,7 @@ export default function VenueForm({
               type="text"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+              className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
               placeholder="Norway"
             />
           </div>
@@ -376,7 +376,7 @@ export default function VenueForm({
                     onChange={(e) =>
                       updateMediaField(index, "url", e.target.value)
                     }
-                    className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-xs md:text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+                    className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-xs md:text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
                     placeholder="https://images.unsplash.com/..."
                   />
                 </div>
@@ -394,7 +394,7 @@ export default function VenueForm({
                     onChange={(e) =>
                       updateMediaField(index, "alt", e.target.value)
                     }
-                    className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-xs md:text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+                    className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-xs md:text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
                     placeholder="Cozy living room with fireplace"
                   />
                 </div>

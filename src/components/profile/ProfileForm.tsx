@@ -77,7 +77,7 @@ export default function ProfileForm({
       </header>
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-6 shadow-hz-card"
+        className="space-y-6 rounded-2xl border border-hz-border bg-hz-surface-soft p-4 md:p-6 shadow-hz-card"
       >
         <div>
           <label
@@ -91,7 +91,7 @@ export default function ProfileForm({
             type="url"
             value={avatarUrl}
             onChange={(e) => setAvatarUrl(e.target.value)}
-            className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+            className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             placeholder="https://images.unsplash.com/..."
           />
           <label
@@ -105,7 +105,7 @@ export default function ProfileForm({
             type="text"
             value={avatarAlt}
             onChange={(e) => setAvatarAlt(e.target.value)}
-            className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-xs text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+            className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-xs text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             placeholder="Short description for screen readers"
           />
         </div>
@@ -121,7 +121,7 @@ export default function ProfileForm({
             type="url"
             value={bannerUrl}
             onChange={(e) => setBannerUrl(e.target.value)}
-            className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+            className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             placeholder="https://images.unsplash.com/..."
           />
           <label
@@ -135,7 +135,7 @@ export default function ProfileForm({
             type="text"
             value={bannerAlt}
             onChange={(e) => setBannerAlt(e.target.value)}
-            className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-xs text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+            className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-xs text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             placeholder="Short description for screen readers"
           />
         </div>
@@ -151,7 +151,7 @@ export default function ProfileForm({
             value={bio ?? ""}
             onChange={(e) => setBio(e.target.value)}
             rows={4}
-            className="w-full rounded-md border border-hz-border bg-hz-surface-soft px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
+            className="w-full rounded-md border border-hz-border bg-hz-surface px-3 py-2 text-sm text-hz-text shadow-sm focus:outline-none focus:ring-2 focus:ring-hz-primary"
             placeholder="Tell guests a bit about yourself..."
           />
         </div>

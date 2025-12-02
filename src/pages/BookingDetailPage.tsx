@@ -132,7 +132,7 @@ export default function BookingDetailPage() {
             <div>
               <p className="text-xs uppercase text-hz-muted">Guests</p>
               <p className="text-sm font-medium text-hz-text flex items-center gap-1">
-                <Users className="h-4 w-4" />
+                <Users className="h-4 w-4 text-hz-primary" />
                 {booking.guests} guest{booking.guests > 1 ? "s" : ""}
               </p>
             </div>
