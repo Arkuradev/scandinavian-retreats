@@ -94,7 +94,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           type="email"
           placeholder="yourname@stud.noroff.no"
           disabled={loading}
-          className={`w-full border rounded-lg px-3 py-2 text-sm bg-hz-surface-soft text-hz-text shadow-sm focus:outline-none focus:ring-2 ${
+          className={`w-full border rounded-lg px-3 py-2 text-sm bg-hz-surface text-hz-text shadow-sm focus:outline-none focus:ring-2 ${
             errors.email
               ? "border-red-500 focus:ring-red-400"
               : "border-hz-border focus:ring-hz-primary"
@@ -128,7 +128,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           type="password"
           placeholder="Your password"
           disabled={loading}
-          className={`w-full border rounded-lg px-3 py-2 text-sm bg-hz-surface-soft text-hz-text shadow-sm focus:outline-none focus:ring-2 ${
+          className={`w-full border rounded-lg px-3 py-2 text-sm bg-hz-surface text-hz-text shadow-sm focus:outline-none focus:ring-2 ${
             errors.password
               ? "border-red-500 focus:ring-red-400"
               : "border-hz-border focus:ring-hz-primary"

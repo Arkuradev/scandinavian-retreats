@@ -13,7 +13,7 @@ export default {
       colors: {
         "hz-primary": "#0EA5E9",
         "hz-primary-body": "#f5fbff",
-        "hz-primary-footer": "#33387c",
+        "hz-primary-footer": "#33387c", // Change or remove!
         "hz-primary-soft": "#E0F2FE",
         "hz-primary-hover": "#b8e1fc",
         "hz-accent": "#0284C7",
