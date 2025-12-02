@@ -1,73 +1,70 @@
-# React + TypeScript + Vite
+# 🏡 Holidaze Retreats  
+Modern venue booking platform | Project Exam 2 (PE2)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Holidaze Retreats is a premium booking experience built with React, TypeScript, and Tailwind.  
+Users can browse venues, book stays, manage listings, and edit profiles — all powered by the Noroff API.
 
-Currently, two official plugins are available:
+**Live site:** <[Holidaze Retreats](https://holidaze-retreats.vercel.app/)>  
+**Repository:** <[Holidaze Repo](https://github.com/Arkuradev/holidaze-retreats)>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🔥 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 👥 Public Users
+- Browse all venues
+- Venue details with gallery + carousel
+- Search by name, location, tags
+- Filter by price, amenities, and more
+- View host profiles
 
-## Expanding the ESLint configuration
+### 🧑‍💼 Registered Users
+- Register/login with @stud.noroff.no
+- Book venues with date validation & conflict checking
+- View bookings with receipts
+- Edit user profile (avatar, banner, bio)
+- View their own profile page
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🏡 Venue Managers
+- Turn on “Venue Manager” when registering
+- Create venues with multiple images
+- Edit or delete venues
+- Dashboard view of all managed venues
+- See bookings on owned venues
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+### 🎨 UI & UX
+- Premium styling using Tailwind
+- Skeleton loaders for all major pages
+- Toast notifications
+- Smooth scroll restoration
+- Mobile-first responsive layout
+- Accessible and WCAG-compliant components
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+## 🧱 Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Frontend
+- React 18
+- TypeScript
+- Tailwind CSS
+- React Router
+- Lucide Icons
+- React Datepicker
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+### Tools
+- Vite
+- ESLint + Prettier
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+### Deployment
+- Vercel (recommended)
+
+---
+
+## 🚀 Installation & Setup
+
+### Clone repo
+```bash
+git clone https://github.com/Arkuradev/holidaze-retreats.git
+cd holidaze-retreats
+npm install
