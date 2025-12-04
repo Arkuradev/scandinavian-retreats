@@ -20,6 +20,13 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
     setOpenMenu(false);
   }
 
+  function handleLogout() {
+    closeMenu();
+    onLogout();
+    navigate("/", { replace: true });
+    toast.info("You've been logged out");
+  }
+
   return (
     <div className="relative">
       <button
@@ -92,12 +99,7 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
           <button
             type="button"
             role="menuitem"
-            onClick={() => {
-              closeMenu();
-              onLogout();
-              navigate("/", {replace: true});
-              toast.info("You've been logged out");
-            }}
+            onClick={handleLogout}
             className="w-full text-left block px-4 py-2 text-sm text-hz-text bg-red-400/60 hover:bg-red-400/90 hover:text-hz-surface"
           >
             Logout

@@ -14,20 +14,6 @@ export default function ManageVenuesPage() {
   const [error, setError] = useState<string | null>(null);
   const ctrlRef = useRef<AbortController | null>(null);
 
-  if (!isAuthenticated || !user) {
-    return <Navigate to="/" replace />;
-  }
-
-  if (!user.venueManager) {
-    return (
-      <main className="max-w-6xl mx-auto px-4 py-10">
-        <p className="text-hz-muted">
-          You need a venue manager account to access this page.
-        </p>
-      </main>
-    );
-  }
-
   useEffect(() => {
     ctrlRef.current?.abort();
     const ctrl = new AbortController();
@@ -55,7 +41,7 @@ export default function ManageVenuesPage() {
     load();
 
     return () => ctrl.abort();
-  }, [user.name]);
+  }, [isAuthenticated, user?.name, user?.venueManager]);
 
   async function handleDelete(venueId: string) {
     const ok = window.confirm(
@@ -87,6 +73,20 @@ export default function ManageVenuesPage() {
           <div className="h-9 w-32 bg-hz-primary-soft rounded-lg" />
         </div>
         <ManageVenuesSkeletonList />
+      </main>
+    );
+  }
+
+  if (!isAuthenticated || !user) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (!user.venueManager) {
+    return (
+      <main className="max-w-6xl mx-auto px-4 py-10">
+        <p className="text-hz-muted">
+          You need a venue manager account to access this page.
+        </p>
       </main>
     );
   }

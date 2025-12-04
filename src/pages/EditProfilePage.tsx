@@ -19,11 +19,6 @@ export default function EditProfilePage() {
   const [apiError, setApiError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
-  // Guard: not logged in
-  if (!isAuthenticated || !user) {
-    return <Navigate to="/" replace />;
-  }
-
   useEffect(() => {
     ctrlRef.current?.abort();
     const ctrl = new AbortController();
@@ -47,7 +42,7 @@ export default function EditProfilePage() {
     load();
 
     return () => ctrl.abort();
-  }, [user.name]);
+  }, [isAuthenticated, user?.name]);
 
   async function handleSubmit(
     bodyFromForm: Parameters<typeof updateProfile>[1],
@@ -68,6 +63,10 @@ export default function EditProfilePage() {
     } finally {
       setSaving(false);
     }
+  }
+
+  if (!isAuthenticated || !user) {
+    return <Navigate to="/" replace />;
   }
 
   if (loading) {
