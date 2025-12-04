@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { MapPin, Users, Tag } from "lucide-react";
+import { MapPin, Users, Tag, SquarePlus } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { getVenuesForProfile, deleteVenue } from "@/lib/fetchVenues";
 import type { Venue } from "@/types/holidaze";
@@ -112,7 +112,7 @@ export default function ManageVenuesPage() {
         </div>
 
         <Link className="btn-primary" to="/manage-venues/new">
-          Create venue
+          <SquarePlus className="h-5 w-5 mr-2" /> New
         </Link>
       </header>
 

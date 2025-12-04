@@ -26,10 +26,10 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
         onClick={() => setOpenMenu((v) => !v)}
         className="
           flex items-center gap-2 px-2.5 py-1.5
-          rounded-lg border border-hz-border bg-hz-surface
+           bg-hz-surface hover:bg-hz-primary-soft hover:text-hz-primary
           shadow-sm
           text-sm font-medium text-hz-text
-          hover:bg-hz-primary-soft/60 hover:border-hz-primary
+          rounded
           transition-all
         "
         aria-haspopup="menu"
@@ -51,7 +51,7 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
           role="menu"
           className="
             absolute right-0 mt-3 w-60 z-50
-            rounded-2xl border border-hz-border bg-hz-surface
+            rounded-xl rounded-tl-none rounded-tr-none border border-hz-border bg-hz-surface
             shadow-hz-card overflow-hidden
           "
         >
@@ -96,7 +96,7 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
               onLogout();
               toast.info("You've been logged out");
             }}
-            className="w-full text-left block px-4 py-2 text-sm text-red-500 hover:bg-hz-primary-soft/40"
+            className="w-full text-left block px-4 py-2 text-sm text-hz-text bg-red-400/60 hover:bg-red-400/90 hover:text-hz-surface"
           >
             Logout
           </button>

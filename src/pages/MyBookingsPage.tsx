@@ -180,14 +180,14 @@ export default function MyBookingsPage() {
             </div>
           </div>
 
-          <div className="flex flex-col items-start sm:items-end gap-2">
+          <div className="flex flex-col items-center sm:items-end gap-2">
             {showCancel && (
               <button
                 type="button"
                 onClick={() => handleCancelBooking(booking.id)}
-                className="text-xs font-medium text-red-600 hover:text-red-700 hover:underline underline-offset-2"
+                className="btn-cancel px-3 py-1.5 text-sm"
               >
-                Cancel booking
+                Cancel
               </button>
             )}
           </div>

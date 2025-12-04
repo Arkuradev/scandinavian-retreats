@@ -398,17 +398,20 @@ export default function VenueForm({
                     placeholder="Cozy living room with fireplace"
                   />
                 </div>
-
-                <div className="flex items-center pt-6">
-                  <button
-                    type="button"
-                    onClick={() => removeMediaField(index)}
-                    disabled={mediaFields.length === 1}
-                    className="text-xs font-semibold mt-2 text-red-500 hover:text-red-600 disabled:text-hz-muted disabled:cursor-not-allowed"
-                  >
-                    X
-                  </button>
-                </div>
+                {mediaFields.length > 1 && (
+                  <div className="flex items-center sm:pt-6 pb-2">
+                    <button
+                      type="button"
+                      onClick={() => removeMediaField(index)}
+                      className="text-xs font-semibold mt-2 text-red-500 hover:text-red-600"
+                    >
+                      X{" "}
+                      <span className="text-hz-muted text-xs font-normal sm:hidden">
+                        Image {index + 1}
+                      </span>
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>

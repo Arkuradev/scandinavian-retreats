@@ -49,7 +49,6 @@ export default function CreateVenuePage() {
       const created = await createVenue(body, { signal: ctrl.signal });
       success(`Venue "${created.name}" created.`);
       navigate("/manage-venues");
-      // or: navigate(`/venues/${created.id}`);
     } catch (err: any) {
       if (err?.name === "AbortError") return;
       console.error(err);

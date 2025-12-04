@@ -100,7 +100,7 @@ export default function Home() {
         {/* Mobile CTA */}
         <div className="mt-10 flex justify-center sm:hidden">
           <Link to="/venues" className="btn-primary">
-            Explore venues
+            View all venues
           </Link>
         </div>
       </section>
