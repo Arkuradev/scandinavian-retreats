@@ -14,7 +14,7 @@ Users can browse venues, book stays, manage listings, and edit profiles, all pow
 
 | Home | Venue Details | Booking Flow |
 |------|---------------|--------------|
-| ![Homepage - Hero](public/screens/hero.png) | ![Venue Page](public/screens/booking.png) | ![Booking Confirmation](public/screens/booking-confirmation.png) |
+| ![Homepage - Hero](public/screens/hero.png) | ![Venue Page](public/screens/booking.png) | ![Booking Confirmation](public/screens/booking-confirm.png) |
 
 
 
