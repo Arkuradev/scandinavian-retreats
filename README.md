@@ -3,12 +3,20 @@
 Modern venue booking platform | Project Exam 2 (PE2)
 
 Holidaze Retreats is a premium booking experience built with React, TypeScript, and Tailwind.  
-Users can browse venues, book stays, manage listings, and edit profiles — all powered by the Noroff API.
+Users can browse venues, book stays, manage listings, and edit profiles, all powered by the Noroff API.
 
-**Live site:** <[Holidaze Retreats](https://holidaze-retreats.vercel.app/)>  
-**Repository:** <[Holidaze Repo](https://github.com/Arkuradev/holidaze-retreats)>
+**Live site:** [Holidaze Retreats](https://holidaze-retreats.vercel.app/)
+**Repository:** [Holidaze Repo](https://github.com/Arkuradev/holidaze-retreats)
 
 ---
+
+## 📸 Screenshots
+
+| Home | Venue Details | Booking Flow |
+|------|---------------|--------------|
+| ![Homepage - Hero](public/screens/hero.png) | ![Venue Page](public/screens/booking.png) | ![Booking Confirmation](public/screens/booking-confirmation.png) |
+
+
 
 ## 🔥 Features
 
@@ -91,11 +99,13 @@ VITE_BASE_API_URL="https://v2.api.noroff.dev"
 If you rename any of these environment variables, you must also update the references inside your
 `apiFetch` (or equivalent API utility).
 Your fetch wrapper expects:
-
 ```ts
 import.meta.env.VITE_BASE_API_URL;
 import.meta.env.VITE_NOROFF_API_KEY;
 ```
+These environment variables are used by the custom `apiFetch` wrapper to handle:
+- Base URL for all API requests  
+- Required API key for protected endpoints 
 
 > 🔒 Your `.env.local` file should never be committed to Git. It is ignored by default via `.gitignore`.
 
@@ -131,24 +141,48 @@ src/
   main.tsx
 ```
 
-## 🌐 API – Noroff V2
+## 🌐 Noroff API (v2)
 
-Base URL:
+Base URL: `https://v2.api.noroff.dev`
 
-```arduino
-https://v2.api.noroff.dev
-```
+### Endpoints used
 
-Used endpoints:
+#### 🔐 Auth
+- `POST /auth/register`
+- `POST /auth/login`
 
-- `/auth/register`
-- `/auth/login`
-- `/holidaze/venues`
-- `/holidaze/venues/id`
-- `/holidaze/bookings/id`
-- `/holidaze/profiles/name`
+#### 🏡 Venues
+- `GET /holidaze/venues`
+- `GET /holidaze/venues/:id`
+- `POST /holidaze/venues`
+- `PUT /holidaze/venues/:id`
+- `DELETE /holidaze/venues/:id`
+
+#### 📅 Bookings
+- `GET /holidaze/bookings/:id`
+- `POST /holidaze/bookings`
+- `DELETE /holidaze/bookings/:id`
+
+#### 👤 Profiles
+- `GET /holidaze/profiles/:name`
+- `PUT /holidaze/profiles/:name` (avatar/banner updates)
 
 Protected routes require:
 
 - `Authorization: Bearer <token>`
 - `X-Noroff-API-Key: <key>`
+
+
+### 🚢 Deployment
+
+The project is deployed on Vercel.
+
+Build output: `dist/`  
+Recommended `vercel.json` not required.
+
+## 🛠️ Future Improvements
+
+- Pagination for venue list
+- Map integration for locations
+- Favorite / Wishlist feature
+- Better mobile calendar UX
