@@ -56,6 +56,12 @@ Users can browse venues, book stays, manage listings, and edit profiles, all pow
 
 ---
 
+## 🎨 Figma Design 
+
+This project includes a high-fidelity Figma layout used during development.
+
+🔗 Figma prototype: https://www.figma.com/design/htw7KszeYpn37xAPXynCQJ/Holidaze?node-id=0-1&t=p1xDRaMkBhMfXCpt-1
+
 ## 🧱 Tech Stack
 
 ### Frontend
