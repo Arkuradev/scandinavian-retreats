@@ -79,6 +79,26 @@ cd holidaze-retreats
 npm install
 ```
 
+### local env file (`.env.local`)
+
+```bash
+VITE_NOROFF_API_KEY="add_your_api_key_here"
+VITE_BASE_API_URL="https://v2.api.noroff.dev"
+```
+
+### ⚠️ Important
+
+If you rename any of these environment variables, you must also update the references inside your
+`apiFetch` (or equivalent API utility).
+Your fetch wrapper expects:
+
+```ts
+import.meta.env.VITE_BASE_API_URL;
+import.meta.env.VITE_NOROFF_API_KEY;
+```
+
+> 🔒 Your `.env.local` file should never be committed to Git. It is ignored by default via `.gitignore`.
+
 ### Start dev server
 
 ```bash
