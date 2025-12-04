@@ -1,7 +1,7 @@
 import type { AuthUser } from "@/types/auth";
 import { useState } from "react";
 import { User } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/useToast";
 
 type UserMenuProps = {
@@ -12,6 +12,7 @@ type UserMenuProps = {
 export default function UserMenu({ user, onLogout }: UserMenuProps) {
   const [openMenu, setOpenMenu] = useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
 
   const initial = user.name?.charAt(0).toUpperCase() ?? "U";
 
@@ -94,6 +95,7 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
             onClick={() => {
               closeMenu();
               onLogout();
+              navigate("/", {replace: true});
               toast.info("You've been logged out");
             }}
             className="w-full text-left block px-4 py-2 text-sm text-hz-text bg-red-400/60 hover:bg-red-400/90 hover:text-hz-surface"
