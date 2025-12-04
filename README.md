@@ -14,7 +14,7 @@ Users can browse venues, book stays, manage listings, and edit profiles, all pow
 
 | Home | Venue Details | Booking Confirmation |
 |------|---------------|--------------|
-| ![Homepage - Hero](public/screens/hero.png) | ![Venue Details](public/screens/booking.png) | ![Booking Confirmation](public/screens/booking-confirm.png) |
+| ![Homepage - Hero](public/screens/hero.png) | ![Venue Details](public/screens/venue-details.png) | ![Booking Confirmation](public/screens/booking-confirm.png) |
 | Search | Manage Venues | Create Venue |
 | ![Search](public/screens/search.png) | ![Manage Venues](public/screens/manage-venue.png) | ![Create Venue](public/screens/create-venue.png) |
 
@@ -187,3 +187,13 @@ Recommended `vercel.json` not required.
 - Map integration for locations
 - Favorite / Wishlist feature
 - Better mobile calendar UX
+
+## 👨‍💻 Author
+
+Developed by **Stein Arild Gansmoe. (Arkuradev)**  
+Frontend Development, Noroff  
+GitHub: https://github.com/Arkuradev
+
+## 📄 License
+
+MIT © 2025 Arkuradev
