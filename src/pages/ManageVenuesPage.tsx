@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { MapPin, Users, Tag, SquarePlus } from "lucide-react";
+import { MapPin, Users, Tag, Plus } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { getVenuesForProfile, deleteVenue } from "@/lib/fetchVenues";
 import type { Venue } from "@/types/holidaze";
@@ -48,8 +48,6 @@ export default function ManageVenuesPage() {
       "Are you sure you want to delete this venue? This cannot be undone.",
     );
     if (!ok) return;
-
-    // Optimistic UI update
     setVenues((prev) => prev.filter((v) => v.id !== venueId));
 
     try {
@@ -112,7 +110,7 @@ export default function ManageVenuesPage() {
         </div>
 
         <Link className="btn-primary" to="/manage-venues/new">
-          <SquarePlus className="h-5 w-5 mr-2" /> New
+        <Plus className="h-5 w-5 mr-1" />  New
         </Link>
       </header>
 
