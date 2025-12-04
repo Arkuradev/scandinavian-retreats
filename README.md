@@ -12,10 +12,12 @@ Users can browse venues, book stays, manage listings, and edit profiles, all pow
 
 ## 📸 Screenshots
 
-| Home | Venue Details | Booking Flow |
+| Home | Venue Details | Booking Confirmation |
 |------|---------------|--------------|
-| ![Homepage - Hero](public/screens/hero.png) | ![Venue Page](public/screens/booking.png) | ![Booking Confirmation](public/screens/booking-confirm.png) |
-
+| ![Homepage - Hero](public/screens/hero.png) | ![Venue Details](public/screens/booking.png) | ![Booking Confirmation](public/screens/booking-confirm.png) |
+| Search | Manage Venues | Create Venue |
+|------|---------------|--------------|
+| ![Search](public/screens/search.png) | ![Manage Venues](public/screens/manage-venue.png) | ![Create Venue](public/screens/create-venue.png) |
 
 
 ## 🔥 Features
