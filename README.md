@@ -12,12 +12,11 @@ Users can browse venues, book stays, manage listings, and edit profiles, all pow
 
 ## 📸 Screenshots
 
-| Home | Venue Details | Booking Confirmation |
-|------|---------------|--------------|
+| Home                                        | Venue Details                                      | Booking Confirmation                                        |
+| ------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------- |
 | ![Homepage - Hero](public/screens/hero.png) | ![Venue Details](public/screens/venue-details.png) | ![Booking Confirmation](public/screens/booking-confirm.png) |
-| Search | Manage Venues | Create Venue |
-| ![Search](public/screens/search.png) | ![Manage Venues](public/screens/manage-venue.png) | ![Create Venue](public/screens/create-venue.png) |
-
+| Search                                      | Manage Venues                                      | Create Venue                                                |
+| ![Search](public/screens/search.png)        | ![Manage Venues](public/screens/manage-venue.png)  | ![Create Venue](public/screens/create-venue.png)            |
 
 ## 🔥 Features
 
@@ -56,7 +55,7 @@ Users can browse venues, book stays, manage listings, and edit profiles, all pow
 
 ---
 
-## 🎨 Figma Design 
+## 🎨 Figma Design
 
 This project includes a high-fidelity Figma layout used during development.
 
@@ -106,13 +105,16 @@ VITE_BASE_API_URL="https://v2.api.noroff.dev"
 If you rename any of these environment variables, you must also update the references inside your
 `apiFetch` (or equivalent API utility).
 Your fetch wrapper expects:
+
 ```ts
 import.meta.env.VITE_BASE_API_URL;
 import.meta.env.VITE_NOROFF_API_KEY;
 ```
+
 These environment variables are used by the custom `apiFetch` wrapper to handle:
-- Base URL for all API requests  
-- Required API key for protected endpoints 
+
+- Base URL for all API requests
+- Required API key for protected endpoints
 
 > 🔒 Your `.env.local` file should never be committed to Git. It is ignored by default via `.gitignore`.
 
@@ -155,10 +157,12 @@ Base URL: `https://v2.api.noroff.dev`
 ### Endpoints used
 
 #### 🔐 Auth
+
 - `POST /auth/register`
 - `POST /auth/login`
 
 #### 🏡 Venues
+
 - `GET /holidaze/venues`
 - `GET /holidaze/venues/:id`
 - `POST /holidaze/venues`
@@ -166,11 +170,13 @@ Base URL: `https://v2.api.noroff.dev`
 - `DELETE /holidaze/venues/:id`
 
 #### 📅 Bookings
+
 - `GET /holidaze/bookings/:id`
 - `POST /holidaze/bookings`
 - `DELETE /holidaze/bookings/:id`
 
 #### 👤 Profiles
+
 - `GET /holidaze/profiles/:name`
 - `PUT /holidaze/profiles/:name` (avatar/banner updates)
 
@@ -178,7 +184,6 @@ Protected routes require:
 
 - `Authorization: Bearer <token>`
 - `X-Noroff-API-Key: <key>`
-
 
 ### 🚢 Deployment
 

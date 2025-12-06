@@ -389,7 +389,7 @@ export default function VenueDetailPage() {
               {venue.owner?.name && (
                 <Link
                   to={`/profile/${encodeURIComponent(venue.owner.name)}`}
-                  className="text-sm font-medium text-hz-primary hover:underline"
+                  className="text-sm font-medium text-hz-text hover:text-hz-primary"
                 >
                   {venue.owner.name}
                 </Link>

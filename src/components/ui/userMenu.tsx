@@ -59,7 +59,7 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
           role="menu"
           className="
             absolute right-0 mt-3 w-60 z-50
-            rounded-xl rounded-tl-none rounded-tr-none border border-hz-border bg-hz-surface
+            rounded-lg rounded-tl-none rounded-tr-none border border-hz-border bg-hz-surface
             shadow-hz-card overflow-hidden
           "
         >
@@ -100,7 +100,7 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
             type="button"
             role="menuitem"
             onClick={handleLogout}
-            className="w-full text-left block px-4 py-2 text-sm text-hz-text bg-red-400/60 hover:bg-red-400/90 hover:text-hz-surface"
+            className="w-full text-left block px-4 py-2 text-sm text-hz-surface bg-red-400/60 hover:bg-red-500"
           >
             Logout
           </button>

@@ -445,7 +445,7 @@ export default function Venues() {
                     type="checkbox"
                     checked={filters.wifi}
                     onChange={(e) => updateFilter("wifi", e.target.checked)}
-                    className="h-4 w-4 rounded border-hz-border text-hz-primary focus:ring-hz-primary"
+                    className="btn-checkbox"
                   />
                   Wifi <Wifi className="text-hz-primary w-5 h-5" />
                 </label>
@@ -455,7 +455,7 @@ export default function Venues() {
                     type="checkbox"
                     checked={filters.parking}
                     onChange={(e) => updateFilter("parking", e.target.checked)}
-                    className="h-4 w-4 rounded border-hz-border text-hz-primary focus:ring-hz-primary"
+                    className="btn-checkbox"
                   />
                   Parking <ParkingCircle className="text-hz-primary w-5 h-5" />
                 </label>
@@ -467,7 +467,7 @@ export default function Venues() {
                     onChange={(e) =>
                       updateFilter("breakfast", e.target.checked)
                     }
-                    className="h-4 w-4 rounded border-hz-border text-hz-primary focus:ring-hz-primary"
+                    className="btn-checkbox"
                   />
                   Breakfast <Coffee className="text-hz-primary w-5 h-5" />
                 </label>
@@ -477,7 +477,7 @@ export default function Venues() {
                     type="checkbox"
                     checked={filters.pets}
                     onChange={(e) => updateFilter("pets", e.target.checked)}
-                    className="h-4 w-4 rounded border-hz-border text-hz-primary focus:ring-hz-primary"
+                    className="btn-checkbox"
                   />
                   Pets <PawPrint className="text-hz-primary w-5 h-5" />
                 </label>
@@ -496,7 +496,7 @@ export default function Venues() {
                       e.target.value ? Number(e.target.value) : undefined,
                     )
                   }
-                  className="w-24 rounded border border-hz-border bg-hz-surface px-2 py-1 text-sm text-hz-text shadow-sm focus:border-hz-primary focus:ring-2 focus:ring-hz-primary-soft focus:ring-offset-1 transition-all"
+                  className="rounded border border-hz-border bg-hz-surface px-2 py-1 text-sm text-hz-text shadow-sm focus:border-hz-primary focus:ring-2 focus:ring-hz-primary-soft focus:ring-offset-1 transition-all"
                 >
                   <option value="">Any</option>
                   <option value="3">3+</option>

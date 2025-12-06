@@ -360,7 +360,7 @@ export default function VenueForm({
             {mediaFields.map((field, index) => (
               <div
                 key={index}
-                className="grid gap-2 sm:grid-cols-[minmax(0,2.2fr)_minmax(0,1.4fr)_auto] items-start"
+                className="grid grid-cols-[minmax(0,1.7fr)_minmax(0,1.3fr)_auto] sm:grid-cols-[minmax(0,2.2fr)_minmax(0,1.4fr)_auto] items-start gap-2"
               >
                 <div>
                   <label
@@ -380,12 +380,18 @@ export default function VenueForm({
                     placeholder="https://images.unsplash.com/..."
                   />
                 </div>
+
                 <div>
                   <label
                     className="block text-xs font-medium text-hz-text mb-1"
                     htmlFor={`media-alt-${index}`}
                   >
-                    Alt text (optional)
+                    <span className="block text-xs font-medium text-hz-text mb-1 sm:hidden">
+                      Alt text
+                    </span>
+                    <span className="hidden sm:block text-xs font-medium text-hz-text mb-1">
+                      Alt text (optional)
+                    </span>
                   </label>
                   <input
                     id={`media-alt-${index}`}
@@ -398,17 +404,16 @@ export default function VenueForm({
                     placeholder="Cozy living room with fireplace"
                   />
                 </div>
+
                 {mediaFields.length > 1 && (
-                  <div className="flex items-center sm:pt-6 pb-2">
+                  <div className="flex items-center sm:pt-5 pt-5 pb-2 justify-end">
                     <button
                       type="button"
                       onClick={() => removeMediaField(index)}
-                      className="text-xs font-semibold mt-2 text-red-500 hover:text-red-600"
+                      aria-label={`Remove image ${index + 1}`}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold text-hz-text bg-hz-surface hover:text-white hover:bg-red-500 border border-hz-border/60 transition-colors"
                     >
-                      X{" "}
-                      <span className="text-hz-muted text-xs font-normal sm:hidden">
-                        Image {index + 1}
-                      </span>
+                      X
                     </button>
                   </div>
                 )}
@@ -418,7 +423,7 @@ export default function VenueForm({
           <button
             type="button"
             onClick={addMediaField}
-            className="mt-1 inline-flex items-center text-xs text-hz-primary hover:text-hz-accent"
+            className="mt-1 inline-flex items-center text-xs text-hz-text hover:text-hz-primary"
           >
             + Add another image
           </button>
@@ -432,6 +437,7 @@ export default function VenueForm({
                 type="checkbox"
                 checked={wifi}
                 onChange={(e) => setWifi(e.target.checked)}
+                className="btn-checkbox"
               />
               <span>Wi-Fi</span>
             </label>
@@ -441,6 +447,7 @@ export default function VenueForm({
                 type="checkbox"
                 checked={parking}
                 onChange={(e) => setParking(e.target.checked)}
+                className="btn-checkbox"
               />
               <span>Parking</span>
             </label>
@@ -453,6 +460,7 @@ export default function VenueForm({
                 type="checkbox"
                 checked={breakfast}
                 onChange={(e) => setBreakfast(e.target.checked)}
+                className="btn-checkbox"
               />
               <span>Breakfast</span>
             </label>
@@ -462,6 +470,7 @@ export default function VenueForm({
                 type="checkbox"
                 checked={pets}
                 onChange={(e) => setPets(e.target.checked)}
+                className="btn-checkbox"
               />
               <span>Pets allowed</span>
             </label>
