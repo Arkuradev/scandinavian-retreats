@@ -79,8 +79,6 @@ export async function getVenuesForProfile(
   return json.data ?? [];
 }
 
-// Create Venue:
-
 export type CreateVenueBody = {
   name: string;
   description?: string;
@@ -115,8 +113,6 @@ export async function createVenue(
   return json.data;
 }
 
-// Edit Venue
-
 export async function updateVenue(
   id: string,
   body: CreateVenueBody,
@@ -129,8 +125,6 @@ export async function updateVenue(
   });
   return json.data;
 }
-
-// Delete Venue
 
 export async function deleteVenue(id: string, opts?: { signal?: AbortSignal }) {
   await apiFetch<unknown>(`/holidaze/venues/${id}`, {

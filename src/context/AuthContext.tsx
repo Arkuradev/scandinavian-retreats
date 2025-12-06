@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type { AuthUser } from "@/types/auth";
 import type { LoginResult } from "@/lib/login";
-import { getProfile } from "@/lib/getProfile";
+import { getUserProfile } from "@/lib/profile";
 
 export interface AuthContextType {
   user: AuthUser | null;
@@ -48,12 +48,18 @@ export default function AuthProvider({
       }),
     );
 
-    const profile = await getProfile(res.name, res.accessToken);
+    const profile = await getUserProfile(res.name, { includeVenues: true });
+    const avatar = profile.avatar
+      ? {
+          url: profile.avatar.url ?? undefined,
+          alt: profile.avatar.alt ?? undefined,
+        }
+      : undefined;
 
-    const next = {
+    const next: AuthUser = {
       name: profile.name,
       email: profile.email,
-      avatar: profile.avatar ?? undefined,
+      avatar,
       venueManager: profile.venueManager ?? false,
     };
 

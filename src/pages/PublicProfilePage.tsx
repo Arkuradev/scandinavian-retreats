@@ -124,7 +124,10 @@ export default function PublicProfilePage() {
             <div className="rounded-2xl border border-dashed border-hz-border bg-hz-surface-soft px-4 py-6 text-sm text-hz-muted text-center">
               This host hasn&apos;t published any venues yet. Check back later
               or explore other retreats on the{" "}
-              <Link to="/venues" className="font-medium text-hz-text hover:text-hz-primary">
+              <Link
+                to="/venues"
+                className="font-medium text-hz-text hover:text-hz-primary"
+              >
                 Venues page
               </Link>
               .

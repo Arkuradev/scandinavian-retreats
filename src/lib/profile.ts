@@ -15,7 +15,6 @@ export type Profile = {
   venueManager: boolean;
 };
 
-// Profile including venues when we ask for them
 export type ProfileWithVenues = Profile & {
   venues?: Venue[] | null;
 };
@@ -44,20 +43,23 @@ export async function updateProfile(
   return json.data;
 }
 
-// CHECK IF THIS IS TO BE REMOVED:
-
 export async function getUserProfile(
   name: string,
-  opts?: { signal?: AbortSignal },
+  opts?: {
+    signal?: AbortSignal;
+    includeVenues?: boolean;
+  },
 ): Promise<Profile> {
   const encoded = encodeURIComponent(name);
+  const query = opts?.includeVenues ? "?_venue=true" : "";
   const json = await apiFetch<{ data: Profile }>(
-    `/holidaze/profiles/${encoded}`,
+    `/holidaze/profiles/${encoded}${query}`,
     {
       method: "GET",
       signal: opts?.signal,
     },
   );
+
   return json.data;
 }
 
