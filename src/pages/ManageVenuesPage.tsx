@@ -118,7 +118,7 @@ export default function ManageVenuesPage() {
       {venues.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-hz-border bg-hz-surface-soft px-4 py-6 text-sm text-hz-muted">
           You don&apos;t have any venues yet. Click{" "}
-          <span className="font-medium text-hz-text">Create venue</span> to add
+          <span className="font-medium text-hz-text">+ New</span> to add
           your first retreat.
         </div>
       ) : (
