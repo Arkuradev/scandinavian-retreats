@@ -38,9 +38,7 @@ export default function ManageVenuesPage() {
         }
       }
     }
-
     load();
-
     return () => ctrl.abort();
   }, [isAuthenticated, user?.name, user?.venueManager]);
 
@@ -63,7 +61,6 @@ export default function ManageVenuesPage() {
   if (loading) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10 space-y-6">
-        {/* header skeleton */}
         <div className="flex items-center justify-between gap-4 animate-pulse">
           <div className="space-y-2">
             <div className="h-5 w-40 bg-hz-primary-soft rounded" />
@@ -109,7 +106,6 @@ export default function ManageVenuesPage() {
             Create, update, and keep track of the retreats you&apos;re hosting.
           </p>
         </div>
-
         <Link className="btn-primary" to="/manage-venues/new">
           <Plus className="h-5 w-5 mr-1" /> New
         </Link>
@@ -141,7 +137,6 @@ export default function ManageVenuesPage() {
                 key={venue.id}
                 className="flex flex-col sm:flex-row gap-4 rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card p-4 md:p-5"
               >
-                {/* Thumbnail */}
                 <div className="w-full sm:w-40 h-28 rounded-xl overflow-hidden bg-hz-surface-soft border border-hz-border flex-shrink-0">
                   <img
                     src={cover}
@@ -149,8 +144,6 @@ export default function ManageVenuesPage() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-
-                {/* Info + actions */}
                 <div className="flex-1 flex flex-col gap-3">
                   <div className="space-y-1">
                     <h2 className="text-base md:text-lg font-semibold text-hz-text line-clamp-1">
@@ -159,7 +152,6 @@ export default function ManageVenuesPage() {
                     <p className="text-xs text-hz-muted line-clamp-2">
                       {venue.description || "No description provided yet."}
                     </p>
-
                     <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-hz-muted">
                       <span className="inline-flex items-center gap-1">
                         <MapPin className="h-4 w-4 text-hz-primary" />
@@ -178,7 +170,6 @@ export default function ManageVenuesPage() {
                       </span>
                     </div>
                   </div>
-
                   <div className="flex flex-wrap items-center justify-between gap-3 pt-1 text-xs">
                     <span className="text-hz-muted">
                       ID:{" "}
@@ -186,7 +177,6 @@ export default function ManageVenuesPage() {
                         {venue.id.slice(0, 8)}…
                       </span>
                     </span>
-
                     <div className="flex gap-3">
                       <Link
                         to={`/venues/${venue.id}`}

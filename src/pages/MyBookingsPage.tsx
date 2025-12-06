@@ -15,7 +15,6 @@ function normalizeDate(d: Date) {
 
 function splitBookings(bookings: Booking[]) {
   const today = normalizeDate(new Date());
-
   const upcoming: Booking[] = [];
   const previous: Booking[] = [];
 
@@ -28,16 +27,12 @@ function splitBookings(bookings: Booking[]) {
     }
   }
 
-  // Upcoming: soonest first
   upcoming.sort(
     (a, b) => new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime(),
   );
-
-  // Previous: most recent first
   previous.sort(
     (a, b) => new Date(b.dateFrom).getTime() - new Date(a.dateFrom).getTime(),
   );
-
   return { upcoming, previous };
 }
 
@@ -57,7 +52,6 @@ export default function MyBookingsPage() {
     }
 
     const profileName = user.name;
-
     ctrlRef.current?.abort();
     const ctrl = new AbortController();
     ctrlRef.current = ctrl;
@@ -78,7 +72,6 @@ export default function MyBookingsPage() {
       }
     }
     load();
-
     return () => ctrl.abort();
   }, [isAuthenticated, user?.name]);
 
@@ -133,11 +126,9 @@ export default function MyBookingsPage() {
     const from = new Date(booking.dateFrom);
     const to = new Date(booking.dateTo);
     const range = `${from.toLocaleDateString()} → ${to.toLocaleDateString()}`;
-
     const venue = booking.venue;
     const venueName = venue?.name ?? "View venue";
     const venueId = venue?.id ?? (booking as any).venueId;
-
     const city = venue?.location?.city;
     const country = venue?.location?.country;
     const locationLabel =
@@ -164,7 +155,6 @@ export default function MyBookingsPage() {
                 {venueName}
               </p>
             )}
-
             <div className="flex flex-wrap items-center gap-3 text-xs text-hz-muted">
               <span className="inline-flex items-center gap-1">
                 <CalendarDays className="h-4 w-4 text-hz-primary" />
@@ -179,7 +169,6 @@ export default function MyBookingsPage() {
               </span>
             </div>
           </div>
-
           <div className="flex flex-col items-center sm:items-end gap-2">
             {showCancel && (
               <button
@@ -206,8 +195,6 @@ export default function MyBookingsPage() {
           View your upcoming stays and your previous trips in one place.
         </p>
       </header>
-
-      {/* Upcoming */}
       <section className="space-y-3">
         <header className="flex items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-hz-text">
@@ -232,7 +219,6 @@ export default function MyBookingsPage() {
         )}
       </section>
 
-      {/* Previous */}
       <section className="space-y-3">
         <header className="flex items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-hz-text">

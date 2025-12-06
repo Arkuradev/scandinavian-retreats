@@ -38,9 +38,7 @@ export default function EditProfilePage() {
         if (ctrlRef.current === ctrl) setLoading(false);
       }
     }
-
     load();
-
     return () => ctrl.abort();
   }, [isAuthenticated, user?.name]);
 

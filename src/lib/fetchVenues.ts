@@ -14,6 +14,7 @@ function buildQUery(params?: Record<string, string | number | boolean>) {
   Object.entries(params).forEach(([key, value]) => qs.set(key, String(value)));
   return `?${qs.toString()}`;
 }
+
 export async function getVenues(opts: HttpOptions = {}) {
   const { signal, params } = opts;
   const res = await fetch(`${BASE_URL}/holidaze/venues${buildQUery(params)}`, {
@@ -59,7 +60,6 @@ export async function getVenueById(
       signal: opts?.signal,
     },
   );
-
   return json.data;
 }
 

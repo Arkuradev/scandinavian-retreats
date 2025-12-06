@@ -47,7 +47,6 @@ export default function AuthProvider({
         user: null,
       }),
     );
-
     const profile = await getUserProfile(res.name, { includeVenues: true });
     const avatar = profile.avatar
       ? {
@@ -62,7 +61,6 @@ export default function AuthProvider({
       avatar,
       venueManager: profile.venueManager ?? false,
     };
-
     setUser(next);
     setToken(res.accessToken);
     localStorage.setItem(
@@ -80,13 +78,11 @@ export default function AuthProvider({
     setToken(null);
     localStorage.removeItem("auth");
   };
-
   const value: AuthContextType = {
     user,
     isAuthenticated: !!user && !!token,
     login,
     logout,
   };
-
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

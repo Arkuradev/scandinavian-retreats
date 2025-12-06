@@ -14,7 +14,6 @@ import {
   Building2,
   Trees,
 } from "lucide-react";
-
 const LIMIT = 6;
 
 export default function Home() {
@@ -50,8 +49,6 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Hero />
-
-      {/* Latest venues */}
       <section
         id="venue-section"
         aria-labelledby="latest-heading"
@@ -69,7 +66,6 @@ export default function Home() {
               Freshly added retreats, cabins, and city escapes.
             </p>
           </div>
-
           <Link
             to="/venues"
             className="hidden sm:inline-flex btn-primary text-sm"
@@ -97,8 +93,6 @@ export default function Home() {
             </p>
           )}
         </div>
-
-        {/* Mobile CTA */}
         <div className="mt-10 flex justify-center sm:hidden">
           <Link to="/venues" className="btn-primary">
             View all venues
@@ -123,7 +117,6 @@ export default function Home() {
               flow that&apos;s built to feel calm, not chaotic.
             </p>
           </div>
-
           <div className="grid gap-6 md:grid-cols-3">
             <div className="rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-5 shadow-hz-card">
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-hz-primary-soft mb-3">
@@ -137,7 +130,6 @@ export default function Home() {
                 book with confidence.
               </p>
             </div>
-
             <div className="rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-5 shadow-hz-card">
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-hz-primary-soft mb-3">
                 <Sparkles className="h-5 w-5 text-hz-primary" />
@@ -150,7 +142,6 @@ export default function Home() {
                 only characterful places to stay.
               </p>
             </div>
-
             <div className="rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-5 shadow-hz-card">
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-hz-primary-soft mb-3">
                 <Globe2 className="h-5 w-5 text-hz-primary" />
@@ -167,7 +158,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Explore by mood */}
       <section
         aria-labelledby="mood-heading"
         className="bg-hz-primary-body/60 border-t border-hz-border/60"
@@ -187,7 +177,6 @@ export default function Home() {
               </p>
             </div>
           </div>
-
           <div className="flex flex-wrap gap-3">
             <Link
               to="/venues?mood=coastal"
@@ -202,7 +191,6 @@ export default function Home() {
               <Waves className="h-4 w-4 text-hz-primary" />
               <span>Coastal escapes</span>
             </Link>
-
             <Link
               to="/venues?mood=mountain"
               className="
@@ -216,7 +204,6 @@ export default function Home() {
               <Mountain className="h-4 w-4 text-hz-primary" />
               <span>Mountain cabins</span>
             </Link>
-
             <Link
               to="/venues?mood=city"
               className="
@@ -230,7 +217,6 @@ export default function Home() {
               <Building2 className="h-4 w-4 text-hz-primary" />
               <span>City breaks</span>
             </Link>
-
             <Link
               to="/venues?mood=countryside"
               className="

@@ -45,7 +45,6 @@ export default function EditVenuePage() {
         if (ctrlRef.current === ctrl) setLoading(false);
       }
     }
-
     load();
     return () => ctrl.abort();
   }, [id]);

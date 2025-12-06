@@ -253,7 +253,6 @@ export default function Venues() {
         </p>
       )}
       <div className="flex flex-col gap-4 mb-8">
-        {/* Top row: search + sort + filter toggle */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex-1 relative">
             <label htmlFor="venue-search" className="sr-only">
@@ -279,8 +278,6 @@ export default function Venues() {
               </button>
             )}
           </div>
-
-          {/* Sort + filter toggle */}
           <div className="flex items-center gap-2">
             <select
               value={sortKey}
@@ -300,8 +297,6 @@ export default function Venues() {
             >
               {sortOrder === "asc" ? "Low - High" : "High - Low"}
             </button>
-
-            {/* Filters toggle */}
             <button
               type="button"
               onClick={() => setShowFilters((v) => !v)}
@@ -314,8 +309,6 @@ export default function Venues() {
             </button>
           </div>
         </div>
-
-        {/* Collapsible filter panel */}
         {showFilters && (
           <section
             id="venue-filters-panel"
@@ -359,7 +352,6 @@ export default function Venues() {
                 <span className="block text-sm font-medium text-hz-text mb-1">
                   Price range (NOK)
                 </span>
-
                 <div className="space-y-3">
                   <div>
                     <div className="flex items-center justify-between mb-1">
@@ -447,7 +439,6 @@ export default function Venues() {
                   />
                   Wifi <Wifi className="text-hz-primary w-5 h-5" />
                 </label>
-
                 <label className="inline-flex items-center gap-2 text-sm text-hz-text">
                   <input
                     type="checkbox"
@@ -469,7 +460,6 @@ export default function Venues() {
                   />
                   Breakfast <Coffee className="text-hz-primary w-5 h-5" />
                 </label>
-
                 <label className="inline-flex items-center gap-2 text-sm text-hz-text">
                   <input
                     type="checkbox"
@@ -480,7 +470,6 @@ export default function Venues() {
                   Pets <PawPrint className="text-hz-primary w-5 h-5" />
                 </label>
               </fieldset>
-
               <div className="ml-auto flex items-center gap-2 text-sm">
                 <label htmlFor="filter-min-rating" className="text-hz-muted">
                   Min rating
@@ -506,7 +495,6 @@ export default function Venues() {
           </section>
         )}
       </div>
-
       {!loadingInitial &&
         !isSearching &&
         data.length > 0 &&
@@ -515,13 +503,11 @@ export default function Venues() {
             No venues match your current filters. Try clearing some filters.
           </p>
         )}
-
       {isSearching && !loadingInitial && filteredData.length === 0 && (
         <p className="mb-4 text-sm text-hz-muted">
           No venues match your search.
         </p>
       )}
-
       <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {loadingInitial && data.length === 0
           ? Array.from({ length: LIMIT }).map((_, i) => (
@@ -531,7 +517,6 @@ export default function Venues() {
               <VenueCard key={venue.id} venue={venue} />
             ))}
       </div>
-
       {!isSearching && (
         <button
           className="flex mx-auto mt-10 py-2 px-4 btn-primary"

@@ -57,10 +57,7 @@ export default function PublicProfilePage() {
   if (loading) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10 space-y-8">
-        {/* Hero skeleton */}
         <ProfileHeroSkeleton />
-
-        {/* Venues skeleton section */}
         <section aria-hidden="true">
           <div className="rounded-2xl border border-hz-border bg-hz-surface p-4 md:p-6 shadow-hz-card">
             <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -112,14 +109,12 @@ export default function PublicProfilePage() {
                   : "Browse retreats hosted by this user and book your next stay."}
               </p>
             </div>
-
             <p className="text-xs text-hz-muted">
               {venues.length === 0
                 ? "0 venues"
                 : `${venues.length} venue${venues.length === 1 ? "" : "s"}`}
             </p>
           </header>
-
           {venues.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-hz-border bg-hz-surface-soft px-4 py-6 text-sm text-hz-muted text-center">
               This host hasn&apos;t published any venues yet. Check back later
@@ -161,9 +156,7 @@ function ProfileVenueCard({ venue }: ProfileVenueCardProps) {
   const hasRating = typeof venue.rating === "number" && venue.rating > 0;
   return (
     <article className="group relative">
-      {/* subtle glow like main cards */}
       <div className="pointer-events-none absolute -inset-2 rounded-3xl bg-hz-primary/50 blur-3xl opacity-0 group-hover:opacity-80 transition-opacity duration-300 -z-10" />
-
       <Link
         to={`/venues/${venue.id}`}
         className="block overflow-hidden rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl"
@@ -196,7 +189,6 @@ function ProfileVenueCard({ venue }: ProfileVenueCardProps) {
             {venue.name}
           </h3>
           <p className="text-xs text-hz-muted line-clamp-1">{locationLabel}</p>
-
           <div className="mt-2 flex items-center justify-between text-xs text-hz-muted">
             <span className="font-semibold text-hz-text">
               {venue.price.toLocaleString()} kr

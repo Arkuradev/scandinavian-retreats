@@ -64,9 +64,7 @@ export default function VenueDetailPage() {
         }
       }
     }
-
     load();
-
     return () => ctrl.abort();
   }, [id]);
 
@@ -179,6 +177,7 @@ export default function VenueDetailPage() {
   if (loading) {
     return <VenueDetailSkeleton />;
   }
+
   if (error || !venue) {
     return (
       <main className="max-w-6xl mx-auto px-4 py-10">
@@ -222,7 +221,6 @@ export default function VenueDetailPage() {
               alt={mainImage?.alt || venue.name}
               className="w-full h-full object-cover"
             />
-
             {hasMultipleImages && (
               <>
                 <button
@@ -281,7 +279,6 @@ export default function VenueDetailPage() {
               </>
             )}
           </div>
-
           {media.length > 1 && (
             <div className="flex gap-2 p-3 overflow-x-auto bg-hz-surface-soft border-t border-hz-border">
               {media.map((img, index) => (
@@ -309,7 +306,6 @@ export default function VenueDetailPage() {
             </div>
           )}
         </div>
-
         <div className="space-y-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-semibold text-hz-text">
@@ -413,7 +409,6 @@ export default function VenueDetailPage() {
                   </div>
                 </div>
               </div>
-
               <div className="max-w-[200px]">
                 <label className="block text-sm font-medium text-hz-text mb-1">
                   Guests
@@ -430,11 +425,9 @@ export default function VenueDetailPage() {
                   Max {venue.maxGuests} guests for this venue.
                 </p>
               </div>
-
               {bookingError && (
                 <p className="text-sm text-red-500">{bookingError}</p>
               )}
-
               <button
                 type="submit"
                 className="btn-primary w-full sm:w-auto"
@@ -443,7 +436,6 @@ export default function VenueDetailPage() {
                 {bookingLoading ? "Booking..." : "Book now"}
               </button>
             </form>
-
             {isAuthenticated && myBookings.length > 0 && (
               <div className="mt-4 border-t border-hz-border pt-3">
                 <h3 className="text-sm font-medium text-hz-text">
@@ -467,7 +459,6 @@ export default function VenueDetailPage() {
           </section>
         </div>
       </section>
-
       {venue.description && (
         <section className="rounded-xl border border-hz-border bg-hz-surface p-4 md:p-6">
           <h2 className="text-lg font-semibold text-hz-text mb-2">

@@ -15,7 +15,6 @@ export async function apiFetch<T>(
   const method = opts.method ?? "GET";
   const isFormData =
     typeof FormData !== "undefined" && opts.body instanceof FormData;
-
   let token: string | null = null;
   try {
     const raw = localStorage.getItem("auth");
@@ -43,7 +42,6 @@ export async function apiFetch<T>(
         : JSON.stringify(opts.body);
 
   const fullUrl = url.startsWith("http") ? url : `${BASE_URL}${url}`;
-
   const res = await fetch(fullUrl, {
     method,
     headers,

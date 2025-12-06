@@ -40,9 +40,7 @@ export default function BookingDetailPage() {
         }
       }
     }
-
     load();
-
     return () => ctrl.abort();
   }, [id]);
 
@@ -84,7 +82,6 @@ export default function BookingDetailPage() {
         </p>
       </header>
 
-      {/* Main card */}
       <section className="rounded-2xl border border-hz-border bg-hz-surface shadow-hz-card overflow-hidden">
         {venue && (
           <div className="w-full h-48 md:h-56 bg-hz-surface-soft">
@@ -151,7 +148,6 @@ export default function BookingDetailPage() {
           )}
         </div>
       </section>
-
       <p className="text-xs text-hz-muted">
         This page serves as your booking confirmation. You&apos;ll also find
         this booking under <span className="font-medium">My bookings</span>.

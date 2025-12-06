@@ -59,7 +59,6 @@ export async function getUserProfile(
       signal: opts?.signal,
     },
   );
-
   return json.data;
 }
 
