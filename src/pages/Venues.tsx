@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { getVenues, searchVenues } from "@/lib/fetchVenues";
 import type { Venue } from "@/types/holidaze";
-import VenueCard, { VenueSkeletonCard } from "@/components/VenueCard";
+import VenueCard from "@/components/VenueCard";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   Wifi,
@@ -11,6 +11,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
+import VenueCardSkeleton from "@/components/skeletons/VenueCardSkeleton";
 
 type SortKey = "created" | "price" | "rating" | "maxGuests";
 
@@ -69,20 +70,17 @@ function filterVenues(venues: Venue[], filters: Filters): Venue[] {
 }
 
 function applyMoodFilters(mood: string, prev: Filters): Filters {
-  // Start from previous filters but adjust a few that “fit” the mood.
   switch (mood) {
     case "coastal":
       return {
         ...prev,
-        // keep country/city free to avoid zero-results
         wifi: true,
-        // don’t force others off – just turn on wifi
       };
     case "mountain":
       return {
         ...prev,
         parking: true,
-        pets: prev.pets, // leave as is in case the user already set it
+        pets: prev.pets,
       };
     case "city":
       return {
@@ -527,7 +525,7 @@ export default function Venues() {
       <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {loadingInitial && data.length === 0
           ? Array.from({ length: LIMIT }).map((_, i) => (
-              <VenueSkeletonCard key={`skeleton-${i}`} />
+              <VenueCardSkeleton key={`skeleton-${i}`} />
             ))
           : filteredData.map((venue) => (
               <VenueCard key={venue.id} venue={venue} />

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Venue } from "@/types/holidaze";
-import VenueCard, { VenueSkeletonCard } from "@/components/VenueCard";
+import VenueCard from "@/components/VenueCard";
+import VenueSkeletonCard from "@/components/skeletons/VenueCardSkeleton";
 import { getVenues } from "@/lib/fetchVenues";
 import Hero from "@/components/Hero";
 import {
