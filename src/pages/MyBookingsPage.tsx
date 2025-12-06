@@ -83,7 +83,7 @@ export default function MyBookingsPage() {
   }, [isAuthenticated, user?.name]);
 
   async function handleCancelBooking(id: string) {
-    const yes = window.confirm("Are you sure you want to delete this booking?");
+    const yes = window.confirm("Are you sure you want to cancel this booking?");
     if (!yes) return;
     try {
       await cancelBooking(id);
@@ -220,7 +220,6 @@ export default function MyBookingsPage() {
             </p>
           )}
         </header>
-
         {upcoming.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-hz-border bg-hz-surface-soft px-4 py-5 text-sm text-hz-muted">
             You don&apos;t have any upcoming bookings. Once you book a new stay,
@@ -246,7 +245,6 @@ export default function MyBookingsPage() {
             </p>
           )}
         </header>
-
         {previous.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-hz-border bg-hz-surface-soft px-4 py-5 text-sm text-hz-muted">
             You haven&apos;t completed any stays yet. Once your trips are
