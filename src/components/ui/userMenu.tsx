@@ -1,8 +1,8 @@
-import type { AuthUser } from "@/types/auth";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { User } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/useToast";
+import type { AuthUser } from "@/types/auth";
 
 type UserMenuProps = {
   user: AuthUser;
@@ -11,6 +11,7 @@ type UserMenuProps = {
 
 export default function UserMenu({ user, onLogout }: UserMenuProps) {
   const [openMenu, setOpenMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -27,19 +28,30 @@ export default function UserMenu({ user, onLogout }: UserMenuProps) {
     toast.info("You've been logged out");
   }
 
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpenMenu(false);
+      }
+    }
+
+    if (openMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openMenu]);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={menuRef}>
       <button
         type="button"
         onClick={() => setOpenMenu((v) => !v)}
-        className="
-          flex items-center gap-2 px-2.5 py-1.5
-           bg-hz-surface hover:bg-hz-primary-soft hover:text-hz-primary
-          shadow-sm
-          text-sm font-medium text-hz-text
-          rounded
-          transition-all
-        "
+        className="flex items-center gap-2 px-2.5 py-1.5
+          bg-hz-surface hover:bg-hz-primary-soft hover:text-hz-primary
+          shadow-sm text-sm font-medium text-hz-text rounded transition-all"
         aria-haspopup="menu"
         aria-expanded={openMenu}
         aria-controls="user-menu"

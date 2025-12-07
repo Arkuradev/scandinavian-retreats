@@ -39,7 +39,6 @@ export function useToastContext() {
   return ctx;
 }
 
-// Visual config for each toast type
 function getToastVisuals(type: ToastType) {
   switch (type) {
     case "success":
@@ -148,10 +147,10 @@ export default function ToastProvider({
       {children}
       <div
         className="
-          fixed inset-x-0 bottom-4 flex flex-col items-center gap-3 
-          sm:inset-auto sm:top-20 sm:right-5 sm:bottom-auto sm:left-auto sm:items-end
-          z-[9999] pointer-events-none
-        "
+    fixed inset-x-0 top-20
+    flex flex-col items-center gap-3
+    z-[9999] pointer-events-none
+  "
         role="region"
         aria-label="Notifications"
       >
