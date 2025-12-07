@@ -387,10 +387,14 @@ export default function VenueDetailPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <div>
-                    <label className="block text-sm font-medium text-hz-text mb-1">
+                    <label
+                      className="block text-sm font-medium text-hz-text mb-1"
+                      htmlFor="date-picker"
+                    >
                       Dates
                     </label>
                     <DatePicker
+                      id="date-picker"
                       selectsRange
                       startDate={startDate}
                       endDate={endDate}
@@ -410,10 +414,14 @@ export default function VenueDetailPage() {
                 </div>
               </div>
               <div className="max-w-[200px]">
-                <label className="block text-sm font-medium text-hz-text mb-1">
+                <label
+                  className="block text-sm font-medium text-hz-text mb-1"
+                  htmlFor="guests-input"
+                >
                   Guests
                 </label>
                 <input
+                  id="guests-input"
                   type="number"
                   min={1}
                   max={venue.maxGuests}
