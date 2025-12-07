@@ -70,7 +70,7 @@ export async function getVenuesForProfile(
   const encoded = encodeURIComponent(profileName);
 
   const json = await apiFetch<{ data: Venue[] }>(
-    `/holidaze/profiles/${encoded}/venues`,
+    `/holidaze/profiles/${encoded}/venues?_bookings=true`,
     {
       method: "GET",
       signal: opts?.signal,

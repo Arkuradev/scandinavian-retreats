@@ -7,6 +7,22 @@ import type { Venue } from "@/types/holidaze";
 import { useToast } from "@/hooks/useToast";
 import ManageVenuesSkeletonList from "@/components/skeletons/ManageVenuesSkeleton";
 
+function getUpcomingBookings(venue: Venue) {
+  const bookings = venue.bookings ?? [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return bookings
+    .filter((b) => {
+      const end = new Date(b.dateTo);
+      end.setHours(0, 0, 0, 0);
+      return end >= today;
+    })
+    .sort(
+      (a, b) => new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime(),
+    );
+}
+
 export default function ManageVenuesPage() {
   const { user, isAuthenticated } = useAuth();
   const { success, error: toastError } = useToast();
@@ -124,13 +140,14 @@ export default function ManageVenuesPage() {
               venue.media?.[0]?.url || "https://picsum.photos/400/300?blur=2";
 
             const coverAlt = venue.media?.[0]?.alt || venue.name;
-
             const city = venue.location?.city;
             const country = venue.location?.country;
             const locationLabel =
               city && country
                 ? `${city}, ${country}`
                 : city || country || "Location unknown";
+
+            const upcomingBookings = getUpcomingBookings(venue);
 
             return (
               <article
@@ -199,6 +216,29 @@ export default function ManageVenuesPage() {
                       </button>
                     </div>
                   </div>
+                  {upcomingBookings.length > 0 && (
+                    <div className="mt-2 border-t border-hz-border pt-2">
+                      <p className="text-[11px] font-medium text-hz-text mb-1">
+                        Upcoming bookings ({upcomingBookings.length})
+                      </p>
+                      <ul className="space-y-1 max-h-24 overflow-y-auto text-[11px] text-hz-muted">
+                        {upcomingBookings.map((b) => {
+                          const from = new Date(b.dateFrom);
+                          const to = new Date(b.dateTo);
+                          const range = `${from.toLocaleDateString()} → ${to.toLocaleDateString()}`;
+                          const customerName =
+                            b.customer?.name ?? "Unknown guest";
+
+                          return (
+                            <li key={b.id}>
+                              • {range} · {b.guests} guest
+                              {b.guests > 1 ? "s" : ""} · {customerName}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </article>
             );
