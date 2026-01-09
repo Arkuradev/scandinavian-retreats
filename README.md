@@ -201,10 +201,10 @@ Recommended `vercel.json` not required.
 
 ## 👨‍💻 Author
 
-Developed by **Stein Arild Gansmoe. (Arkuradev)**  
+Developed by **Stein Arild Gansmoe. (SteinGansmoe)**  
 Frontend Development, Noroff  
-GitHub: https://github.com/Arkuradev
+GitHub: https://github.com/SteinGansmoe
 
 ## 📄 License
 
-MIT © 2025 Arkuradev
+MIT © 2025 SteinGansmoe
