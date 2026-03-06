@@ -6,7 +6,7 @@ Holidaze Retreats is a premium booking experience built with React, TypeScript, 
 Users can browse venues, book stays, manage listings, and edit profiles, all powered by the Noroff API.
 
 **Live site:** [Holidaze Retreats](https://holidaze-retreats.vercel.app/)
-**Repository:** [Holidaze Repo](https://github.com/Arkuradev/holidaze-retreats)
+
 
 ---
 
@@ -83,6 +83,14 @@ This project includes a high-fidelity Figma layout used during development.
 
 ---
 
+## 🧠 Key Concepts
+
+- Component-based architecture with React
+- Custom API fetch wrapper for Noroff API
+- Context-based state management
+- Reusable UI components
+- Mobile-first responsive design
+
 ## 🚀 Installation & Setup
 
 ### Clone repo
@@ -134,18 +142,18 @@ npm run build
 
 ```css
 src/
-  components/
-    layout/
+  components/ # Reusable UI and layout components
+    layout/   # Route-based pages
     venues/
     skeletons/
     forms/
     ui/
   pages/
-  context/
-  hooks/
-  lib/
-  types/
-  assets/
+  context/  # Global state management
+  hooks/    # Custom React hooks
+  lib/      # API utilities and helpers
+  types/    # TypeScript type definitions
+  assets/   # Static assets
   index.css
   main.tsx
 ```
